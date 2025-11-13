@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Registro Exitoso!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ... (Todos tus estilos de CSS van aquí) ... */
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .card {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        h1 {
+            color: #28a745;
+        }
+        p {
+            font-size: 1.1em;
+            color: #333;
+        }
+        .whatsapp-button {
+            display: inline-block;
+            background-color: #25D366; /* Color de WhatsApp */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-top: 25px;
+            transition: transform 0.2s ease;
+        }
+        .whatsapp-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RKEMBN9NK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-3RKEMBN9NK');
+    </script>
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '707966595166662');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=707966595166662&ev=PageView&noscript=1"
+    /></noscript>
+    </head>
+<body>
+    <div class="card">
+        <h1>¡Registro Exitoso!</h1>
+        <p>¡Felicidades por dar el primer paso! Te acabo de enviar un correo con más detalles.</p>
+        <p>¿Prefieres no esperar? Hablemos al tiro:</p>
+        
+        <a href="https://api.whatsapp.com/send?phone=56944504962&text=Hola%20Oscar!%20Acabo%20de%20registrarme.%20Prefiero%20hablar%20por%20aqui" 
+           class="whatsapp-button" 
+           target="_blank">
+            Conversemos por WhatsApp
+        </a>
+    </div>
+</body>
+</html>

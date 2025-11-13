@@ -1,0 +1,133 @@
+/* Estilos Generales y Mobile-First */
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.info-col, .form-col {
+    padding: 30px;
+    box-sizing: border-box; /* Importante para que el padding no afecte el ancho */
+}
+
+.info-col {
+    background-color: #fff;
+}
+
+h1 {
+    color: #005a9c; /* Un azul profesional */
+    font-weight: 700;
+    font-size: 2.2em;
+    line-height: 1.2;
+}
+
+.subtitulo {
+    font-size: 1.2em;
+    color: #555;
+}
+
+h3 {
+    border-bottom: 2px solid #005a9c;
+    padding-bottom: 5px;
+    margin-top: 25px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul li {
+    padding-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.filtro {
+    background-color: #e6f3ff;
+    border-left: 5px solid #005a9c;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+/* Columna del Formulario */
+.form-col {
+    background-color: #ffffff;
+    border-top: 5px solid #007bff;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Clave para el padding */
+    font-size: 1em;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745; /* Verde "acción" */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+button[type="submit"]:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+/* Estilos para Desktop (Responsivo) */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row; /* Columnas una al lado de la otra */
+        margin: 40px auto;
+        border-radius: 8px;
+        overflow: hidden; /* Para que los bordes redondeados se vean */
+    }
+
+    .info-col {
+        width: 60%;
+    }
+
+    .form-col {
+        width: 40%;
+        border-top: none; /* Quitamos el borde superior */
+        border-left: 1px solid #eee; /* Añadimos borde lateral */
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+}

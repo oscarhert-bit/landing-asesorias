@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css"> 
     <style>
-        /* --- ESTILOS ADICIONALES PARA EL ASISTENTE (v3.2) --- */
+        /* --- ESTILOS ADICIONALES PARA EL ASISTENTE (v3.4) --- */
 
         /* Contenedor principal de una sola columna */
         .container-upload {
@@ -22,7 +22,6 @@
             width: 100%;
             border-left: none;
             border-top: 5px solid #007bff;
-            /* Padding base que faltaba en el CSS externo */
             padding: 30px 40px; 
             box-sizing: border-box;
         }
@@ -48,12 +47,12 @@
         /* --- Estilos para el Formulario (Paso 2) --- */
         .tab-navigation {
             display: flex;
-            flex-wrap: wrap; /* Para que caigan en móvil */
+            flex-wrap: wrap; 
             border-bottom: 2px solid #ccc;
             margin-bottom: 20px;
         }
         .tab-nav-button {
-            padding: 10px 15px; /* Más pequeño para que quepan más */
+            padding: 10px 15px; 
             border: none;
             background-color: #f4f7f6;
             cursor: pointer;
@@ -81,16 +80,18 @@
         .form-grid .input-group { margin-bottom: 0; }
         
         /* Ocultar pestañas de Codeudor por defecto */
-        .codeudor-tab {
-            display: none;
-        }
+        .codeudor-tab { display: none; }
+        /* ¡NUEVO! Ocultar sub-contenidos dinámicos */
+        .codeudor-sub-content { display: none; }
+        #perfil-codeudor-selector { display: none; margin-top: 20px; }
+
 
         .form-navigation-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
         .form-nav-btn { padding: 12px 25px; background-color: #005a9c; color: white; border: none; border-radius: 5px; font-size: 1em; font-weight: 700; cursor: pointer; }
         .form-nav-btn:disabled { background-color: #aaa; cursor: not-allowed; }
         .form-nav-btn.secondary { background-color: #6c757d; }
-        #btn-finalizar-formulario { background-color: #28a745; display: none; } /* Oculto por defecto */
-        #btn-form-next { display: inline-block; } /* Visible por defecto */
+        #btn-finalizar-formulario { background-color: #28a745; display: none; } 
+        #btn-form-next { display: inline-block; } 
 
         /* --- Estilos para el Checklist (Paso 3) --- */
         .checklist { list-style: none; padding-left: 0; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 20px; }
@@ -140,8 +141,8 @@
                         <button type="button" class="tab-nav-button" data-tab="tab-laboral-titular" id="tab-nav-laboral-titular">2. Laboral (Titular)</button>
                         <button type="button" class="tab-nav-button" data-tab="tab-activos-titular">3. Activos (Titular)</button>
                         <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-codeudor">4. Codeudor</button>
-                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-laboral-codeudor">5. Laboral (Codeudor)</button>
-                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-activos-codeudor">6. Activos (Codeudor)</button>
+                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-laboral-codeudor" id="tab-nav-laboral-codeudor">5. Laboral (Codeudor)</button>
+                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-activos-codeudor" id="tab-nav-activos-codeudor">6. Activos (Codeudor)</button>
                         <button type="button" class="tab-nav-button" data-tab="tab-pasivos">Últ. Pasivos (Deudas)</button>
                     </div>
 
@@ -210,25 +211,34 @@
 
                     <div id="tab-laboral-titular" class="tab-content">
                         <h3 id="titulo-laboral-titular">Antecedentes Laborales (Titular)</h3>
-                        <div class="form-grid">
+                        <div id="content-lab-titular-dep" class="form-grid">
                             <div class="input-group"><label for="lab_titular_empleador">Empleador</label><input type="text" id="lab_titular_empleador" name="lab_titular_empleador"></div>
                             <div class="input-group"><label for="lab_titular_rut_empleador">RUT Empleador</label><input type="text" id="lab_titular_rut_empleador" name="lab_titular_rut_empleador" placeholder="Ej: 76.123.456-7" oninput="formatearRUT(this)"></div>
-                            <div class="input-group"><label for="lab_titular_cargo">Actividad o Cargo</label><input type="text" id="lab_titular_cargo" name="lab_titular_cargo"></div>
+                            <div class="input-group"><label for="lab_titular_cargo">Cargo</label><input type="text" id="lab_titular_cargo_dep" name="lab_titular_cargo"></div>
                             <div class="input-group"><label for="lab_titular_telefono">Teléfono Laboral</label><input type="tel" id="lab_titular_telefono" name="lab_titular_telefono"></div>
                             <div class="input-group"><label for="lab_titular_direccion">Dirección Laboral</label><input type="text" id="lab_titular_direccion" name="lab_titular_direccion"></div>
                             <div class="input-group"><label for="lab_titular_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_titular_fecha_ingreso" name="lab_titular_fecha_ingreso"></div>
+                        </div>
+                        <div id="content-lab-titular-ind" class="form-grid" style="display: none;">
+                            <div class="input-group"><label for="lab_titular_actividad">Actividad Económica</label><input type="text" id="lab_titular_actividad" name="lab_titular_actividad"></div>
+                            <div class="input-group"><label for="lab_titular_fecha_ia">Fecha Inicio Actividades</label><input type="date" id="lab_titular_fecha_ia" name="lab_titular_fecha_ia"></div>
                         </div>
                     </div>
 
                     <div id="tab-activos-titular" class="tab-content">
                         <h3>Antecedentes Financieros (Titular)</h3>
                         <h4>Ingresos Mensuales</h4>
-                        <div class="form-grid">
+                        <div id="content-act-titular-dep" class="form-grid">
                             <div class="input-group"><label for="fin_titular_sueldo">Sueldo (Líquido)</label><input type="text" inputmode="numeric" id="fin_titular_sueldo" name="fin_titular_sueldo" placeholder="Ej: 1500000 (lo que llega a tu cuenta)"></div>
+                        </div>
+                        <div id="content-act-titular-ind" class="form-grid" style="display: none;">
                             <div class="input-group"><label for="fin_titular_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_titular_honorarios" name="fin_titular_honorarios" placeholder="Promedio de tus últimas 6 boletas"></div>
                             <div class="input-group"><label for="fin_titular_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_titular_retiros" name="fin_titular_retiros" placeholder="Si eres dueño de empresa"></div>
-                            <div class="input-group"><label for="fin_titular_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_titular_arriendos" name="fin_titular_arriendos" placeholder="Si recibes arriendos"></div>
                         </div>
+                         <div class="form-grid" style="margin-top: 10px;">
+                           <div class="input-group"><label for="fin_titular_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_titular_arriendos" name="fin_titular_arriendos" placeholder="Si recibes arriendos"></div>
+                        </div>
+                        
                         <h4 style="margin-top: 20px;">Ahorros (Pie)</h4>
                         <div class="form-grid">
                             <div class="input-group"><label for="fin_titular_ahorros">Ahorros (Cta. Ahorro)</label><input type="text" inputmode="numeric" id="fin_titular_ahorros" name="fin_titular_ahorros"></div>
@@ -247,25 +257,42 @@
                             <div class="input-group"><label for="codeudor_fecha_nac">Fecha Nacimiento</label><input type="date" id="codeudor_fecha_nac" name="codeudor_fecha_nac"></div>
                             <div class="input-group"><label for="codeudor_profesion">Profesión</label><input type="text" id="codeudor_profesion" name="codeudor_profesion"></div>
                         </div>
+
+                        <div id="perfil-codeudor-selector">
+                            <hr style="margin: 20px 0;">
+                            <h4>¿Cuál es el perfil de tu codeudor?</h4>
+                            <div class="profile-selector">
+                                <label><input type="radio" name="perfilCodeudor" value="dependiente" checked><span>Es Trabajador <strong>Dependiente</strong></span></label>
+                                <label><input type="radio" name="perfilCodeudor" value="independiente"><span>Es Trabajador <strong>Independiente</strong></span></label>
+                            </div>
+                        </div>
                     </div>
 
                     <div id="tab-laboral-codeudor" class="tab-content">
-                        <h3>Antecedentes Laborales (Codeudor)</h3>
-                        <div class="form-grid">
+                        <h3 id="titulo-laboral-codeudor">Antecedentes Laborales (Codeudor)</h3>
+                        <div id="content-lab-codeudor-dep" class="form-grid codeudor-sub-content">
                             <div class="input-group"><label for="lab_codeudor_empleador">Empleador</label><input type="text" id="lab_codeudor_empleador" name="lab_codeudor_empleador"></div>
                             <div class="input-group"><label for="lab_codeudor_rut_empleador">RUT Empleador</label><input type="text" id="lab_codeudor_rut_empleador" name="lab_codeudor_rut_empleador" oninput="formatearRUT(this)"></div>
-                            <div class="input-group"><label for="lab_codeudor_cargo">Actividad o Cargo</label><input type="text" id="lab_codeudor_cargo" name="lab_codeudor_cargo"></div>
+                            <div class="input-group"><label for="lab_codeudor_cargo">Cargo</label><input type="text" id="lab_codeudor_cargo" name="lab_codeudor_cargo"></div>
                             <div class="input-group"><label for="lab_codeudor_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_codeudor_fecha_ingreso" name="lab_codeudor_fecha_ingreso"></div>
+                        </div>
+                        <div id="content-lab-codeudor-ind" class="form-grid codeudor-sub-content" style="display: none;">
+                            <div class="input-group"><label for="lab_codeudor_actividad">Actividad Económica</label><input type="text" id="lab_codeudor_actividad" name="lab_codeudor_actividad"></div>
+                            <div class="input-group"><label for="lab_codeudor_fecha_ia">Fecha Inicio Actividades</label><input type="date" id="lab_codeudor_fecha_ia" name="lab_codeudor_fecha_ia"></div>
                         </div>
                     </div>
 
                     <div id="tab-activos-codeudor" class="tab-content">
                         <h3>Antecedentes Financieros (Codeudor)</h3>
                         <h4>Ingresos Mensuales</h4>
-                        <div class="form-grid">
+                        <div id="content-act-codeudor-dep" class="form-grid codeudor-sub-content">
                             <div class="input-group"><label for="fin_codeudor_sueldo">Sueldo (Líquido)</label><input type="text" inputmode="numeric" id="fin_codeudor_sueldo" name="fin_codeudor_sueldo" placeholder="Ej: 1500000"></div>
+                        </div>
+                        <div id="content-act-codeudor-ind" class="form-grid codeudor-sub-content" style="display: none;">
                             <div class="input-group"><label for="fin_codeudor_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_codeudor_honorarios" name="fin_codeudor_honorarios" placeholder="Promedio de 6 boletas"></div>
                             <div class="input-group"><label for="fin_codeudor_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_codeudor_retiros" name="fin_codeudor_retiros" placeholder="Si es dueño de empresa"></div>
+                        </div>
+                        <div class="form-grid" style="margin-top: 10px;">
                             <div class="input-group"><label for="fin_codeudor_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_codeudor_arriendos" name="fin_codeudor_arriendos"></div>
                         </div>
                     </div>
@@ -339,7 +366,7 @@
         // Pega la URL de tu *segundo* script (el de UPLOAD a Drive)
         const URL_SCRIPT_UPLOAD = "https://script.google.com/macros/s/AKfycbxO56Ws-bdkEiv-sCQZgnldzxGd-Ve-gVAVX1vSpbOsTiNrIYLVU9IYAOP8jMzH24gc/exec";
 
-        // --- B. LÓGICA DE UX (El Asistente v3.3) ---
+        // --- B. LÓGICA DE UX (El Asistente v3.4) ---
 
         // ¡NUEVO! Datos para Regiones y Comunas
         const regionesYComunas = {
@@ -372,14 +399,17 @@
         // Referencias al Perfil (Paso 1)
         const radiosPerfil = document.querySelectorAll('input[name="perfilCliente"]');
         let perfilSeleccionado = "";
-        // ¡NUEVO! Referencias a los elementos dinámicos
         const tabNavLaboralTitular = document.getElementById('tab-nav-laboral-titular');
         const tituloLaboralTitular = document.getElementById('titulo-laboral-titular');
+        const contentLabTitularDep = document.getElementById('content-lab-titular-dep');
+        const contentLabTitularInd = document.getElementById('content-lab-titular-ind');
+        const contentActTitularDep = document.getElementById('content-act-titular-dep');
+        const contentActTitularInd = document.getElementById('content-act-titular-ind');
 
         // Referencias al Formulario (Paso 2)
         const eessForm = document.getElementById('eessForm');
-        let tabs = []; // Array de contenidos de pestaña (se calcula dinámicamente)
-        let tabNavButtons = []; // Array de botones de pestaña (se calcula dinámicamente)
+        let tabs = []; 
+        let tabNavButtons = []; 
         const btnPrev = document.getElementById('btn-form-prev');
         const btnNext = document.getElementById('btn-form-next');
         const btnFinalizar = document.getElementById('btn-finalizar-formulario');
@@ -388,14 +418,26 @@
         // Referencias al Switch de Codeudor
         const radiosCodeudor = document.querySelectorAll('input[name="complementa_renta"]');
         const codeudorTabs = document.querySelectorAll('.codeudor-tab');
-        const codeudorContents = document.querySelectorAll('.tab-content.codeudor-content'); // Corregido: busca por ambas clases
+        const codeudorContents = document.querySelectorAll('.tab-content.codeudor-content');
+        const perfilCodeudorSelector = document.getElementById('perfil-codeudor-selector');
+
+        // ¡NUEVO! Referencias al Perfil de Codeudor (v3.4)
+        const radiosPerfilCodeudor = document.querySelectorAll('input[name="perfilCodeudor"]');
+        let perfilCodeudorSeleccionado = "dependiente"; // Default
+        const tabNavLaboralCodeudor = document.getElementById('tab-nav-laboral-codeudor');
+        const tabNavActivosCodeudor = document.getElementById('tab-nav-activos-codeudor');
+        const contentLabCodeudorDep = document.getElementById('content-lab-codeudor-dep');
+        const contentLabCodeudorInd = document.getElementById('content-lab-codeudor-ind');
+        const contentActCodeudorDep = document.getElementById('content-act-codeudor-dep');
+        const contentActCodeudorInd = document.getElementById('content-act-codeudor-ind');
+
 
         // Referencias al Checklist (Paso 3)
         const checklistFinal = document.getElementById('checklist-final');
-        const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf"; // El PDF que subiste
+        const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf"; 
         const LINK_DICOM = "https://www.equifax.cl/ecfx/informe-comercial/dicom-platinum-360";	
         
-        // Listas de Documentos (Basadas 100% en tus fotos)
+        // Listas de Documentos
         const documentosComunes = [
             { nombre: "Informe de Deudas CMF", ayuda: TUTORIAL_DEUDA_URL, tipo: "tutorial", textoAyuda: "[Ver Tutorial]" },
             { nombre: "Informe DICOM Platinum 360", ayuda: LINK_DICOM, tipo: "tutorial", textoAyuda: "[Obtener Aquí]" }
@@ -432,16 +474,24 @@
                 perfilSeleccionado = e.target.value;
                 paso2.style.display = 'block';
                 
-                // ¡NUEVO! Lógica para cambiar nombre de pestaña
+                // Lógica para cambiar nombre de pestaña y contenido
                 if (perfilSeleccionado === 'independiente' || perfilSeleccionado === 'empresa') {
                     tabNavLaboralTitular.textContent = "2. Actividad (Titular)";
                     tituloLaboralTitular.textContent = "Antecedentes de Actividad (Titular)";
-                } else {
+                    contentLabTitularDep.style.display = 'none';
+                    contentLabTitularInd.style.display = 'grid';
+                    contentActTitularDep.style.display = 'none';
+                    contentActTitularInd.style.display = 'grid';
+                } else { // Dependiente
                     tabNavLaboralTitular.textContent = "2. Laboral (Titular)";
                     tituloLaboralTitular.textContent = "Antecedentes Laborales (Titular)";
+                    contentLabTitularDep.style.display = 'grid';
+                    contentLabTitularInd.style.display = 'none';
+                    contentActTitularDep.style.display = 'grid';
+                    contentActTitularInd.style.display = 'none';
                 }
 
-                actualizarTabsVisibles(); // Reiniciamos y recalculamos las pestañas
+                actualizarTabsVisibles(); 
                 validarFormulario();
             });
         });
@@ -450,23 +500,68 @@
         radiosCodeudor.forEach(radio => {
             radio.addEventListener('change', (e) => {
                 const showCodeudor = e.target.value === 'si';
+                perfilCodeudorSelector.style.display = showCodeudor ? 'block' : 'none'; // Muestra el selector de perfil
                 
                 // Marcar campos de codeudor como requeridos o no
                 codeudorContents.forEach(content => {
                     content.querySelectorAll('input, select').forEach(input => {
+                        // Ojo: la lógica de 'required' se afinará en 'actualizarPerfilCodeudor'
                         input.required = showCodeudor;
                     });
                 });
                 
-                // Recalculamos las pestañas visibles y reseteamos
-                actualizarTabsVisibles();
+                actualizarPerfilCodeudor(); // Actualiza campos internos del codeudor
+                actualizarTabsVisibles(); // Recalcula las pestañas 4, 5, 6, 7
                 validarFormulario();
             });
         });
 
+        // ¡NUEVA FUNCIÓN (v3.4)! --- CEREBRO PERFIL CODEUDOR ---
+        radiosPerfilCodeudor.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                perfilCodeudorSeleccionado = e.target.value;
+                actualizarPerfilCodeudor();
+                validarFormulario();
+            });
+        });
+
+        function actualizarPerfilCodeudor() {
+            const esDependiente = perfilCodeudorSeleccionado === 'dependiente';
+
+            // 1. Cambiar nombres de pestañas (si es necesario)
+            // (Lo omitimos por ahora para simplicidad, v3.4)
+
+            // 2. Cambiar contenidos de Pestaña 5 (Laboral)
+            contentLabCodeudorDep.style.display = esDependiente ? 'grid' : 'none';
+            contentLabCodeudorInd.style.display = esDependiente ? 'none' : 'grid';
+            
+            // 3. Cambiar contenidos de Pestaña 6 (Activos)
+            contentActCodeudorDep.style.display = esDependiente ? 'grid' : 'none';
+            contentActCodeudorInd.style.display = esDependiente ? 'none' : 'grid';
+            
+            // 4. Actualizar campos 'required' para la validación
+            // Apagamos todos los 'required' primero
+            contentLabCodeudorDep.querySelectorAll('input').forEach(i => i.required = false);
+            contentLabCodeudorInd.querySelectorAll('input').forEach(i => i.required = false);
+            contentActCodeudorDep.querySelectorAll('input').forEach(i => i.required = false);
+            contentActCodeudorInd.querySelectorAll('input').forEach(i => i.required = false);
+
+            // Prendemos solo los 'required' del perfil activo
+            if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
+                if (esDependiente) {
+                    contentLabCodeudorDep.querySelectorAll('input').forEach(i => i.required = true); // Asumimos todos son req.
+                    contentActCodeudorDep.querySelectorAll('input').forEach(i => i.required = true);
+                } else {
+                    contentLabCodeudorInd.querySelectorAll('input').forEach(i => i.required = true);
+                    contentActCodeudorInd.querySelectorAll('input').forEach(i => i.required = true);
+                }
+            }
+        }
+
+
         // --- CEREBRO PASO 2 (Parte B): Navegación y Validación de Pestañas ---
         
-        // ¡ESTE ES EL MOTOR CORREGIDO (v3.3)!
+        // ¡MOTOR CORREGIDO (v3.4)!
         function actualizarTabsVisibles() {
             const allTabs = Array.from(document.querySelectorAll('.tab-content'));
             const allNavButtons = Array.from(document.querySelectorAll('.tab-nav-button'));
@@ -479,7 +574,6 @@
                 const tabContent = allTabs[i];
                 const tabButton = allNavButtons[i];
 
-                // Verificamos si el botón existe antes de acceder a su 'classList'
                 if (tabButton) {
                     if (tabButton.classList.contains('codeudor-tab')) {
                         if (showCodeudor) {
@@ -516,7 +610,7 @@
                 tabNavButtons[tabIndex].classList.add('active');
             }
 
-            // Lógica de botones de navegación (v3.3)
+            // Lógica de botones de navegación (v3.4)
             btnPrev.style.display = (tabIndex === 0) ? 'none' : 'inline-block';
             btnNext.style.display = (tabIndex === tabs.length - 1) ? 'none' : 'inline-block';
             btnFinalizar.style.display = (tabIndex === tabs.length - 1) ? 'inline-block' : 'none';
@@ -548,7 +642,7 @@
             }
         });
 
-        // Validación (v3.3 - Verifica Ingreso Principal)
+        // ¡Validación (v3.4 - Verifica Ingreso Principal de AMBOS)!
         eessForm.addEventListener('input', validarFormulario); 
 
         function validarFormulario() {
@@ -559,7 +653,7 @@
                 if (!input.value) formValido = false;
             });
             
-            // 2. ¡VERIFICACIÓN! Validar ingreso principal según perfil
+            // 2. Validar ingreso principal TITULAR
             if (!perfilSeleccionado) {
                 formValido = false;
             } else {
@@ -570,12 +664,21 @@
 
             // 3. Validar campos de codeudor
             if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
-                document.querySelectorAll('.codeudor-content input[required], .codeudor-content select[required]').forEach(input => {
+                // Campos básicos
+                document.querySelectorAll('#tab-codeudor input[required], #tab-codeudor select[required]').forEach(input => {
                     if (input.required && !input.value) formValido = false;
                 });
                 
-                const codeudorIngresos = document.getElementById('fin_codeudor_sueldo').value || document.getElementById('fin_codeudor_honorarios').value || document.getElementById('fin_codeudor_retiros').value;
-                if (!codeudorIngresos) formValido = false;
+                // ¡NUEVO! Validar ingreso principal CODEUDOR
+                if (perfilCodeudorSeleccionado === 'dependiente') {
+                    if (!document.getElementById('fin_codeudor_sueldo').value) formValido = false;
+                    // Validar campos laborales dependiente
+                    contentLabCodeudorDep.querySelectorAll('input').forEach(i => { if(i.required && !i.value) formValido = false; });
+                } else { // Independiente
+                    if (!document.getElementById('fin_codeudor_honorarios').value && !document.getElementById('fin_codeudor_retiros').value) formValido = false; // Al menos uno
+                    // Validar campos laborales independiente
+                    contentLabCodeudorInd.querySelectorAll('input').forEach(i => { if(i.required && !i.value) formValido = false; });
+                }
             }
 
             btnFinalizar.disabled = !formValido;
@@ -586,30 +689,39 @@
             if (btnFinalizar.disabled) return; 
 
             paso2.style.display = 'none';
-            // ¡VERIFICACIÓN! Genera checklist según perfil
-            generarChecklist(perfilSeleccionado, document.querySelector('input[name="complementa_renta"]:checked').value === 'si');
+            // ¡NUEVO! Checklist ahora depende de AMBOS perfiles
+            generarChecklist(perfilSeleccionado, document.querySelector('input[name="complementa_renta"]:checked').value === 'si', perfilCodeudorSeleccionado);
             paso3.style.display = 'block';
             paso4.style.display = 'block';
         });
 
-        function generarChecklist(perfil, hayCodeudor) {
+        function generarChecklist(perfilTitular, hayCodeudor, perfilCodeudor) {
             let listaAMostrar = [];
             
-            if (perfil === 'empresa') {
+            // 1. Lista del Titular
+            if (perfilTitular === 'empresa') {
                 listaAMostrar = [...documentosComunes, ...documentosEmpresa];
             } else {
-                listaAMostrar = (perfil === 'dependiente') ? 
+                listaAMostrar = (perfilTitular === 'dependiente') ? 
                     [...documentosComunes, ...documentosDependiente] : 
                     [...documentosComunes, ...documentosIndependiente];
-                
-                if (hayCodeudor) {
-                    // Simplificación v3.3: Asume codeudor Dependiente
-                    const listaCodeudor = [
+            }
+            
+            // 2. ¡NUEVO! Lista del Codeudor (si existe)
+            if (hayCodeudor) {
+                let listaCodeudor = [];
+                if (perfilCodeudor === 'dependiente') {
+                     listaCodeudor = [
                         { nombre: "--- DOCUMENTOS CODEUDOR (Dependiente) ---" },
                         ...documentosDependiente
                     ];
-                    listaAMostrar = [...listaAMostrar, ...listaCodeudor];
+                } else { // Independiente
+                     listaCodeudor = [
+                        { nombre: "--- DOCUMENTOS CODEUDOR (Independiente) ---" },
+                        ...documentosIndependiente
+                    ];
                 }
+                listaAMostrar = [...listaAMostrar, ...listaCodeudor];
             }
             
             checklistFinal.innerHTML = ''; 
@@ -686,6 +798,7 @@
                     const payload = {
                         email: email,
                         perfil: perfilSeleccionado,
+                        perfilCodeudor: hayCodeudor ? perfilCodeudorSeleccionado : "no_aplica", // ¡NUEVO!
                         formData: eessData, 
                         files: filesArray     
                     };
@@ -704,7 +817,11 @@
                             fileList.innerHTML = '';
                             paso3.style.display = 'none';
                             paso4.style.display = 'none';
+                            // Ocultamos el Paso 2 por si acaso
+                            paso2.style.display = 'none'; 
+                            // Reseteamos el Paso 1 para mostrar el mensaje de éxito
                             paso1.innerHTML = "<h2>¡Sistema completo!</h2><p>Recibimos tus datos y archivos. Gracias por tu tiempo, te contactaremos a la brevedad.</p>";
+                            paso1.style.display = 'block'; // Nos aseguramos que sea visible
                         } else { throw new Error(data.message); }
                     })
                     .catch(error => {
@@ -722,18 +839,18 @@
                 });
         });
 
-        // --- ¡NUEVAS FUNCIONES DE UX (v3.3)! ---
+        // --- ¡NUEVAS FUNCIONES DE UX (v3.4)! ---
 
         // Función para formatear RUT
         function formatearRUT(input) {
-            let rut = input.value.replace(/[^0-9kK]/g, ''); // Limpiar
+            let rut = input.value.replace(/[^0-9kK]/g, ''); 
             if (rut.length > 1) {
                 let cuerpo = rut.slice(0, -1);
                 let dv = rut.slice(-1);
-                cuerpo = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Añadir puntos
-                input.value = cuerpo + '-' + dv;
+                cuerpo = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); 
+                input.value = cuerpo + '-' + dv.toUpperCase(); // DV en mayúscula
             } else {
-                input.value = rut;
+                input.value = rut.toUpperCase();
             }
         }
 
@@ -742,13 +859,13 @@
             const regionSelect = document.getElementById('titular_region');
             const comunaSelect = document.getElementById('titular_comuna');
 
-            regionSelect.innerHTML = '<option value="">Selecciona Región...</option>'; // Limpiar
+            regionSelect.innerHTML = '<option value="">Selecciona Región...</option>'; 
             regionesYComunas.regiones.forEach((region, index) => {
                 regionSelect.innerHTML += `<option value="${index}">${region.nombre}</option>`;
             });
 
             regionSelect.addEventListener('change', () => {
-                comunaSelect.innerHTML = '<option value="">Selecciona Comuna...</option>'; // Limpiar comunas
+                comunaSelect.innerHTML = '<option value="">Selecciona Comuna...</option>'; 
                 const regionIndex = regionSelect.value;
                 if (regionIndex) {
                     regionesYComunas.regiones[regionIndex].comunas.forEach(comuna => {
@@ -756,14 +873,21 @@
                     });
                 }
             });
+            // Hacemos que "Metropolitana" sea la opción por defecto
+            const rmIndex = regionesYComunas.regiones.findIndex(r => r.nombre === "Metropolitana de Santiago");
+            if (rmIndex > -1) {
+                regionSelect.value = rmIndex;
+                regionSelect.dispatchEvent(new Event('change')); // Disparamos el evento para cargar las comunas
+            }
         }
 
         // --- INICIALIZACIÓN DE LA PÁGINA ---
 
         // Cargar Regiones y Comunas al iniciar
         cargarRegionesYComunas();
-
-        // Validar el formulario al cargar (solo deshabilita el botón de finalizar)
+        // Disparar las lógicas de ocultar/mostrar campos dinámicos
+        actualizarPerfilCodeudor();
+        // Validar el formulario al cargar
         validarFormulario();
 
     </script>

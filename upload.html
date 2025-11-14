@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carga de Documentos - Evaluación</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="/style.css"> 
-    
     <style>
         /* --- ESTILOS ADICIONALES PARA EL ASISTENTE (v3.2) --- */
 
@@ -24,6 +22,9 @@
             width: 100%;
             border-left: none;
             border-top: 5px solid #007bff;
+            /* Padding base que faltaba en el CSS externo */
+            padding: 30px 40px; 
+            box-sizing: border-box;
         }
 
         /* Ocultamos los pasos futuros */
@@ -80,7 +81,7 @@
         .form-grid .input-group { margin-bottom: 0; }
         
         /* Ocultar pestañas de Codeudor por defecto */
-        .codeudor-tab, .codeudor-content {
+        .codeudor-tab {
             display: none;
         }
 
@@ -214,7 +215,7 @@
                         </div>
                     </div>
 
-                    <div id="tab-codeudor" class="tab-content codeudor-content">
+                    <div id="tab-codeudor" class="tab-content">
                         <h3>Datos del Codeudor</h3>
                         <div class="form-grid">
                             <div class="input-group"><label for="codeudor_nombre">Nombre Completo</label><input type="text" id="codeudor_nombre" name="codeudor_nombre"></div>
@@ -226,7 +227,7 @@
                         </div>
                     </div>
 
-                    <div id="tab-laboral-codeudor" class="tab-content codeudor-content">
+                    <div id="tab-laboral-codeudor" class="tab-content">
                         <h3>Antecedentes Laborales (Codeudor)</h3>
                         <div class="form-grid">
                             <div class="input-group"><label for="lab_codeudor_empleador">Empleador</label><input type="text" id="lab_codeudor_empleador" name="lab_codeudor_empleador"></div>
@@ -236,7 +237,7 @@
                         </div>
                     </div>
 
-                    <div id="tab-activos-codeudor" class="tab-content codeudor-content">
+                    <div id="tab-activos-codeudor" class="tab-content">
                         <h3>Antecedentes Financieros (Codeudor)</h3>
                         <h4>Ingresos Mensuales</h4>
                         <div class="form-grid">
@@ -400,9 +401,8 @@
             radio.addEventListener('change', (e) => {
                 const showCodeudor = e.target.value === 'si';
                 
-                codeudorTabs.forEach(tab => tab.style.display = showCodeudor ? 'inline-block' : 'none');
+                // Marcar campos de codeudor como requeridos o no
                 codeudorContents.forEach(content => {
-                    // Marcar campos de codeudor como requeridos o no
                     content.querySelectorAll('input, select').forEach(input => {
                         input.required = showCodeudor;
                     });
@@ -416,31 +416,61 @@
 
         // --- CEREBRO PASO 2 (Parte B): Navegación y Validación de Pestañas ---
         
+        // *** ¡ESTE ES EL NUEVO MOTOR CORREGIDO! ***
         // Función para recalcular qué pestañas están visibles
         function actualizarTabsVisibles() {
-            // Esta función ahora solo se llama DESPUÉS de que el paso 2 es visible.
-            tabs = Array.from(document.querySelectorAll('.tab-content')).filter(tab => tab.offsetParent !== null);
-            tabNavButtons = Array.from(document.querySelectorAll('.tab-nav-button')).filter(btn => btn.offsetParent !== null);
-            currentTab = 0; // Siempre reseteamos a la primera pestaña
+            // 1. Obtenemos TODOS los botones y pestañas (contenidos) del HTML
+            const allTabs = Array.from(document.querySelectorAll('.tab-content'));
+            const allNavButtons = Array.from(document.querySelectorAll('.tab-nav-button'));
+
+            // 2. Determinamos si el switch de codeudor está en "Sí"
+            const showCodeudor = document.querySelector('input[name="complementa_renta"]:checked').value === 'si';
+
+            // 3. Limpiamos nuestras listas de trabajo
+            tabs = [];
+            tabNavButtons = [];
+
+            // 4. Llenamos las listas solo con las pestañas que SÍ deben mostrarse
+            for (let i = 0; i < allTabs.length; i++) {
+                // Usamos el índice para asumir que el botón 3ro corresponde al contenido 3ro
+                const tabContent = allTabs[i];
+                const tabButton = allNavButtons[i];
+
+                if (tabButton.classList.contains('codeudor-tab')) {
+                    // Si es un botón de codeudor, solo lo mostramos si el switch está en "Sí"
+                    if (showCodeudor) {
+                        tabs.push(tabContent);
+                        tabNavButtons.push(tabButton);
+                        tabButton.style.display = 'inline-block'; // Mostramos el botón en la barra
+                    } else {
+                        tabButton.style.display = 'none'; // Ocultamos el botón en la barra
+                    }
+                } else {
+                    // Si NO es de codeudor (Titular, Laboral, Activos, Pasivos), lo añadimos siempre
+                    tabs.push(tabContent);
+                    tabNavButtons.push(tabButton);
+                    tabButton.style.display = 'inline-block'; // Nos aseguramos que sea visible
+                }
+            }
+            
+            // 5. Reseteamos a la primera pestaña
+            currentTab = 0; 
             showTab(currentTab);
         }
 
         function showTab(tabIndex) {
-            // *** ¡CORRECCIÓN 2 (BOTÓN SIGUIENTE)! ***
-            // Esta es la guardia de seguridad que faltaba.
-            // Si 'tabs' o 'tabNavButtons' no existen o están vacíos (porque el Paso 2 aún está oculto), 
-            // no hagas nada y sal de la función.
+            // Esta guardia de seguridad es clave. Si no hay pestañas, no hagas nada.
             if (!tabs || tabs.length === 0 || !tabNavButtons || tabNavButtons.length === 0) {
-                return;
+                return; 
             }
-
+            
             // Ocultamos todos los contenidos
+            // Usamos el array global de 'allTabs' para asegurarnos de ocultar todo
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             // Ocultamos todos los botones
             document.querySelectorAll('.tab-nav-button').forEach(btn => btn.classList.remove('active'));
             
-            // Mostramos los correctos (basado en el array recalculado)
-            // Aquí estaba el error 'classList' que rompía todo.
+            // Mostramos los correctos (basado en el array FILTRADO)
             if (tabs[tabIndex]) {
                 tabs[tabIndex].classList.add('active');
             }
@@ -448,7 +478,8 @@
                 tabNavButtons[tabIndex].classList.add('active');
             }
 
-            // Lógica de botones de navegación
+            // Lógica de botones de navegación (¡AHORA SÍ FUNCIONARÁ!)
+            // `tabs.length` ahora tendrá el valor correcto (ej: 4 o 7)
             btnPrev.style.display = (tabIndex === 0) ? 'none' : 'inline-block';
             btnNext.style.display = (tabIndex === tabs.length - 1) ? 'none' : 'inline-block';
             btnFinalizar.style.display = (tabIndex === tabs.length - 1) ? 'inline-block' : 'none';
@@ -456,11 +487,15 @@
             validarFormulario(); // Validar al cambiar de pestaña
         }
 
-        // Delegamos los clics de los botones de pestañas (ya que el array cambia)
+        // Delegamos los clics de los botones de pestañas
         document.querySelector('.tab-navigation').addEventListener('click', (e) => {
             if (e.target.classList.contains('tab-nav-button')) {
-                currentTab = Array.from(tabNavButtons).indexOf(e.target);
-                showTab(currentTab);
+                // Buscamos el índice en nuestro array filtrado 'tabNavButtons'
+                let newIndex = tabNavButtons.indexOf(e.target);
+                if (newIndex > -1) { // Si lo encuentra
+                    currentTab = newIndex;
+                    showTab(currentTab);
+                }
             }
         });
 
@@ -490,20 +525,19 @@
             });
             
             // 2. Validar campos de ingreso principal según perfil
-            // Solo validamos si el perfil ha sido seleccionado
-            if (perfilSeleccionado) {
+            if (!perfilSeleccionado) {
+                 // Si no hay perfil, el formulario de EESS no es válido
+                formValido = false;
+            } else {
                 if (perfilSeleccionado === 'dependiente' && !document.getElementById('fin_titular_sueldo').value) formValido = false;
                 if (perfilSeleccionado === 'independiente' && !document.getElementById('fin_titular_honorarios').value) formValido = false;
                 if (perfilSeleccionado === 'empresa' && !document.getElementById('fin_titular_retiros').value) formValido = false;
-            } else {
-                // Si no hay perfil, el formulario de EESS no es válido (aunque está oculto)
-                formValido = false;
             }
 
             // 3. Validar campos de codeudor (si está visible)
             if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
                 document.querySelectorAll('.codeudor-content input[required], .codeudor-content select[required]').forEach(input => {
-                    if (!input.value) formValido = false;
+                    if (input.required && !input.value) formValido = false;
                 });
                 
                 // Asumimos que el codeudor debe tener al menos un ingreso
@@ -661,6 +695,7 @@
         });
 
         // Validar el formulario al cargar (solo deshabilita el botón de finalizar)
+        // Lo llamamos para que btnFinalizar esté deshabilitado por defecto
         validarFormulario();
 
     </script>

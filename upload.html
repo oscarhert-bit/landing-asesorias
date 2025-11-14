@@ -1,648 +1,648 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carga de Documentos - Evaluación</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> <style>
-        /* --- ESTILOS ADICIONALES PARA EL ASISTENTE (v3.2) --- */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carga de Documentos - Evaluación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <style>
+        /* --- ESTILOS ADICIONALES PARA EL ASISTENTE (v3.2) --- */
 
-        /* Contenedor principal de una sola columna */
-        .container-upload {
-            max-width: 900px;
-            margin: 40px auto;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            overflow: hidden;
-        }
-        .form-col {
-            width: 100%;
-            border-left: none;
-            border-top: 5px solid #007bff;
-        }
+        /* Contenedor principal de una sola columna */
+        .container-upload {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .form-col {
+            width: 100%;
+            border-left: none;
+            border-top: 5px solid #007bff;
+        }
 
-        /* Ocultamos los pasos futuros */
-        #paso-2-formulario, #paso-3-checklist, #paso-4-uploader {
-            display: none;
-            margin-top: 30px;
-            animation: fadeIn 0.5s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Ocultamos los pasos futuros */
+        #paso-2-formulario, #paso-3-checklist, #paso-4-uploader {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* --- Estilos para el Perfil (Paso 1) --- */
-        .profile-selector { display: flex; flex-direction: column; gap: 10px; }
-        .profile-selector label { display: block; padding: 15px 20px; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; }
-        .profile-selector input[type="radio"] { margin-right: 12px; accent-color: #005a9c; }
-        .profile-selector label:hover { background-color: #f4f7f6; }
-        .profile-selector input[type="radio"]:checked + span { font-weight: 700; color: #005a9c; }
+        /* --- Estilos para el Perfil (Paso 1) --- */
+        .profile-selector { display: flex; flex-direction: column; gap: 10px; }
+        .profile-selector label { display: block; padding: 15px 20px; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; }
+        .profile-selector input[type="radio"] { margin-right: 12px; accent-color: #005a9c; }
+        .profile-selector label:hover { background-color: #f4f7f6; }
+        .profile-selector input[type="radio"]:checked + span { font-weight: 700; color: #005a9c; }
 
-        /* --- Estilos para el Formulario (Paso 2) --- */
-        .tab-navigation {
-            display: flex;
-            flex-wrap: wrap; /* Para que caigan en móvil */
-            border-bottom: 2px solid #ccc;
-            margin-bottom: 20px;
-        }
-        .tab-nav-button {
-            padding: 10px 15px; /* Más pequeño para que quepan más */
-            border: none;
-            background-color: #f4f7f6;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -2px;
-            font-size: 0.95em;
-            font-weight: 600;
-        }
-        .tab-nav-button.active {
-            background-color: #fff;
-            border-top: 1px solid #ccc;
-            border-left: 1px solid #ccc;
-            border-right: 1px solid #ccc;
-            border-bottom: 2px solid #fff;
-            color: #005a9c;
-        }
-        .tab-content { display: none; animation: fadeIn 0.3s; }
-        .tab-content.active { display: block; }
-        
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .form-grid .input-group { margin-bottom: 0; }
-        
-        /* Ocultar pestañas de Codeudor por defecto */
-        .codeudor-tab, .codeudor-content {
-            display: none;
-        }
+        /* --- Estilos para el Formulario (Paso 2) --- */
+        .tab-navigation {
+    _        display: flex;
+            flex-wrap: wrap; /* Para que caigan en móvil */
+            border-bottom: 2px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .tab-nav-button {
+            padding: 10px 15px; /* Más pequeño para que quepan más */
+            border: none;
+            background-color: #f4f7f6;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+      _  .tab-nav-button.active {
+            background-color: #fff;
+            border-top: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            border-bottom: 2px solid #fff;
+            color: #005a9c;
+        }
+        .tab-content { display: none; animation: fadeIn 0.3s; }
+     _  .tab-content.active { display: block; }
+        
+        .form-grid {
+            display: grid;
+     _        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .form-grid .input-group { margin-bottom: 0; }
+        
+   _      /* Ocultar pestañas de Codeudor por defecto */
+        .codeudor-tab, .codeudor-content {
+            display: none;
+        }
 
-        .form-navigation-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
-        .form-nav-btn { padding: 12px 25px; background-color: #005a9c; color: white; border: none; border-radius: 5px; font-size: 1em; font-weight: 700; cursor: pointer; }
-        .form-nav-btn:disabled { background-color: #aaa; cursor: not-allowed; }
-        .form-nav-btn.secondary { background-color: #6c757d; }
-        #btn-finalizar-formulario { background-color: #28a745; display: none; } /* Oculto por defecto */
-        #btn-form-next { display: inline-block; } /* Visible por defecto */
+        .form-navigation-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
+        .form-nav-btn { padding: 12px 25px; background-color: #005a9c; color: white; border: none; border-radius: 5px; font-size: 1em; font-weight: 700; cursor: pointer; }
+        .form-nav-btn:disabled { background-color: #aaa; cursor: not-allowed; }
+     _  .form-nav-btn.secondary { background-color: #6c757d; }
+        #btn-finalizar-formulario { background-color: #28a745; display: none; } /* Oculto por defecto */
+        #btn-form-next { display: inline-block; } /* Visible por defecto */
 
-        /* --- Estilos para el Checklist (Paso 3) --- */
-        .checklist { list-style: none; padding-left: 0; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 20px; }
-        .checklist li { font-size: 1.1em; padding: 12px 10px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; }
-        .checklist li:last-child { border-bottom: none; }
-        .checklist li strong { color: #333; }
-        .checklist li .doc-help { font-weight: 700; text-decoration: none; color: #005a9c; margin-left: 10px; white-space: nowrap; }
+   _      /* --- Estilos para el Checklist (Paso 3) --- */
+        .checklist { list-style: none; padding-left: 0; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 20px; }
+        .checklist li { font-size: 1.1em; padding: 12px 10px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; }
+     _  .checklist li:last-child { border-bottom: none; }
+        .checklist li strong { color: #333; }
+        .checklist li .doc-help { font-weight: 700; text-decoration: none; color: #005a9c; margin-left: 10px; white-space: nowrap; }
 
-        /* --- Estilos para el Uploader (Paso 4) --- */
-        #fileInput { border: 2px dashed #007bff; padding: 20px; border-radius: 5px; cursor: pointer; text-align: center; }
-        .file-list { margin-top: 15px; font-style: italic; }
+ _        /* --- Estilos para el Uploader (Paso 4) --- */
+        #fileInput { border: 2px dashed #007bff; padding: 20px; border-radius: 5px; cursor: pointer; text-align: center; }
+        .file-list { margin-top: 15px; font-style: italic; }
 
-        /* Hack para quitar flechas en campos de número */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
-        }
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
+        /* Hack para quitar flechas en campos de número */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+     _  }
 
-    </style>
+    </style>
 </head>
 <body>
 
-    <div class="container-upload">
-        <div class="form-col">
+    <div class="container-upload">
+        <div class="form-col">
 
-            <div id="paso-1-perfil">
-                <h2>Paso 1: ¿Cuál es tu perfil?</h2>
-                <p>Selecciona tu situación laboral para mostrarte los documentos exactos que necesitamos.</p>
-                <div class="profile-selector">
-                    <label><input type="radio" name="perfilCliente" value="dependiente"><span>Soy Trabajador <strong>Dependiente</strong> (con contrato)</span></label>
-                    <label><input type="radio" name="perfilCliente" value="independiente"><span>Soy Trabajador <strong>Independiente</strong> (boletas de honorarios)</span></label>
-                    <label><input type="radio" name="perfilCliente" value="empresa"><span>Soy <strong>Empresa</strong> (tengo mi propia sociedad)</span></label>
-                </div>
-            </div>
+            <div id="paso-1-perfil">
+                <h2>Paso 1: ¿Cuál es tu perfil?</h2>
+     _          <p>Selecciona tu situación laboral para mostrarte los documentos exactos que necesitamos.</p>
+                <div class="profile-selector">
+                    <label><input type="radio" name="perfilCliente" value="dependiente"><span>Soy Trabajador <strong>Dependiente</strong> (con contrato)</span></label>
+     _              <label><input type="radio" name="perfilCliente" value="independiente"><span>Soy Trabajador <strong>Independiente</strong> (boletas de honorarios)</span></label>
+                    <label><input type="radio" name="perfilCliente" value="empresa"><span>Soy <strong>Empresa</strong> (tengo mi propia sociedad)</span></label>
+                </div>
+            </div>
 
-            <div id="paso-2-formulario">
-                <h2>Paso 2: Completa tu "Estado de Situación"</h2>
-                <p>Por favor, completa estos datos para agilizar tu evaluación.</p>
-                
-                <form id="eessForm">
-                    <div class="tab-navigation">
-                        <button type="button" class="tab-nav-button active" data-tab="tab-titular">1. Titular</button>
-                        <button type="button" class="tab-nav-button" data-tab="tab-laboral-titular">2. Laboral (Titular)</button>
-                        <button type="button" class="tab-nav-button" data-tab="tab-activos-titular">3. Activos (Titular)</button>
-                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-codeudor">4. Codeudor</button>
-                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-laboral-codeudor">5. Laboral (Codeudor)</button>
-                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-activos-codeudor">6. Activos (Codeudor)</button>
-                        <button type="button" class="tab-nav-button" data-tab="tab-pasivos">Últ. Pasivos (Deudas)</button>
-                    </div>
+            <div id="paso-2-formulario">
+         _      <h2>Paso 2: Completa tu "Estado de Situación"</h2>
+                <p>Por favor, completa estos datos para agilizar tu evaluación.</p>
+                
+                <form id="eessForm">
+     _              <div class="tab-navigation">
+                        <button type="button" class="tab-nav-button active" data-tab="tab-titular">1. Titular</button>
+                        <button type="button" class="tab-nav-button" data-tab="tab-laboral-titular">2. Laboral (Titular)</button>
+   _                  <button type="button" class="tab-nav-button" data-tab="tab-activos-titular">3. Activos (Titular)</button>
+                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-codeudor">4. Codeudor</button>
+                     _  <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-laboral-codeudor">5. Laboral (Codeudor)</button>
+                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-activos-codeudor">6. Activos (Codeudor)</button>
+                        <button type="button" class="tab-nav-button" data-tab="tab-pasivos">Últ. Pasivos (Deudas)</button>
+     _              </div>
 
-                    <div id="tab-titular" class="tab-content active">
-                        <h3>Datos del Titular</h3>
-                        <div class="form-grid">
-                            <div class="input-group"><label for="titular_nombre">Nombre Completo</label><input type="text" id="titular_nombre" name="titular_nombre" required></div>
-                            <div class="input-group"><label for="titular_rut">RUT</label><input type="text" id="titular_rut" name="titular_rut" placeholder="Ej: 12345678-9" required></div>
-                            <div class="input-group"><label for="titular_email">Email</label><input type="email" id="titular_email" name="titular_email" required></div>
-                            <div class="input-group"><label for="titular_telefono">Teléfono</label><input type="tel" id="titular_telefono" name="titular_telefono" placeholder="Ej: +56912345678" required></div>
-                            <div class="input-group"><label for="titular_fecha_nac">Fecha Nacimiento</label><input type="date" id="titular_fecha_nac" name="titular_fecha_nac"></div>
-                            <div class="input-group"><label for="titular_nacionalidad">Nacionalidad</label><input type="text" id="titular_nacionalidad" name="titular_nacionalidad"></div>
-                            <div class="input-group"><label for="titular_estado_civil">Estado Civil</label>
-                                <select id="titular_estado_civil" name="titular_estado_civil">
-                                    <option value="">Selecciona...</option>
-                                    <option value="Soltero(a)">Soltero(a)</option>
-                                    <option value="Casado(a)">Casado(a)</option>
-                                    <option value="Divorciado(a)">Divorciado(a)</option>
-                                    <option value="Viudo(a)">Viudo(a)</option>
-                                    <option value="AUC">Acuerdo de Unión Civil</option>
-                                </select>
-                            </div>
-                            <div class="input-group"><label for="titular_regimen">Régimen conyugal</label>
-                                <select id="titular_regimen" name="titular_regimen">
-                                    <option value="">Selecciona...</option>
-                                    <option value="Separación de Bienes">Separación de Bienes</option>
-                                    <option value="Sociedad Conyugal">Sociedad Conyugal</option>
-                                    <option value="Participación en Gananciales">Participación en Gananciales</option>
-                                    <option value="No Aplica">No Aplica</option>
-                                </select>
-                            </div>
-                            <div class="input-group"><label for="titular_domicilio">Domicilio Particular</label><input type="text" id="titular_domicilio" name="titular_domicilio"></div>
-                            <div class="input-group"><label for="titular_comuna">Comuna</label><input type="text" id="titular_comuna" name="titular_comuna"></div>
-                            <div class="input-group"><label for="titular_profesion">Profesión</label><input type="text" id="titular_profesion" name="titular_profesion"></div>
-                        </div>
-                        <hr style="margin: 20px 0;">
-                        <h3>Codeudor</h3>
-                        <p>¿Vas a complementar renta con alguien (cónyuge, pareja, familiar, etc.)?</p>
-                        <div class="profile-selector" style="flex-direction: row; gap: 20px;">
-                            <label><input type="radio" name="complementa_renta" value="no" checked><span>No, postulo solo</span></label>
-                            <label><input type="radio" name="complementa_renta" value="si"><span><strong>Sí</strong>, complemento renta</span></label>
-                        </div>
-                    </div>
+                    <div id="tab-titular" class="tab-content active">
+                        <h3>Datos del Titular</h3>
+ _                      <div class="form-grid">
+                            <div class="input-group"><label for="titular_nombre">Nombre Completo</label><input type="text" id="titular_nombre" name="titular_nombre" required></div>
+                            <div class="input-group"><label for="titular_rut">RUT</label><input type="text" id="titular_rut" name="titular_rut" placeholder="Ej: 12345678-9" required></div>
+     _                  <div class="input-group"><label for="titular_email">Email</label><input type="email" id="titular_email" name="titular_email" required></div>
+                            <div class="input-group"><label for="titular_telefono">Teléfono</label><input type="tel" id="titular_telefono" name="titular_telefono" placeholder="Ej: +56912345678" required></div>
+     _                  <div class="input-group"><label for="titular_fecha_nac">Fecha Nacimiento</label><input type="date" id="titular_fecha_nac" name="titular_fecha_nac"></div>
+                            <div class="input-group"><label for="titular_nacionalidad">Nacionalidad</label><input type="text" id="titular_nacionalidad" name="titular_nacionalidad"></div>
+       _                  <div class="input-group"><label for="titular_estado_civil">Estado Civil</label>
+                                <select id="titular_estado_civil" name="titular_estado_civil">
+                                    <option value="">Selecciona...</option>
+           _                    <option value="Soltero(a)">Soltero(a)</option>
+                                    <option value="Casado(a)">Casado(a)</option>
+                               _    <option value="Divorciado(a)">Divorciado(a)</option>
+                                    <option value="Viudo(a)">Viudo(a)</option>
+                               _    <option value="AUC">Acuerdo de Unión Civil</option>
+                                </select>
+                            </div>
+       _                  <div class="input-group"><label for="titular_regimen">Régimen conyugal</label>
+                                <select id="titular_regimen" name="titular_regimen">
+                               _    <option value="">Selecciona...</option>
+                                    <option value="Separación de Bienes">Separación de Bienes</option>
+                                 _  <option value="Sociedad Conyugal">Sociedad Conyugal</option>
+                                    <option value="Participación en Gananciales">Participación en Gananciales</option>
+                           _        <option value="No Aplica">No Aplica</option>
+                                </select>
+                            </div>
+                       _    <div class="input-group"><label for="titular_domicilio">Domicilio Particular</label><input type="text" id="titular_domicilio" name="titular_domicilio"></div>
+                            <div class="input-group"><label for="titular_comuna">Comuna</label><input type="text" id="titular_comuna" name="titular_comuna"></div>
+                            <div class="input-group"><label for="titular_profesion">Profesión</label><input type="text" id="titular_profesion" name="titular_profesion"></div>
+    _                  </div>
+                        <hr style="margin: 20px 0;">
+                   _    <h3>Codeudor</h3>
+      _              <p>¿Vas a complementar renta con alguien (cónyuge, pareja, familiar, etc.)?</p>
+                        <div class="profile-selector" style="flex-direction: row; gap: 20px;">
+                            <label><input type="radio" name="complementa_renta" value="no" checked><span>No, postulo solo</span></label>
+ _                          <label><input type="radio" name="complementa_renta" value="si"><span><strong>Sí</strong>, complemento renta</span></label>
+                        </div>
+           _        </div>
 
-                    <div id="tab-laboral-titular" class="tab-content">
-                        <h3>Antecedentes Laborales (Titular)</h3>
-                        <div class="form-grid">
-                            <div class="input-group"><label for="lab_titular_empleador">Empleador</label><input type="text" id="lab_titular_empleador" name="lab_titular_empleador"></div>
-                            <div class="input-group"><label for="lab_titular_rut_empleador">RUT Empleador</label><input type="text" id="lab_titular_rut_empleador" name="lab_titular_rut_empleador" placeholder="Ej: 76123456-7"></div>
-                            <div class="input-group"><label for="lab_titular_cargo">Actividad o Cargo</label><input type="text" id="lab_titular_cargo" name="lab_titular_cargo"></div>
-                            <div class="input-group"><label for="lab_titular_telefono">Teléfono Laboral</label><input type="tel" id="lab_titular_telefono" name="lab_titular_telefono"></div>
-                            <div class="input-group"><label for="lab_titular_direccion">Dirección Laboral</label><input type="text" id="lab_titular_direccion" name="lab_titular_direccion"></div>
-                            <div class="input-group"><label for="lab_titular_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_titular_fecha_ingreso" name="lab_titular_fecha_ingreso"></div>
-                        </div>
-                    </div>
+                    <div id="tab-laboral-titular" class="tab-content">
+         _              <h3>Antecedentes Laborales (Titular)</h3>
+                        <div class="form-grid">
+               _            <div class="input-group"><label for="lab_titular_empleador">Empleador</label><input type="text" id="lab_titular_empleador" name="lab_titular_empleador"></div>
+                            <div class="input-group"><label for="lab_titular_rut_empleador">RUT Empleador</label><input type="text" id="lab_titular_rut_empleador" name="lab_titular_rut_empleador" placeholder="Ej: 76123456-7"></div>
+             _            <div class="input-group"><label for="lab_titular_cargo">Actividad o Cargo</label><input type="text" id="lab_titular_cargo" name="lab_titular_cargo"></div>
+                            <div class="input-group"><label for="lab_titular_telefono">Teléfono Laboral</label><input type="tel" id="lab_titular_telefono" name="lab_titular_telefono"></div>
+             _            <div class="input-group"><label for="lab_titular_direccion">Dirección Laboral</label><input type="text" id="lab_titular_direccion" name="lab_titular_direccion"></div>
+                            <div class="input-group"><label for="lab_titular_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_titular_fecha_ingreso" name="lab_titular_fecha_ingreso"></div>
+     _                </div>
+                    </div>
 
-                    <div id="tab-activos-titular" class="tab-content">
-                        <h3>Antecedentes Financieros (Titular)</h3>
-                        <h4>Ingresos Mensuales</h4>
-                        <div class="form-grid">
-                            <div class="input-group"><label for="fin_titular_sueldo">Sueldo (Líquido)</label><input type="text" inputmode="numeric" id="fin_titular_sueldo" name="fin_titular_sueldo" placeholder="Ej: 1500000 (lo que llega a tu cuenta)"></div>
-                            <div class="input-group"><label for="fin_titular_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_titular_honorarios" name="fin_titular_honorarios" placeholder="Promedio de tus últimas 6 boletas"></div>
-                            <div class="input-group"><label for="fin_titular_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_titular_retiros" name="fin_titular_retiros" placeholder="Si eres dueño de empresa"></div>
-                            <div class="input-group"><label for="fin_titular_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_titular_arriendos" name="fin_titular_arriendos" placeholder="Si recibes arriendos"></div>
-                        </div>
-                        <h4 style="margin-top: 20px;">Ahorros (Pie)</h4>
-                        <div class="form-grid">
-                            <div class="input-group"><label for="fin_titular_ahorros">Ahorros (Cta. Ahorro)</label><input type="text" inputmode="numeric" id="fin_titular_ahorros" name="fin_titular_ahorros"></div>
-                            <div class="input-group"><label for="fin_titular_dap">Depósito a Plazo</label><input type="text" inputmode="numeric" id="fin_titular_dap" name="fin_titular_dap"></div>
-                            <div class="input-group"><label for="fin_titular_ffmm">Fondos Mutuos</label><input type="text" inputmode="numeric" id="fin_titular_ffmm" name="fin_titular_ffmm"></div>
-                        </div>
-                    </div>
+           _        <div id="tab-activos-titular" class="tab-content">
+                        <h3>Antecedentes Financieros (Titular)</h3>
+             _          <h4>Ingresos Mensuales</h4>
+                        <div class="form-grid">
+         _                <div class="input-group"><label for="fin_titular_sueldo">Sueldo (Líquido)</label><input type="text" inputmode="numeric" id="fin_titular_sueldo" name="fin_titular_sueldo" placeholder="Ej: 1500000 (lo que llega a tu cuenta)"></div>
+                     _      <div class="input-group"><label for="fin_titular_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_titular_honorarios" name="fin_titular_honorarios" placeholder="Promedio de tus últimas 6 boletas"></div>
+         _                <div class="input-group"><label for="fin_titular_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_titular_retiros" name="fin_titular_retiros" placeholder="Si eres dueño de empresa"></div>
+         _                <div class="input-group"><label for="fin_titular_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_titular_arriendos" name="fin_titular_arriendos" placeholder="Si recibes arriendos"></div>
+         _          </div>
+                        <h4 style="margin-top: 20px;">Ahorros (Pie)</h4>
+                 _      <div class="form-grid">
+         _                <div class="input-group"><label for="fin_titular_ahorros">Ahorros (Cta. Ahorro)</label><input type="text" inputmode="numeric" id="fin_titular_ahorros" name="fin_titular_ahorros"></div>
+           _              <div class="input-group"><label for="fin_titular_dap">Depósito a Plazo</label><input type="text" inputmode="numeric" id="fin_titular_dap" name="fin_titular_dap"></div>
+             _            <div class="input-group"><label for="fin_titular_ffmm">Fondos Mutuos</label><input type="text" inputmode="numeric" id="fin_titular_ffmm" name="fin_titular_ffmm"></div>
+     _              </div>
+                    </div>
 
-                    <div id="tab-codeudor" class="tab-content codeudor-content">
-                        <h3>Datos del Codeudor</h3>
-                        <div class="form-grid">
-                            <div class="input-group"><label for="codeudor_nombre">Nombre Completo</label><input type="text" id="codeudor_nombre" name="codeudor_nombre"></div>
-                            <div class="input-group"><label for="codeudor_rut">RUT</label><input type="text" id="codeudor_rut" name="codeudor_rut" placeholder="Ej: 12345678-9"></div>
-                            <div class="input-group"><label for="codeudor_email">Email</label><input type="email" id="codeudor_email" name="codeudor_email"></div>
-                            <div class="input-group"><label for="codeudor_telefono">Teléfono</label><input type="tel" id="codeudor_telefono" name="codeudor_telefono"></div>
-                            <div class="input-group"><label for="codeudor_fecha_nac">Fecha Nacimiento</label><input type="date" id="codeudor_fecha_nac" name="codeudor_fecha_nac"></div>
-                            <div class="input-group"><label for="codeudor_profesion">Profesión</label><input type="text" id="codeudor_profesion" name="codeudor_profesion"></div>
-                        </div>
-                    </div>
+ _                <div id="tab-codeudor" class="tab-content codeudor-content">
+                        <h3>Datos del Codeudor</h3>
+         _            <div class="form-grid">
+                   _      <div class="input-group"><label for="codeudor_nombre">Nombre Completo</label><input type="text" id="codeudor_nombre" name="codeudor_nombre"></div>
+           _              <div class="input-group"><label for="codeudor_rut">RUT</label><input type="text" id="codeudor_rut" name="codeudor_rut" placeholder="Ej: 12345678-9"></div>
+                 _        <div class="input-group"><label for="codeudor_email">Email</label><input type="email" id="codeudor_email" name="codeudor_email"></div>
+         _                <div class="input-group"><label for="codeudor_telefono">Teléfono</label><input type="tel" id="codeudor_telefono" name="codeudor_telefono"></div>
+             _            <div class="input-group"><label for="codeudor_fecha_nac">Fecha Nacimiento</label><input type="date" id="codeudor_fecha_nac" name="codeudor_fecha_nac"></div>
+           _              <div class="input-group"><label for="codeudor_profesion">Profesión</label><input type="text" id="codeudor_profesion" name="codeudor_profesion"></div>
+       _            </div>
+                    </div>
 
-                    <div id="tab-laboral-codeudor" class="tab-content codeudor-content">
-                        <h3>Antecedentes Laborales (Codeudor)</h3>
-                        <div class="form-grid">
-                            <div class="input-group"><label for="lab_codeudor_empleador">Empleador</label><input type="text" id="lab_codeudor_empleador" name="lab_codeudor_empleador"></div>
-                            <div class="input-group"><label for="lab_codeudor_rut_empleador">RUT Empleador</label><input type="text" id="lab_codeudor_rut_empleador" name="lab_codeudor_rut_empleador"></div>
-                            <div class="input-group"><label for="lab_codeudor_cargo">Actividad o Cargo</label><input type="text" id="lab_codeudor_cargo" name="lab_codeudor_cargo"></div>
-                            <div class="input-group"><label for="lab_codeudor_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_codeudor_fecha_ingreso" name="lab_codeudor_fecha_ingreso"></div>
-                        </div>
-                    </div>
+   _                <div id="tab-laboral-codeudor" class="tab-content codeudor-content">
+               _        <h3>Antecedentes Laborales (Codeudor)</h3>
+                 _      <div class="form-grid">
+             _            <div class="input-group"><label for="lab_codeudor_empleador">Empleador</label><input type="text" id="lab_codeudor_empleador" name="lab_codeudor_empleador"></div>
+             _            <div class="input-group"><label for="lab_codeudor_rut_empleador">RUT Empleador</label><input type="text" id="lab_codeudor_rut_empleador" name="lab_codeudor_rut_empleador"></div>
+                 _        <div class="input-group"><label for="lab_codeudor_cargo">Actividad o Cargo</label><input type="text" id="lab_codeudor_cargo" name="lab_codeudor_cargo"></div>
+         _                <div class="input-group"><label for="lab_codeudor_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_codeudor_fecha_ingreso" name="lab_codeudor_fecha_ingreso"></div>
+       _            </div>
+                    </div>
 
-                    <div id="tab-activos-codeudor" class="tab-content codeudor-content">
-                        <h3>Antecedentes Financieros (Codeudor)</h3>
-                        <h4>Ingresos Mensuales</h4>
-                        <div class="form-grid">
-                            <div class="input-group"><label for="fin_codeudor_sueldo">Sueldo (Líquido)</label><input type="text" inputmode="numeric" id="fin_codeudor_sueldo" name="fin_codeudor_sueldo" placeholder="Ej: 1500000"></div>
-                            <div class="input-group"><label for="fin_codeudor_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_codeudor_honorarios" name="fin_codeudor_honorarios" placeholder="Promedio de 6 boletas"></div>
-                            <div class="input-group"><label for="fin_codeudor_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_codeudor_retiros" name="fin_codeudor_retiros" placeholder="Si es dueño de empresa"></div>
-                            <div class="input-group"><label for="fin_codeudor_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_codeudor_arriendos" name="fin_codeudor_arriendos"></div>
-                        </div>
-                    </div>
+   _                <div id="tab-activos-codeudor" class="tab-content codeudor-content">
+       _              <h3>Antecedentes Financieros (Codeudor)</h3>
+         _            <h4>Ingresos Mensuales</h4>
+               _      <div class="form-grid">
+           _            <div class="input-group"><label for="fin_codeudor_sueldo">Sueldo (Líquido)</label><input type="text" inputmode="numeric" id="fin_codeudor_sueldo" name="fin_codeudor_sueldo" placeholder="Ej: 1500000"></div>
+     _                  <div class="input-group"><label for="fin_codeudor_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_codeudor_honorarios" name="fin_codeudor_honorarios" placeholder="Promedio de 6 boletas"></div>
+         _              <div class="input-group"><label for="fin_codeudor_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_codeudor_retiros" name="fin_codeudor_retiros" placeholder="Si es dueño de empresa"></div>
+   _                    <div class="input-group"><label for="fin_codeudor_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_codeudor_arriendos" name="fin_codeudor_arriendos"></div>
+           _        </div>
+       _          </div>
 
-                    <div id="tab-pasivos" class="tab-content">
-                        <h3>Antecedentes de Deudas (Pasivos de ambos)</h3>
-                        <p>Informa las deudas principales (tuyas y/o de tu codeudor).</p>
-                        
-                        <h4>Crédito Hipotecario (si tienes)</h4>
-                        <div class="form-grid">
-                            <div class="input-group"><label for="deuda_hip_institucion">Institución</label><input type="text" id="deuda_hip_institucion" name="deuda_hip_institucion" placeholder="Ej: Banco Santander"></div>
-                            <div class="input-group"><label for="deuda_hip_cuota">Cuota Mensual</label><input type="text" inputmode="numeric" id="deuda_hip_cuota" name="deuda_hip_cuota" placeholder="Ej: 450000"></div>
-                            <div class="input-group"><label for="deuda_hip_saldo">Saldo Deuda Total</label><input type="text" inputmode="numeric" id="deuda_hip_saldo" name="deuda_hip_saldo" placeholder="Ej: 50000000"></div>
-                        </div>
-                        <h4 style="margin-top: 20px;">Créditos de Consumo</h4>
-                        <div class="form-grid">
-                            <div class="input-group"><label for="deuda_con1_institucion">Consumo 1: Institución</label><input type="text" id="deuda_con1_institucion" name="deuda_con1_institucion" placeholder="Ej: BCI"></div>
-                            <div class="input-group"><label for="deuda_con1_cuota">Cuota</label><input type="text" inputmode="numeric" id="deuda_con1_cuota" name="deuda_con1_cuota" placeholder="Ej: 150000"></div>
-                            <div class="input-group"><label for="deuda_con1_saldo">Saldo Deuda</label><input type="text" inputmode="numeric" id="deuda_con1_saldo" name="deuda_con1_saldo" placeholder="Ej: 2500000"></div>
-                        </div>
-                        <div class="form-grid" style="margin-top: 10px;">
-                            <div class="input-group"><label for="deuda_con2_institucion">Consumo 2: Institución</label><input type="text" id="deuda_con2_institucion" name="deuda_con2_institucion" placeholder="Ej: Falabella"></div>
-                            <div class="input-group"><label for="deuda_con2_cuota">Cuota</label><input type="text" inputmode="numeric" id="deuda_con2_cuota" name="deuda_con2_cuota"></div>
-                            <div class="input-group"><label for="deuda_con2_saldo">Saldo Deuda</label><input type="text" inputmode="numeric" id="deuda_con2_saldo" name="deuda_con2_saldo"></div>
-                        </div>
-                        <h4 style="margin-top: 20px;">Tarjetas y Líneas de Crédito</h4>
-                         <div class="form-grid">
-                            <div class="input-group"><label for="deuda_tarjeta_total">Cupo Total Utilizado (Tarjetas)</label><input type="text" inputmode="numeric" id="deuda_tarjeta_total" name="deuda_tarjeta_total" placeholder="Suma de todas tus tarjetas"></div>
-                            <div class="input-group"><label for="deuda_linea_total">Cupo Total Utilizado (Líneas de Crédito)</label><input type="text" inputmode="numeric" id="deuda_linea_total" name="deuda_linea_total" placeholder="Suma de todas tus líneas"></div>
-                        </div>
-                    </div>
+         _        <div id="tab-pasivos" class="tab-content">
+   _                <h3>Antecedentes de Deudas (Pasivos de ambos)</h3>
+                 _    <p>Informa las deudas principales (tuyas y/o de tu codeudor).</p>
+       _              
+     _                <h4>Crédito Hipotecario (si tienes)</h4>
+   _                <div class="form-grid">
+       _                <div class="input-group"><label for="deuda_hip_institucion">Institución</label><input type="text" id="deuda_hip_institucion" name="deuda_hip_institucion" placeholder="Ej: Banco Santander"></div>
+                     _    <div class="input-group"><label for="deuda_hip_cuota">Cuota Mensual</label><input type="text" inputmode="numeric" id="deuda_hip_cuota" name="deuda_hip_cuota" placeholder="Ej: 450000"></div>
+     _                  <div class="input-group"><label for="deuda_hip_saldo">Saldo Deuda Total</label><input type="text" inputmode="numeric" id="deuda_hip_saldo" name="deuda_hip_saldo" placeholder="Ej: 50000000"></div>
+           _        </div>
+                        <h4 style="margin-top: 20px;">Créditos de Consumo</h4>
+   _                <div class="form-grid">
+         _              <div class="input-group"><label for="deuda_con1_institucion">Consumo 1: Institución</label><input type="text" id="deuda_con1_institucion" name="deuda_con1_institucion" placeholder="Ej: BCI"></div>
+       _                <div class="input-group"><label for="deuda_con1_cuota">Cuota</label><input type="text" inputmode="numeric" id="deuda_con1_cuota" name="deuda_con1_cuota" placeholder="Ej: 150000"></div>
+   _                    <div class="input-group"><label for="deuda_con1_saldo">Saldo Deuda</label><input type="text" inputmode="numeric" id="deuda_con1_saldo" name="deuda_con1_saldo" placeholder="Ej: 2500000"></div>
+   _              </div>
+               _      <div class="form-grid" style="margin-top: 10px;">
+             _          <div class="input-group"><label for="deuda_con2_institucion">Consumo 2: Institución</label><input type="text" id="deuda_con2_institucion" name="deuda_con2_institucion" placeholder="Ej: Falabella"></div>
+     _                  <div class="input-group"><label for="deuda_con2_cuota">Cuota</label><input type="text" inputmode="numeric" id="deuda_con2_cuota" name="deuda_con2_cuota"></div>
+       _                <div class="input-group"><label for="deuda_con2_saldo">Saldo Deuda</label><input type="text" inputmode="numeric" id="deuda_con2_saldo" name="deuda_con2_saldo"></div>
+     _            </div>
+   _                <h4 style="margin-top: 20px;">Tarjetas y Líneas de Crédito</h4>
+ _                  <div class="form-grid">
+       _                <div class="input-group"><label for="deuda_tarjeta_total">Cupo Total Utilizado (Tarjetas)</label><input type="text" inputmode="numeric" id="deuda_tarjeta_total" name="deuda_tarjeta_total" placeholder="Suma de todas tus tarjetas"></div>
+       _                <div class="input-group"><label for="deuda_linea_total">Cupo Total Utilizado (Líneas de Crédito)</label><input type="text" inputmode="numeric" id="deuda_linea_total" name="deuda_linea_total" placeholder="Suma de todas tus líneas"></div>
+   _              </div>
+       _          </div>
 
-                    <div class="form-navigation-buttons">
-                        <button type="button" class="form-nav-btn secondary" id="btn-form-prev" style="display: none;">&laquo; Anterior</button>
-                        <button type="button" class="form-nav-btn" id="btn-form-next">Siguiente &raquo;</button>
-                        <button type="button" class="form-nav-btn" id="btn-finalizar-formulario" style="display: none;">¡Listo! Ir a Subir Archivos &raquo;</button>
-                    </div>
-                </form>
-            </div>
+     _              <div class="form-navigation-buttons">
+   _                  <button type="button" class="form-nav-btn secondary" id="btn-form-prev" style="display: none;">&laquo; Anterior</button>
+ _                    <button type="button" class="form-nav-btn" id="btn-form-next">Siguiente &raquo;</button>
+           _          <button type="button" class="form-nav-btn" id="btn-finalizar-formulario" style="display: none;">¡Listo! Ir a Subir Archivos &raquo;</button>
+ _                </div>
+       _        </form>
+            </div>
 
-            <div id="paso-3-checklist">
-                <h2>Paso 3: Tu Checklist de Documentos</h2>
-                <p>¡Perfecto! Ya tenemos tus datos. Ahora, basado en tu perfil, solo necesitamos los siguientes archivos:</p>
-                <ul id="checklist-final" class="checklist">
-                    </ul>
-            </div>
+ _          <div id="paso-3-checklist">
+     _          <h2>Paso 3: Tu Checklist de Documentos</h2>
+     _          <p>¡Perfecto! Ya tenemos tus datos. Ahora, basado en tu perfil, solo necesitamos los siguientes archivos:</p>
+   _            <ul id="checklist-final" class="checklist">
+   _                </ul>
+            </div>
 
-            <div id="paso-4-uploader">
-                <h2>Paso 4: Sube tus archivos</h2>
-                <p>Sube aquí todos los documentos de la lista anterior (PDF, JPG, PNG).</p>
-                
-                <form id="uploadForm">
-                    <div class="input-group">
-                        <label for="fileInput">Haz clic aquí o arrastra tus archivos:</label>
-                        <input type="file" id="fileInput" name="files" multiple required>
-                        <div id="fileList" class="file-list"></div>
-                    </div>
-                    
-                    <button type="submit" id="submitButton">Subir Formulario y Archivos</button>
-                    
-                    <div id="loadingMessage" style="display:none;">Subiendo todo... esto puede tardar un minuto.</div>
-                    <div id="successMessage" style="display:none; color: green;">¡Sistema completo! Recibimos tus datos y archivos. Te contactaremos pronto.</div>
-                    <div id="errorMessage" style="display:none; color: red;">Hubo un error. Intenta de nuevo.</div>
-                </form>
-            </div>
-        </div>
-    </div>
+ _          <div id="paso-4-uploader">
+     _          <h2>Paso 4: Sube tus archivos</h2>
+   _            <p>Sube aquí todos los documentos de la lista anterior (PDF, JPG, PNG).</p>
+ _              
+     _          <form id="uploadForm">
+       _            <div class="input-group">
+     _                <label for="fileInput">Haz clic aquí o arrastra tus archivos:</label>
+ _                    <input type="file" id="fileInput" name="files" multiple required>
+   _                  <div id="fileList" class="file-list"></div>
+ _                </div>
+   _                
+                    <button type="submit" id="submitButton">Subir Formulario y Archivos</button>
+       _            
+                    <div id="loadingMessage" style="display:none;">Subiendo todo... esto puede tardar un minuto.</div>
+       _            <div id="successMessage" style="display:none; color: green;">¡Sistema completo! Recibimos tus datos y archivos. Te contactaremos pronto.</div>
+     _              <div id="errorMessage" style="display:none; color: red;">Hubo un error. Intenta de nuevo.</div>
+     _        </form>
+         _  </div>
+        </div>
+ _  </div>
 
-    <script>
-        // ¡¡¡ ATENCIÓN AQUÍ !!!
-        // Pega la URL de tu *segundo* script (el de UPLOAD a Drive)
-        const URL_SCRIPT_UPLOAD = "https://script.google.com/macros/s/AKfycbxO56Ws-bdkEiv-sCQZgnldzxGd-Ve-gVAVX1vSpbOsTiNrIYLVU9IYAOP8jMzH24gc/exec";
+    <script>
+        // ¡¡¡ ATENCIÓN AQUÍ !!!
+ _        // Pega la URL de tu *segundo* script (el de UPLOAD a Drive)
+        const URL_SCRIPT_UPLOAD = "https://script.google.com/macros/s/AKfycbxO56Ws-bdkEiv-sCQZgnldzxGd-Ve-gVAVX1vSpbOsTiNrIYLVU9IYAOP8jMzH24gc/exec";
 
-        // --- B. LÓGICA DE UX (El Asistente v3.2) ---
+   _      // --- B. LÓGICA DE UX (El Asistente v3.2) ---
 
-        // Referencias a los Pasos
-        const paso1 = document.getElementById('paso-1-perfil');
-        const paso2 = document.getElementById('paso-2-formulario');
-        const paso3 = document.getElementById('paso-3-checklist');
-        const paso4 = document.getElementById('paso-4-uploader');
-        
-        // Referencias al Perfil (Paso 1)
-        const radiosPerfil = document.querySelectorAll('input[name="perfilCliente"]');
-        let perfilSeleccionado = "";
+        // Referencias a los Pasos
+        const paso1 = document.getElementById('paso-1-perfil');
+ _        const paso2 = document.getElementById('paso-2-formulario');
+        const paso3 = document.getElementById('paso-3-checklist');
+        const paso4 = document.getElementById('paso-4-uploader');
+     _    
+        // Referencias al Perfil (Paso 1)
+        const radiosPerfil = document.querySelectorAll('input[name="perfilCliente"]');
+        let perfilSeleccionado = "";
 
-        // Referencias al Formulario (Paso 2)
-        const eessForm = document.getElementById('eessForm');
-        let tabs = []; // Array de contenidos de pestaña (se calcula dinámicamente)
-        let tabNavButtons = []; // Array de botones de pestaña (se calcula dinámicamente)
-        const btnPrev = document.getElementById('btn-form-prev');
-        const btnNext = document.getElementById('btn-form-next');
-        const btnFinalizar = document.getElementById('btn-finalizar-formulario');
-        let currentTab = 0;
-        
-        // Referencias al Switch de Codeudor
-        const radiosCodeudor = document.querySelectorAll('input[name="complementa_renta"]');
-        const codeudorTabs = document.querySelectorAll('.codeudor-tab');
-        const codeudorContents = document.querySelectorAll('.codeudor-content');
+ _        // Referencias al Formulario (Paso 2)
+        const eessForm = document.getElementById('eessForm');
+        let tabs = []; // Array de contenidos de pestaña (se calcula dinámicamente)
+ _        let tabNavButtons = []; // Array de botones de pestaña (se calcula dinámicamente)
+        const btnPrev = document.getElementById('btn-form-prev');
+        const btnNext = document.getElementById('btn-form-next');
+        const btnFinalizar = document.getElementById('btn-finalizar-formulario');
+        let currentTab = 0;
+        
+        // Referencias al Switch de Codeudor
+        const radiosCodeudor = document.querySelectorAll('input[name="complementa_renta"]');
+        const codeudorTabs = document.querySelectorAll('.codeudor-tab');
+        const codeudorContents = document.querySelectorAll('.codeudor-content');
 
-        // Referencias al Checklist (Paso 3)
-        const checklistFinal = document.getElementById('checklist-final');
-        const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf"; // El PDF que subiste
-        // ¡¡¡ ATENCIÓN AQUÍ !!!
-        // Reemplaza 'LINK_A_TU_DICOM' por el link de Equifax/Destacame/etc.
-        const LINK_DICOM = "https://www.equifax.cl/ecfx/informe-comercial/dicom-platinum-360"; 
+        // Referencias al Checklist (Paso 3)
+        const checklistFinal = document.getElementById('checklist-final');
+        const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf"; // El PDF que subiste
+        // ¡¡¡ ATENCIÓN AQUÍ !!!
+        // Reemplaza 'LINK_A_TU_DICOM' por el link de Equifax/Destacame/etc.
+        const LINK_DICOM = "https://www.equifax.cl/ecfx/informe-comercial/dicom-platinum-360"; 
 
-        
-        // Listas de Documentos (Basadas 100% en tus fotos)
-        const documentosComunes = [
-            { nombre: "Informe de Deudas CMF", ayuda: TUTORIAL_DEUDA_URL, tipo: "tutorial", textoAyuda: "[Ver Tutorial]" },
-            { nombre: "Informe DICOM Platinum 360", ayuda: LINK_DICOM, tipo: "tutorial", textoAyuda: "[Obtener Aquí]" }
-        ];
+        
+    D    // Listas de Documentos (Basadas 100% en tus fotos)
+        const documentosComunes = [
+            { nombre: "Informe de Deudas CMF", ayuda: TUTORIAL_DEUDA_URL, tipo: "tutorial", textoAyuda: "[Ver Tutorial]" },
+            { nombre: "Informe DICOM Platinum 360", ayuda: LINK_DICOM, tipo: "tutorial", textoAyuda: "[Obtener Aquí]" }
+        ];
 
-        const documentosDependiente = [
-            { nombre: "Cédula de Identidad (ambos lados)" },
-            { nombre: "6 últimas liquidaciones de sueldo" },
-            { nombre: "12 últimas cotizaciones de AFP" },
-            { nombre: "Certificado de antigüedad laboral (o Contrato)" },
-            { nombre: "Certificado de Matrimonio / AUC (si aplica)" }
-        ];
+        const documentosDependiente = [
+            { nombre: "Cédula de Identidad (ambos lados)" },
+            { nombre: "6 últimas liquidaciones de sueldo" },
+            { nombre: "12 últimas cotizaciones de AFP" },
+            { nombre: "Certificado de antigüedad laboral (o Contrato)" },
+            { nombre: "Certificado de Matrimonio / AUC (si aplica)" }
+D        ];
 
-        const documentosIndependiente = [
-            { nombre: "Cédula de Identidad (ambos lados)" },
-            { nombre: "Formulario 22 (Declaración Renta 2 últimos años)" },
-            { nombre: "Resumen Boletas de Honorarios (2 últimos años)" },
-            { nombre: "6 últimos Pagos Provisionales (F29)" },
-            { nombre: "Iniciación de Actividades (SII)" }
-        ];
+        const documentosIndependiente = [
+            { nombre: "Cédula de Identidad (ambos lados)" },
+            { nombre: "Formulario 22 (Declaración Renta 2 últimos años)" },
+            { nombre: "Resumen Boletas de Honorarios (2 últimos años)" },
+            { nombre: "6 últimos Pagos Provisionales (F29)" },
+D            { nombre: "Iniciación de Actividades (SII)" }
+        ];
 
-        const documentosEmpresa = [
-            { nombre: "Cédula de Identidad (Rep. Legal)" },
-            { nombre: "RUT de la Empresa" },
-            { nombre: "Escritura de la Sociedad (y modificaciones)" },
-            { nombre: "Vigencia de Poderes (Rep. Legal)" },
-            { nombre: "Nómina de Accionistas (si aplica)" },
-            { nombre: "2 últimos Balances (Contador)" },
-            { nombre: "12 últimos IVAs (F29)" },
-            { nombre: "Carpeta Tributaria (SII)" }
-        ];
+        const documentosEmpresa = [
+            { nombre: "Cédula de Identidad (Rep. Legal)" },
+   _        { nombre: "RUT de la Empresa" },
+            { nombre: "Escritura de la Sociedad (y modificaciones)" },
+            { nombre: "Vigencia de Poderes (Rep. Legal)" },
+       _    { nombre: "Nómina de Accionistas (si aplica)" },
+            { nombre: "2 últimos Balances (Contador)" },
+            { nombre: "12 últimos IVAs (F29)" },
+   _        { nombre: "Carpeta Tributaria (SII)" }
+        ];
 
-        
-        // --- CEREBRO PASO 1: Selección de Perfil ---
-        radiosPerfil.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                perfilSeleccionado = e.target.value;
-                paso2.style.display = 'block';
-                // Reiniciamos y recalculamos las pestañas
-                actualizarTabsVisibles();
-                validarFormulario();
-            });
-        });
+     _    
+        // --- CEREBRO PASO 1: Selección de Perfil ---
+ _        radiosPerfil.forEach(radio => {
+   _          radio.addEventListener('change', (e) => {
+       _          perfilSeleccionado = e.target.value;
+   _                paso2.style.display = 'block';
+           _      // Reiniciamos y recalculamos las pestañas
+                    actualizarTabsVisibles();
+   _                validarFormulario();
+ _            });
+        });
 
-        // --- CEREBRO PASO 2 (Parte A): Lógica del Codeudor ---
-        radiosCodeudor.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                const showCodeudor = e.target.value === 'si';
-                
-                codeudorTabs.forEach(tab => tab.style.display = showCodeudor ? 'inline-block' : 'none');
-                codeudorContents.forEach(content => {
-                    // Marcar campos de codeudor como requeridos o no
-                    content.querySelectorAll('input, select').forEach(input => {
-                        input.required = showCodeudor;
-                    });
-                });
-                
-                // Recalculamos las pestañas visibles y reseteamos
-                actualizarTabsVisibles();
-                validarFormulario();
-            });
-        });
+        // --- CEREBRO PASO 2 (Parte A): Lógica del Codeudor ---
+   _      radiosCodeudor.forEach(radio => {
+     _        radio.addEventListener('change', (e) => {
+ _                const showCodeudor = e.target.value === 'si';
+ _                
+           _      codeudorTabs.forEach(tab => tab.style.display = showCodeudor ? 'inline-block' : 'none');
+ _                codeudorContents.forEach(content => {
+   _                    // Marcar campos de codeudor como requeridos o no
+     _                  content.querySelectorAll('input, select').forEach(input => {
+ _                          input.required = showCodeudor;
+   _                    });
+   _                });
+ _                
+             _      // Recalculamos las pestañas visibles y reseteamos
+     _                actualizarTabsVisibles();
+ _                    validarFormulario();
+           _  });
+        });
 
-        // --- CEREBRO PASO 2 (Parte B): Navegación y Validación de Pestañas ---
-        
-        // Función para recalcular qué pestañas están visibles
-        function actualizarTabsVisibles() {
-            tabs = Array.from(document.querySelectorAll('.tab-content')).filter(tab => tab.offsetParent !== null);
-            tabNavButtons = Array.from(document.querySelectorAll('.tab-nav-button')).filter(btn => btn.offsetParent !== null);
-            currentTab = 0; // Siempre reseteamos a la primera pestaña
-            showTab(currentTab);
-        }
+ _        // --- CEREBRO PASO 2 (Parte B): Navegación y Validación de Pestañas ---
+ _        
+ _        // Función para recalcular qué pestañas están visibles
+        function actualizarTabsVisibles() {
+            tabs = Array.from(document.querySelectorAll('.tab-content')).filter(tab => tab.offsetParent !== null);
+            tabNavButtons = Array.from(document.querySelectorAll('.tab-nav-button')).filter(btn => btn.offsetParent !== null);
+            currentTab = 0; // Siempre reseteamos a la primera pestaña
+            showTab(currentTab);
+        }
 
-        function showTab(tabIndex) {
-            // Ocultamos todos los contenidos
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            // Ocultamos todos los botones
-            document.querySelectorAll('.tab-nav-button').forEach(btn => btn.classList.remove('active'));
-            
-            // Mostramos los correctos (basado en el array recalculado)
-            tabs[tabIndex].classList.add('active');
-            tabNavButtons[tabIndex].classList.add('active');
+        function showTab(tabIndex) {
+            // Ocultamos todos los contenidos
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            // Ocultamos todos los botones
+            document.querySelectorAll('.tab-nav-button').forEach(btn => btn.classList.remove('active'));
+            
+            // Mostramos los correctos (basado en el array recalculado)
+            tabs[tabIndex].classList.add('active');
+            tabNavButtons[tabIndex].classList.add('active');
 
-            // Lógica de botones de navegación
-            btnPrev.style.display = (tabIndex === 0) ? 'none' : 'inline-block';
-            btnNext.style.display = (tabIndex === tabs.length - 1) ? 'none' : 'inline-block';
-            btnFinalizar.style.display = (tabIndex === tabs.length - 1) ? 'inline-block' : 'none';
-            
-            validarFormulario(); // Validar al cambiar de pestaña
-        }
+            // Lógica de botones de navegación
+    m        btnPrev.style.display = (tabIndex === 0) ? 'none' : 'inline-block';
+            btnNext.style.display = (tabIndex === tabs.length - 1) ? 'none' : 'inline-block';
+            btnFinalizar.style.display = (tabIndex === tabs.length - 1) ? 'inline-block' : 'none';
+            
+            validarFormulario(); // Validar al cambiar de pestaña
+        }
 
-        // Delegamos los clics de los botones de pestañas (ya que el array cambia)
-        document.querySelector('.tab-navigation').addEventListener('click', (e) => {
-            if (e.target.classList.contains('tab-nav-button')) {
-                currentTab = Array.from(tabNavButtons).indexOf(e.target);
-                showTab(currentTab);
-            }
-        });
+        // Delegamos los clics de los botones de pestañas (ya que el array cambia)
+        document.querySelector('.tab-navigation').addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab-nav-button')) {
+                currentTab = Array.from(tabNavButtons).indexOf(e.target);
+                showTab(currentTab);
+            }
+        });
 
-        btnNext.addEventListener('click', () => {
-            if (currentTab < tabs.length - 1) {
-                currentTab++;
-                showTab(currentTab);
-            }
-        });
+        btnNext.addEventListener('click', () => {
+            if (currentTab < tabs.length - 1) {
+                currentTab++;
+                showTab(currentTab);
+            }
+        });
 
-        btnPrev.addEventListener('click', () => {
-            if (currentTab > 0) {
-                currentTab--;
-                showTab(currentTab);
-            }
-        });
+        btnPrev.addEventListener('click', () => {
+            if (currentTab > 0) {
+                currentTab--;
+                showTab(currentTab);
+            }
+        });
 
-        // La nueva Validación
-        eessForm.addEventListener('input', validarFormulario); // Validar mientras el usuario escribe
+        // La nueva Validación
+        eessForm.addEventListener('input', validarFormulario); // Validar mientras el usuario escribe
 
-        function validarFormulario() {
-            let formValido = true;
-            
-            // 1. Validar campos básicos del titular (los marcados como 'required')
-            document.querySelectorAll('#tab-titular input[required], #tab-titular select[required]').forEach(input => {
-                if (!input.value) formValido = false;
-            });
-            
-            // 2. Validar campos de ingreso principal según perfil
-            if (perfilSeleccionado === 'dependiente' && !document.getElementById('fin_titular_sueldo').value) formValido = false;
-            if (perfilSeleccionado === 'independiente' && !document.getElementById('fin_titular_honorarios').value) formValido = false;
-            if (perfilSeleccionado === 'empresa' && !document.getElementById('fin_titular_retiros').value) formValido = false;
+        function validarFormulario() {
+            let formValido = true;
+            
+            // 1. Validar campos básicos del titular (los marcados como 'required')
+C            document.querySelectorAll('#tab-titular input[required], #tab-titular select[required]').forEach(input => {
+                if (!input.value) formValido = false;
+            });
+            
+            // 2. Validar campos de ingreso principal según perfil
+            if (perfilSeleccionado === 'dependiente' && !document.getElementById('fin_titular_sueldo').value) formValido = false;
+A            if (perfilSeleccionado === 'independiente' && !document.getElementById('fin_titular_honorarios').value) formValido = false;
+            if (perfilSeleccionado === 'empresa' && !document.getElementById('fin_titular_retiros').value) formValido = false;
 
-            // 3. Validar campos de codeudor (si está visible)
-            if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
-                document.querySelectorAll('.codeudor-content input[required], .codeudor-content select[required]').forEach(input => {
-                    if (!input.value) formValido = false;
-                });
-                
-                // Asumimos que el codeudor debe tener al menos un ingreso
-                const codeudorIngresos = document.getElementById('fin_codeudor_sueldo').value || document.getElementById('fin_codeudor_honorarios').value || document.getElementById('fin_codeudor_retiros').value;
-                if (!codeudorIngresos) formValido = false;
-            }
+  C        // 3. Validar campos de codeudor (si está visible)
+            if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
+                document.querySelectorAll('.codeudor-content input[required], .codeudor-content select[required]').forEach(input => {
+         _        if (!input.value) formValido = false;
+     _          });
+                
+   _              // Asumimos que el codeudor debe tener al menos un ingreso
+       _        const codeudorIngresos = document.getElementById('fin_codeudor_sueldo').value || document.getElementById('fin_codeudor_honorarios').value || document.getElementById('fin_codeudor_retiros').value;
+                if (!codeudorIngresos) formValido = false;
+            }
 
-            // Habilitamos o deshabilitamos el botón final
-            btnFinalizar.disabled = !formValido;
-        }
+            // Habilitamos o deshabilitamos el botón final
+L            btnFinalizar.disabled = !formValido;
+        }
 
-        // --- CEREBRO PASO 3: Finalizar Formulario y Mostrar Checklist ---
-        btnFinalizar.addEventListener('click', () => {
-            if (btnFinalizar.disabled) return; // No hacer nada si está deshabilitado
+        // --- CEREBRO PASO 3: Finalizar Formulario y Mostrar Checklist ---
+        btnFinalizar.addEventListener('click', () => {
+            if (btnFinalizar.disabled) return; // No hacer nada si está deshabilitado
 
-            paso2.style.display = 'none';
-            // Generamos el checklist basado en el perfil Y si hay codeudor
-            generarChecklist(perfilSeleccionado, document.querySelector('input[name="complementa_renta"]:checked').value === 'si');
-            paso3.style.display = 'block';
-            paso4.style.display = 'block';
-        });
+            paso2.style.display = 'none';
+            // Generamos el checklist basado en el perfil Y si hay codeudor
+            generarChecklist(perfilSeleccionado, document.querySelector('input[name="complementa_renta"]:checked').value === 'si');
+            paso3.style.display = 'block';
+            paso4.style.display = 'block';
+        });
 
-        function generarChecklist(perfil, hayCodeudor) {
-            let listaAMostrar = [];
-            
-            // El perfil "Empresa" tiene sus propias reglas
-            if (perfil === 'empresa') {
-                listaAMostrar = [...documentosComunes, ...documentosEmpresa];
-            } else {
-                // Perfil Dependiente o Independiente
-                listaAMostrar = (perfil === 'dependiente') ? 
-                    [...documentosComunes, ...documentosDependiente] : 
-                    [...documentosComunes, ...documentosIndependiente];
-                
-                // Si hay codeudor, duplicamos la lista de documentos para él
-                if (hayCodeudor) {
-                    // ¡Simplificación! Asumimos que el codeudor es Dependiente
-                    // Podríamos añadir un selector de perfil para el codeudor, ¡pero eso es v3.3!
-                    const listaCodeudor = [
-                        { nombre: "--- DOCUMENTOS CODEUDOR (Dependiente) ---" },
-                        ...documentosDependiente
-                    ];
-                    listaAMostrar = [...listaAMostrar, ...listaCodeudor];
-                }
-            }
-            
-            checklistFinal.innerHTML = ''; // Limpiamos la lista
-            listaAMostrar.forEach(doc => {
-                let linkAyuda = "";
-                if (doc.ayuda) {
-                    const target = doc.tipo === 'tutorial' ? 'target="_blank"' : 'download';
-                    linkAyuda = `<a href="${doc.ayuda}" class="doc-help" ${target}>${doc.textoAyuda}</a>`;
-                }
-                checklistFinal.innerHTML += `<li><strong>${doc.nombre}</strong> ${linkAyuda}</li>`;
-            });
-        }
+        function generarChecklist(perfil, hayCodeudor) {
+            let listaAMostrar = [];
+            
+            // El perfil "Empresa" tiene sus propias reglas
+            if (perfil === 'empresa') {
+                listaAMostrar = [...documentosComunes, ...documentosEmpresa];
+s          } else {
+                // Perfil Dependiente o Independiente
+                listaAMostrar = (perfil === 'dependiente') ? 
+A                    [...documentosComunes, ...documentosDependiente] : 
+                    [...documentosComunes, ...documentosIndependiente];
+                
+         _      // Si hay codeudor, duplicamos la lista de documentos para él
+ _              if (hayCodeudor) {
+       _            // ¡Simplificación! Asumimos que el codeudor es Dependiente
+ _                    // Podríamos añadir un selector de perfil para el codeudor, ¡pero eso es v3.3!
+         _          const listaCodeudor = [
+   _                        { nombre: "--- DOCUMENTOS CODEUDOR (Dependiente) ---" },
+   _                        ...documentosDependiente
+       _              ];
+     _                  listaAMostrar = [...listaAMostrar, ...listaCodeudor];
+         _      }
+       _    }
+           _  
+         _  checklistFinal.innerHTML = ''; // Limpiamos la lista
+     _        listaAMostrar.forEach(doc => {
+   _              let linkAyuda = "";
+ _                if (doc.ayuda) {
+ _                    const target = doc.tipo === 'tutorial' ? 'target="_blank"' : 'download';
+ _    M                linkAyuda = `<a href="${doc.ayuda}" class="doc-help" ${target}>${doc.textoAyuda}</a>`;
+ _                }
+ _                checklistFinal.innerHTML += `<li><strong>${doc.nombre}</strong> ${linkAyuda}</li>`;
+ _            });
+        }
 
 
-        // --- CEREBRO PASO 4: LÓGICA DE UPLOAD (MODIFICADA) ---
-        
-        const uploadForm = document.getElementById('uploadForm');
-        const fileInput = document.getElementById('fileInput');
-        const fileList = document.getElementById('fileList');
-        const submitButton = document.getElementById('submitButton');
-        const loadingMessage = document.getElementById('loadingMessage');
-        const successMessage = document.getElementById('successMessage');
-        const errorMessage = document.getElementById('errorMessage');
+   _      // --- CEREBRO PASO 4: LÓGICA DE UPLOAD (MODIFICADA) ---
+ _        
+        const uploadForm = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+   _      const submitButton = document.getElementById('submitButton');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const successMessage = document.getElementById('successMessage');
+   _      const errorMessage = document.getElementById('errorMessage');
 
-        fileInput.addEventListener('change', () => {
-            fileList.innerHTML = '';
-            for (const file of fileInput.files) {
-                fileList.innerHTML += `<div>${file.name}</div>`;
-            }
-        });
+        fileInput.addEventListener('change', () => {
+            fileList.innerHTML = '';
+       _    for (const file of fileInput.files) {
+                fileList.innerHTML += `<div>${file.name}</div>`;
+         _  }
+        });
 
-        uploadForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitButton.disabled = true;
-            loadingMessage.style.display = 'block';
-            successMessage.style.display = 'none';
-            errorMessage.style.display = 'none';
+   _      uploadForm.addEventListener('submit', function(e) {
+ _          e.preventDefault();
+   _          submitButton.disabled = true;
+   _          loadingMessage.style.display = 'block';
+   _          successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
 
-            const params = new URLSearchParams(window.location.search);
-            const email = params.get('email');
-            if (!email) {
-                errorMessage.innerText = "Error: No se encontró ID de cliente. El link parece estar roto.";
-                errorMessage.style.display = 'block';
-                loadingMessage.style.display = 'none';
-                return;
-            }
+   _          const params = new URLSearchParams(window.location.search);
+   _          const email = params.get('email');
+ _            if (!email) {
+     _            errorMessage.innerText = "Error: No se encontró ID de cliente. El link parece estar roto.";
+   _              errorMessage.style.display = 'block';
+   _              loadingMessage.style.display = 'none';
+ _                return;
+     _      }
 
-            const formData = new FormData(eessForm);
-            const eessData = {};
-            for (let [key, value] of formData.entries()) {
-                if (value) { eessData[key] = value; }
-            }
+   _          const formData = new FormData(eessForm);
+            const eessData = {};
+       _    for (let [key, value] of formData.entries()) {
+ _              if (value) { eessData[key] = value; }
+   _        }
 
-            const files = fileInput.files;
-            const fileReaders = [];
-            let filesArray = [];
+ _            const files = fileInput.files;
+     _        const fileReaders = [];
+   _          let filesArray = [];
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-                fileReaders.push(new Promise((resolve, reject) => {
-                    reader.onload = () => {
-                        const base64Data = reader.result.split(',')[1];
-                        filesArray.push({ fileName: file.name, mimeType: file.type, data: base64Data });
-                        resolve();
-                    };
-                    reader.onerror = reject;
-                    reader.readAsDataURL(file);
-                }));
-            }
+ _            for (let i = 0; i < files.length; i++) {
+ _                const file = files[i];
+   _              const reader = new FileReader();
+s                fileReaders.push(new Promise((resolve, reject) => {
+   _                    reader.onload = () => {
+     _                      const base64Data = reader.result.split(',')[1];
+   _                        filesArray.push({ fileName: file.name, mimeType: file.type, data: base64Data });
+         _                  resolve();
+   _          _         };
+       _                reader.onerror = reject;
+ _                    reader.readAsDataURL(file);
+         _        }));
+ _            }
 
-            Promise.all(fileReaders)
-                .then(() => {
-                    const payload = {
-                        email: email,
-                        perfil: perfilSeleccionado,
-                        formData: eessData, 
-                        files: filesArray      
-                    };
+   _          Promise.all(fileReaders)
+ _                .then(() => {
+     _                  const payload = {
+   _                        email: email,
+     _                      perfil: perfilSeleccionado,
+ _                          formData: eessData, 
+       _                    files: filesArray      
+ _                    };
 
-                    fetch(URL_SCRIPT_UPLOAD, {
-                        method: 'POST',
-                        body: JSON.stringify(payload),
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            loadingMessage.style.display = 'none';
-                            successMessage.style.display = 'block';
-                            uploadForm.reset();
-                            fileList.innerHTML = '';
-                            paso3.style.display = 'none';
-                            paso4.style.display = 'none';
-                            paso1.innerHTML = "<h2>¡Sistema completo!</h2><p>Recibimos tus datos y archivos. Gracias por tu tiempo, te contactaremos a la brevedad.</p>";
-                        } else { throw new Error(data.message); }
-                    })
-                    .catch(error => {
-                        errorMessage.innerText = "Error al subir los archivos: " + error.message;
-                        errorMessage.style.display = 'block';
-                        loadingMessage.style.display = 'none';
-                        submitButton.disabled = false;
-                    });
-                })
-                .catch(error => {
-                    errorMessage.innerText = "Error al leer los archivos locales.";
-                    errorMessage.style.display = 'block';
-                    loadingMessage.style.display = 'none';
-                    submitButton.disabled = false;
-                });
-        });
+   _                    fetch(URL_SCRIPT_UPLOAD, {
+     _              _      method: 'POST',
+       _                    body: JSON.stringify(payload),
+Do                      headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+       _              })
+ _                    .then(response => response.json())
+             _        .then(data => {
+     _                    if (data.status === 'success') {
+   _                          loadingMessage.style.display = 'none';
+     _                        successMessage.style.display = 'block';
+   _                          uploadForm.reset();
+ _                            fileList.innerHTML = '';
+ _                            paso3.style.display = 'none';
+     _                        paso4.style.display = 'none';
+ _                            paso1.innerHTML = "<h2>¡Sistema completo!</h2><p>Recibimos tus datos y archivos. Gracias por tu tiempo, te contactaremos a la brevedad.</p>";
+ _                        } else { throw new Error(data.message); }
+           _          })
+ _                    .catch(error => {
+     _                    errorMessage.innerText = "Error al subir los archivos: " + error.message;
+   _                      errorMessage.style.display = 'block';
+   _                      loadingMessage.style.display = 'none';
+ _                        submitButton.disabled = false;
+     _                });
+   _              })
+   _              .catch(error => {
+s                  errorMessage.innerText = "Error al leer los archivos locales.";
+   _      _           errorMessage.style.display = 'block';
+     _                loadingMessage.style.display = 'none';
+   _                  submitButton.disabled = false;
+     _          });
+   _      });
 
-        // Iniciar en el primer tab
-        actualizarTabsVisibles();
-        // Validar el formulario al cargar
-        validarFormulario();
+   _        // Iniciar en el primer tab
+        actualizarTabsVisibles();
+ _        // Validar el formulario al cargar
+        validarFormulario();
 
-    </script>
+    </script>
 
 </body>
 </html>

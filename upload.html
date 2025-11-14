@@ -137,7 +137,7 @@
                 <form id="eessForm">
                     <div class="tab-navigation">
                         <button type="button" class="tab-nav-button active" data-tab="tab-titular">1. Titular</button>
-                        <button type="button" class="tab-nav-button" data-tab="tab-laboral-titular">2. Laboral (Titular)</button>
+                        <button type="button" class="tab-nav-button" data-tab="tab-laboral-titular" id="tab-nav-laboral-titular">2. Laboral (Titular)</button>
                         <button type="button" class="tab-nav-button" data-tab="tab-activos-titular">3. Activos (Titular)</button>
                         <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-codeudor">4. Codeudor</button>
                         <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-laboral-codeudor">5. Laboral (Codeudor)</button>
@@ -149,11 +149,26 @@
                         <h3>Datos del Titular</h3>
                         <div class="form-grid">
                             <div class="input-group"><label for="titular_nombre">Nombre Completo</label><input type="text" id="titular_nombre" name="titular_nombre" required></div>
-                            <div class="input-group"><label for="titular_rut">RUT</label><input type="text" id="titular_rut" name="titular_rut" placeholder="Ej: 12345678-9" required></div>
+                            <div class="input-group"><label for="titular_rut">RUT</label><input type="text" id="titular_rut" name="titular_rut" placeholder="Ej: 12.345.678-9" required oninput="formatearRUT(this)"></div>
                             <div class="input-group"><label for="titular_email">Email</label><input type="email" id="titular_email" name="titular_email" required></div>
                             <div class="input-group"><label for="titular_telefono">Teléfono</label><input type="tel" id="titular_telefono" name="titular_telefono" placeholder="Ej: +56912345678" required></div>
                             <div class="input-group"><label for="titular_fecha_nac">Fecha Nacimiento</label><input type="date" id="titular_fecha_nac" name="titular_fecha_nac"></div>
-                            <div class="input-group"><label for="titular_nacionalidad">Nacionalidad</label><input type="text" id="titular_nacionalidad" name="titular_nacionalidad"></div>
+                            
+                            <div class="input-group"><label for="titular_nacionalidad">Nacionalidad</label>
+                                <select id="titular_nacionalidad" name="titular_nacionalidad">
+                                    <option value="">Selecciona...</option>
+                                    <option value="Chilena">Chilena</option>
+                                    <option value="Peruana">Peruana</option>
+                                    <option value="Venezolana">Venezolana</option>
+                                    <option value="Colombiana">Colombiana</option>
+                                    <option value="Argentina">Argentina</option>
+                                    <option value="Boliviana">Boliviana</option>
+                                    <option value="Ecuatoriana">Ecuatoriana</option>
+                                    <option value="Haitiana">Haitiana</option>
+                                    <option value="Otra">Otra</option>
+                                </select>
+                            </div>
+
                             <div class="input-group"><label for="titular_estado_civil">Estado Civil</label>
                                 <select id="titular_estado_civil" name="titular_estado_civil">
                                     <option value="">Selecciona...</option>
@@ -174,7 +189,14 @@
                                 </select>
                             </div>
                             <div class="input-group"><label for="titular_domicilio">Domicilio Particular</label><input type="text" id="titular_domicilio" name="titular_domicilio"></div>
-                            <div class="input-group"><label for="titular_comuna">Comuna</label><input type="text" id="titular_comuna" name="titular_comuna"></div>
+                            
+                            <div class="input-group"><label for="titular_region">Región</label>
+                                <select id="titular_region" name="titular_region"></select>
+                            </div>
+                            <div class="input-group"><label for="titular_comuna">Comuna</label>
+                                <select id="titular_comuna" name="titular_comuna"></select>
+                            </div>
+
                             <div class="input-group"><label for="titular_profesion">Profesión</label><input type="text" id="titular_profesion" name="titular_profesion"></div>
                         </div>
                         <hr style="margin: 20px 0;">
@@ -187,10 +209,10 @@
                     </div>
 
                     <div id="tab-laboral-titular" class="tab-content">
-                        <h3>Antecedentes Laborales (Titular)</h3>
+                        <h3 id="titulo-laboral-titular">Antecedentes Laborales (Titular)</h3>
                         <div class="form-grid">
                             <div class="input-group"><label for="lab_titular_empleador">Empleador</label><input type="text" id="lab_titular_empleador" name="lab_titular_empleador"></div>
-                            <div class="input-group"><label for="lab_titular_rut_empleador">RUT Empleador</label><input type="text" id="lab_titular_rut_empleador" name="lab_titular_rut_empleador" placeholder="Ej: 76123456-7"></div>
+                            <div class="input-group"><label for="lab_titular_rut_empleador">RUT Empleador</label><input type="text" id="lab_titular_rut_empleador" name="lab_titular_rut_empleador" placeholder="Ej: 76.123.456-7" oninput="formatearRUT(this)"></div>
                             <div class="input-group"><label for="lab_titular_cargo">Actividad o Cargo</label><input type="text" id="lab_titular_cargo" name="lab_titular_cargo"></div>
                             <div class="input-group"><label for="lab_titular_telefono">Teléfono Laboral</label><input type="tel" id="lab_titular_telefono" name="lab_titular_telefono"></div>
                             <div class="input-group"><label for="lab_titular_direccion">Dirección Laboral</label><input type="text" id="lab_titular_direccion" name="lab_titular_direccion"></div>
@@ -219,7 +241,7 @@
                         <h3>Datos del Codeudor</h3>
                         <div class="form-grid">
                             <div class="input-group"><label for="codeudor_nombre">Nombre Completo</label><input type="text" id="codeudor_nombre" name="codeudor_nombre"></div>
-                            <div class="input-group"><label for="codeudor_rut">RUT</label><input type="text" id="codeudor_rut" name="codeudor_rut" placeholder="Ej: 12345678-9"></div>
+                            <div class="input-group"><label for="codeudor_rut">RUT</label><input type="text" id="codeudor_rut" name="codeudor_rut" placeholder="Ej: 12.345.678-9" oninput="formatearRUT(this)"></div>
                             <div class="input-group"><label for="codeudor_email">Email</label><input type="email" id="codeudor_email" name="codeudor_email"></div>
                             <div class="input-group"><label for="codeudor_telefono">Teléfono</label><input type="tel" id="codeudor_telefono" name="codeudor_telefono"></div>
                             <div class="input-group"><label for="codeudor_fecha_nac">Fecha Nacimiento</label><input type="date" id="codeudor_fecha_nac" name="codeudor_fecha_nac"></div>
@@ -231,7 +253,7 @@
                         <h3>Antecedentes Laborales (Codeudor)</h3>
                         <div class="form-grid">
                             <div class="input-group"><label for="lab_codeudor_empleador">Empleador</label><input type="text" id="lab_codeudor_empleador" name="lab_codeudor_empleador"></div>
-                            <div class="input-group"><label for="lab_codeudor_rut_empleador">RUT Empleador</label><input type="text" id="lab_codeudor_rut_empleador" name="lab_codeudor_rut_empleador"></div>
+                            <div class="input-group"><label for="lab_codeudor_rut_empleador">RUT Empleador</label><input type="text" id="lab_codeudor_rut_empleador" name="lab_codeudor_rut_empleador" oninput="formatearRUT(this)"></div>
                             <div class="input-group"><label for="lab_codeudor_cargo">Actividad o Cargo</label><input type="text" id="lab_codeudor_cargo" name="lab_codeudor_cargo"></div>
                             <div class="input-group"><label for="lab_codeudor_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_codeudor_fecha_ingreso" name="lab_codeudor_fecha_ingreso"></div>
                         </div>
@@ -317,7 +339,29 @@
         // Pega la URL de tu *segundo* script (el de UPLOAD a Drive)
         const URL_SCRIPT_UPLOAD = "https://script.google.com/macros/s/AKfycbxO56Ws-bdkEiv-sCQZgnldzxGd-Ve-gVAVX1vSpbOsTiNrIYLVU9IYAOP8jMzH24gc/exec";
 
-        // --- B. LÓGICA DE UX (El Asistente v3.2) ---
+        // --- B. LÓGICA DE UX (El Asistente v3.3) ---
+
+        // ¡NUEVO! Datos para Regiones y Comunas
+        const regionesYComunas = {
+            "regiones": [
+                {"nombre": "Arica y Parinacota", "comunas": ["Arica", "Camarones", "Putre", "General Lagos"]},
+                {"nombre": "Tarapacá", "comunas": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"]},
+                {"nombre": "Antofagasta", "comunas": ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"]},
+                {"nombre": "Atacama", "comunas": ["Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"]},
+                {"nombre": "Coquimbo", "comunas": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"]},
+                {"nombre": "Valparaíso", "comunas": ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana"]},
+                {"nombre": "Metropolitana de Santiago", "comunas": ["Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"]},
+                {"nombre": "O'Higgins", "comunas": ["Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"]},
+                {"nombre": "Maule", "comunas": ["Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas"]},
+                {"nombre": "Ñuble", "comunas": ["Chillán", "Bulnes", "Chillán Viejo", "El Carmen", "Pemuco", "Pinto", "Quillón", "San Ignacio", "Yungay", "Quirihue", "Cobquecura", "Coelemu", "Ninhue", "Portezuelo", "Ránquil", "Treguaco", "San Carlos", "Coihueco", "Ñiquén", "San Fabián", "San Nicolás"]},
+                {"nombre": "Biobío", "comunas": ["Concepción", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío"]},
+                {"nombre": "La Araucanía", "comunas": ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria"]},
+                {"nombre": "Los Ríos", "comunas": ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno"]},
+                {"nombre": "Los Lagos", "comunas": ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena"]},
+                {"nombre": "Aysén", "comunas": ["Coyhaique", "Lago Verde", "Aysén", "Cisnes", "Guaitecas", "Cochrane", "O'Higgins", "Tortel", "Chile Chico", "Río Ibáñez"]},
+                {"nombre": "Magallanes", "comunas": ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos (Ex Navarino)", "Antártica", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine"]}
+            ]
+        };
 
         // Referencias a los Pasos
         const paso1 = document.getElementById('paso-1-perfil');
@@ -328,6 +372,9 @@
         // Referencias al Perfil (Paso 1)
         const radiosPerfil = document.querySelectorAll('input[name="perfilCliente"]');
         let perfilSeleccionado = "";
+        // ¡NUEVO! Referencias a los elementos dinámicos
+        const tabNavLaboralTitular = document.getElementById('tab-nav-laboral-titular');
+        const tituloLaboralTitular = document.getElementById('titulo-laboral-titular');
 
         // Referencias al Formulario (Paso 2)
         const eessForm = document.getElementById('eessForm');
@@ -341,22 +388,18 @@
         // Referencias al Switch de Codeudor
         const radiosCodeudor = document.querySelectorAll('input[name="complementa_renta"]');
         const codeudorTabs = document.querySelectorAll('.codeudor-tab');
-        const codeudorContents = document.querySelectorAll('.codeudor-content');
+        const codeudorContents = document.querySelectorAll('.tab-content.codeudor-content'); // Corregido: busca por ambas clases
 
         // Referencias al Checklist (Paso 3)
         const checklistFinal = document.getElementById('checklist-final');
         const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf"; // El PDF que subiste
-        // ¡¡¡ ATENCIÓN AQUÍ !!!
-        // Reemplaza 'LINK_A_TU_DICOM' por el link de Equifax/Destacame/etc.
         const LINK_DICOM = "https://www.equifax.cl/ecfx/informe-comercial/dicom-platinum-360";	
-
         
         // Listas de Documentos (Basadas 100% en tus fotos)
         const documentosComunes = [
             { nombre: "Informe de Deudas CMF", ayuda: TUTORIAL_DEUDA_URL, tipo: "tutorial", textoAyuda: "[Ver Tutorial]" },
             { nombre: "Informe DICOM Platinum 360", ayuda: LINK_DICOM, tipo: "tutorial", textoAyuda: "[Obtener Aquí]" }
         ];
-
         const documentosDependiente = [
             { nombre: "Cédula de Identidad (ambos lados)" },
             { nombre: "6 últimas liquidaciones de sueldo" },
@@ -364,7 +407,6 @@
             { nombre: "Certificado de antigüedad laboral (o Contrato)" },
             { nombre: "Certificado de Matrimonio / AUC (si aplica)" }
         ];
-
         const documentosIndependiente = [
             { nombre: "Cédula de Identidad (ambos lados)" },
             { nombre: "Formulario 22 (Declaración Renta 2 últimos años)" },
@@ -372,7 +414,6 @@
             { nombre: "6 últimos Pagos Provisionales (F29)" },
             { nombre: "Iniciación de Actividades (SII)" }
         ];
-
         const documentosEmpresa = [
             { nombre: "Cédula de Identidad (Rep. Legal)" },
             { nombre: "RUT de la Empresa" },
@@ -390,8 +431,17 @@
             radio.addEventListener('change', (e) => {
                 perfilSeleccionado = e.target.value;
                 paso2.style.display = 'block';
-                // Reiniciamos y recalculamos las pestañas
-                actualizarTabsVisibles();
+                
+                // ¡NUEVO! Lógica para cambiar nombre de pestaña
+                if (perfilSeleccionado === 'independiente' || perfilSeleccionado === 'empresa') {
+                    tabNavLaboralTitular.textContent = "2. Actividad (Titular)";
+                    tituloLaboralTitular.textContent = "Antecedentes de Actividad (Titular)";
+                } else {
+                    tabNavLaboralTitular.textContent = "2. Laboral (Titular)";
+                    tituloLaboralTitular.textContent = "Antecedentes Laborales (Titular)";
+                }
+
+                actualizarTabsVisibles(); // Reiniciamos y recalculamos las pestañas
                 validarFormulario();
             });
         });
@@ -416,61 +466,49 @@
 
         // --- CEREBRO PASO 2 (Parte B): Navegación y Validación de Pestañas ---
         
-        // *** ¡ESTE ES EL NUEVO MOTOR CORREGIDO! ***
-        // Función para recalcular qué pestañas están visibles
+        // ¡ESTE ES EL MOTOR CORREGIDO (v3.3)!
         function actualizarTabsVisibles() {
-            // 1. Obtenemos TODOS los botones y pestañas (contenidos) del HTML
             const allTabs = Array.from(document.querySelectorAll('.tab-content'));
             const allNavButtons = Array.from(document.querySelectorAll('.tab-nav-button'));
-
-            // 2. Determinamos si el switch de codeudor está en "Sí"
             const showCodeudor = document.querySelector('input[name="complementa_renta"]:checked').value === 'si';
 
-            // 3. Limpiamos nuestras listas de trabajo
             tabs = [];
             tabNavButtons = [];
 
-            // 4. Llenamos las listas solo con las pestañas que SÍ deben mostrarse
             for (let i = 0; i < allTabs.length; i++) {
-                // Usamos el índice para asumir que el botón 3ro corresponde al contenido 3ro
                 const tabContent = allTabs[i];
                 const tabButton = allNavButtons[i];
 
-                if (tabButton.classList.contains('codeudor-tab')) {
-                    // Si es un botón de codeudor, solo lo mostramos si el switch está en "Sí"
-                    if (showCodeudor) {
+                // Verificamos si el botón existe antes de acceder a su 'classList'
+                if (tabButton) {
+                    if (tabButton.classList.contains('codeudor-tab')) {
+                        if (showCodeudor) {
+                            tabs.push(tabContent);
+                            tabNavButtons.push(tabButton);
+                            tabButton.style.display = 'inline-block';
+                        } else {
+                            tabButton.style.display = 'none';
+                        }
+                    } else {
                         tabs.push(tabContent);
                         tabNavButtons.push(tabButton);
-                        tabButton.style.display = 'inline-block'; // Mostramos el botón en la barra
-                    } else {
-                        tabButton.style.display = 'none'; // Ocultamos el botón en la barra
+                        tabButton.style.display = 'inline-block';
                     }
-                } else {
-                    // Si NO es de codeudor (Titular, Laboral, Activos, Pasivos), lo añadimos siempre
-                    tabs.push(tabContent);
-                    tabNavButtons.push(tabButton);
-                    tabButton.style.display = 'inline-block'; // Nos aseguramos que sea visible
                 }
             }
             
-            // 5. Reseteamos a la primera pestaña
             currentTab = 0; 
             showTab(currentTab);
         }
 
         function showTab(tabIndex) {
-            // Esta guardia de seguridad es clave. Si no hay pestañas, no hagas nada.
             if (!tabs || tabs.length === 0 || !tabNavButtons || tabNavButtons.length === 0) {
                 return; 
             }
             
-            // Ocultamos todos los contenidos
-            // Usamos el array global de 'allTabs' para asegurarnos de ocultar todo
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            // Ocultamos todos los botones
             document.querySelectorAll('.tab-nav-button').forEach(btn => btn.classList.remove('active'));
             
-            // Mostramos los correctos (basado en el array FILTRADO)
             if (tabs[tabIndex]) {
                 tabs[tabIndex].classList.add('active');
             }
@@ -478,21 +516,18 @@
                 tabNavButtons[tabIndex].classList.add('active');
             }
 
-            // Lógica de botones de navegación (¡AHORA SÍ FUNCIONARÁ!)
-            // `tabs.length` ahora tendrá el valor correcto (ej: 4 o 7)
+            // Lógica de botones de navegación (v3.3)
             btnPrev.style.display = (tabIndex === 0) ? 'none' : 'inline-block';
             btnNext.style.display = (tabIndex === tabs.length - 1) ? 'none' : 'inline-block';
             btnFinalizar.style.display = (tabIndex === tabs.length - 1) ? 'inline-block' : 'none';
             
-            validarFormulario(); // Validar al cambiar de pestaña
+            validarFormulario(); 
         }
 
-        // Delegamos los clics de los botones de pestañas
         document.querySelector('.tab-navigation').addEventListener('click', (e) => {
             if (e.target.classList.contains('tab-nav-button')) {
-                // Buscamos el índice en nuestro array filtrado 'tabNavButtons'
                 let newIndex = tabNavButtons.indexOf(e.target);
-                if (newIndex > -1) { // Si lo encuentra
+                if (newIndex > -1) { 
                     currentTab = newIndex;
                     showTab(currentTab);
                 }
@@ -513,20 +548,19 @@
             }
         });
 
-        // La nueva Validación
-        eessForm.addEventListener('input', validarFormulario); // Validar mientras el usuario escribe
+        // Validación (v3.3 - Verifica Ingreso Principal)
+        eessForm.addEventListener('input', validarFormulario); 
 
         function validarFormulario() {
             let formValido = true;
             
-            // 1. Validar campos básicos del titular (los marcados como 'required')
+            // 1. Validar campos básicos del titular
             document.querySelectorAll('#tab-titular input[required], #tab-titular select[required]').forEach(input => {
                 if (!input.value) formValido = false;
             });
             
-            // 2. Validar campos de ingreso principal según perfil
+            // 2. ¡VERIFICACIÓN! Validar ingreso principal según perfil
             if (!perfilSeleccionado) {
-                 // Si no hay perfil, el formulario de EESS no es válido
                 formValido = false;
             } else {
                 if (perfilSeleccionado === 'dependiente' && !document.getElementById('fin_titular_sueldo').value) formValido = false;
@@ -534,27 +568,25 @@
                 if (perfilSeleccionado === 'empresa' && !document.getElementById('fin_titular_retiros').value) formValido = false;
             }
 
-            // 3. Validar campos de codeudor (si está visible)
+            // 3. Validar campos de codeudor
             if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
                 document.querySelectorAll('.codeudor-content input[required], .codeudor-content select[required]').forEach(input => {
                     if (input.required && !input.value) formValido = false;
                 });
                 
-                // Asumimos que el codeudor debe tener al menos un ingreso
                 const codeudorIngresos = document.getElementById('fin_codeudor_sueldo').value || document.getElementById('fin_codeudor_honorarios').value || document.getElementById('fin_codeudor_retiros').value;
                 if (!codeudorIngresos) formValido = false;
             }
 
-            // Habilitamos o deshabilitamos el botón final
             btnFinalizar.disabled = !formValido;
         }
 
         // --- CEREBRO PASO 3: Finalizar Formulario y Mostrar Checklist ---
         btnFinalizar.addEventListener('click', () => {
-            if (btnFinalizar.disabled) return; // No hacer nada si está deshabilitado
+            if (btnFinalizar.disabled) return; 
 
             paso2.style.display = 'none';
-            // Generamos el checklist basado en el perfil Y si hay codeudor
+            // ¡VERIFICACIÓN! Genera checklist según perfil
             generarChecklist(perfilSeleccionado, document.querySelector('input[name="complementa_renta"]:checked').value === 'si');
             paso3.style.display = 'block';
             paso4.style.display = 'block';
@@ -563,19 +595,15 @@
         function generarChecklist(perfil, hayCodeudor) {
             let listaAMostrar = [];
             
-            // El perfil "Empresa" tiene sus propias reglas
             if (perfil === 'empresa') {
                 listaAMostrar = [...documentosComunes, ...documentosEmpresa];
             } else {
-                // Perfil Dependiente o Independiente
                 listaAMostrar = (perfil === 'dependiente') ? 
                     [...documentosComunes, ...documentosDependiente] : 
                     [...documentosComunes, ...documentosIndependiente];
                 
-                // Si hay codeudor, duplicamos la lista de documentos para él
                 if (hayCodeudor) {
-                    // ¡Simplificación! Asumimos que el codeudor es Dependiente
-                    // Podríamos añadir un selector de perfil para el codeudor, ¡pero eso es v3.3!
+                    // Simplificación v3.3: Asume codeudor Dependiente
                     const listaCodeudor = [
                         { nombre: "--- DOCUMENTOS CODEUDOR (Dependiente) ---" },
                         ...documentosDependiente
@@ -584,7 +612,7 @@
                 }
             }
             
-            checklistFinal.innerHTML = ''; // Limpiamos la lista
+            checklistFinal.innerHTML = ''; 
             listaAMostrar.forEach(doc => {
                 let linkAyuda = "";
                 if (doc.ayuda) {
@@ -596,7 +624,7 @@
         }
 
 
-        // --- CEREBRO PASO 4: LÓGICA DE UPLOAD (MODIFICADA) ---
+        // --- CEREBRO PASO 4: LÓGICA DE UPLOAD ---
         
         const uploadForm = document.getElementById('uploadForm');
         const fileInput = document.getElementById('fileInput');
@@ -694,8 +722,48 @@
                 });
         });
 
+        // --- ¡NUEVAS FUNCIONES DE UX (v3.3)! ---
+
+        // Función para formatear RUT
+        function formatearRUT(input) {
+            let rut = input.value.replace(/[^0-9kK]/g, ''); // Limpiar
+            if (rut.length > 1) {
+                let cuerpo = rut.slice(0, -1);
+                let dv = rut.slice(-1);
+                cuerpo = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Añadir puntos
+                input.value = cuerpo + '-' + dv;
+            } else {
+                input.value = rut;
+            }
+        }
+
+        // Función para cargar Regiones y Comunas
+        function cargarRegionesYComunas() {
+            const regionSelect = document.getElementById('titular_region');
+            const comunaSelect = document.getElementById('titular_comuna');
+
+            regionSelect.innerHTML = '<option value="">Selecciona Región...</option>'; // Limpiar
+            regionesYComunas.regiones.forEach((region, index) => {
+                regionSelect.innerHTML += `<option value="${index}">${region.nombre}</option>`;
+            });
+
+            regionSelect.addEventListener('change', () => {
+                comunaSelect.innerHTML = '<option value="">Selecciona Comuna...</option>'; // Limpiar comunas
+                const regionIndex = regionSelect.value;
+                if (regionIndex) {
+                    regionesYComunas.regiones[regionIndex].comunas.forEach(comuna => {
+                        comunaSelect.innerHTML += `<option value="${comuna}">${comuna}</option>`;
+                    });
+                }
+            });
+        }
+
+        // --- INICIALIZACIÓN DE LA PÁGINA ---
+
+        // Cargar Regiones y Comunas al iniciar
+        cargarRegionesYComunas();
+
         // Validar el formulario al cargar (solo deshabilita el botón de finalizar)
-        // Lo llamamos para que btnFinalizar esté deshabilitado por defecto
         validarFormulario();
 
     </script>

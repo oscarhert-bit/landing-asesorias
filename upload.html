@@ -7,9 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css"> 
     <style>
-        /* --- ESTILOS ADICIONALES PARA EL ASISTENTE (v3.4) --- */
-
-        /* Contenedor principal de una sola columna */
+        /* --- ESTILOS ADICIONALES --- */
         .container-upload {
             max-width: 900px;
             margin: 40px auto;
@@ -25,8 +23,6 @@
             padding: 30px 40px; 
             box-sizing: border-box;
         }
-
-        /* Ocultamos los pasos futuros */
         #paso-2-formulario, #paso-3-checklist, #paso-4-uploader {
             display: none;
             margin-top: 30px;
@@ -36,55 +32,24 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* --- Estilos para el Perfil (Paso 1) --- */
         .profile-selector { display: flex; flex-direction: column; gap: 10px; }
         .profile-selector label { display: block; padding: 15px 20px; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; }
         .profile-selector input[type="radio"] { margin-right: 12px; accent-color: #005a9c; }
         .profile-selector label:hover { background-color: #f4f7f6; }
         .profile-selector input[type="radio"]:checked + span { font-weight: 700; color: #005a9c; }
 
-        /* --- Estilos para el Formulario (Paso 2) --- */
-        .tab-navigation {
-            display: flex;
-            flex-wrap: wrap; 
-            border-bottom: 2px solid #ccc;
-            margin-bottom: 20px;
-        }
-        .tab-nav-button {
-            padding: 10px 15px; 
-            border: none;
-            background-color: #f4f7f6;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -2px;
-            font-size: 0.95em;
-            font-weight: 600;
-        }
-        .tab-nav-button.active {
-            background-color: #fff;
-            border-top: 1px solid #ccc;
-            border-left: 1px solid #ccc;
-            border-right: 1px solid #ccc;
-            border-bottom: 2px solid #fff;
-            color: #005a9c;
-        }
+        .tab-navigation { display: flex; flex-wrap: wrap; border-bottom: 2px solid #ccc; margin-bottom: 20px; }
+        .tab-nav-button { padding: 10px 15px; border: none; background-color: #f4f7f6; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; font-size: 0.95em; font-weight: 600; }
+        .tab-nav-button.active { background-color: #fff; border-top: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 2px solid #fff; color: #005a9c; }
         .tab-content { display: none; animation: fadeIn 0.3s; }
         .tab-content.active { display: block; }
         
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .form-grid .input-group { margin-bottom: 0; }
         
-        /* Ocultar pestañas de Codeudor por defecto */
         .codeudor-tab { display: none; }
-        /* ¡NUEVO! Ocultar sub-contenidos dinámicos */
         .codeudor-sub-content { display: none; }
         #perfil-codeudor-selector { display: none; margin-top: 20px; }
-
 
         .form-navigation-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
         .form-nav-btn { padding: 12px 25px; background-color: #005a9c; color: white; border: none; border-radius: 5px; font-size: 1em; font-weight: 700; cursor: pointer; }
@@ -93,27 +58,16 @@
         #btn-finalizar-formulario { background-color: #28a745; display: none; } 
         #btn-form-next { display: inline-block; } 
 
-        /* --- Estilos para el Checklist (Paso 3) --- */
         .checklist { list-style: none; padding-left: 0; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 20px; }
         .checklist li { font-size: 1.1em; padding: 12px 10px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; }
         .checklist li:last-child { border-bottom: none; }
         .checklist li strong { color: #333; }
         .checklist li .doc-help { font-weight: 700; text-decoration: none; color: #005a9c; margin-left: 10px; white-space: nowrap; }
 
-        /* --- Estilos para el Uploader (Paso 4) --- */
         #fileInput { border: 2px dashed #007bff; padding: 20px; border-radius: 5px; cursor: pointer; text-align: center; }
         .file-list { margin-top: 15px; font-style: italic; }
-
-        /* Hack para quitar flechas en campos de número */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
-        }
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
     </style>
 </head>
 <body>
@@ -235,7 +189,7 @@
                             <div class="input-group"><label for="fin_titular_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_titular_honorarios" name="fin_titular_honorarios" placeholder="Promedio de tus últimas 6 boletas"></div>
                             <div class="input-group"><label for="fin_titular_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_titular_retiros" name="fin_titular_retiros" placeholder="Si eres dueño de empresa"></div>
                         </div>
-                         <div class="form-grid" style="margin-top: 10px;">
+                        <div class="form-grid" style="margin-top: 10px;">
                            <div class="input-group"><label for="fin_titular_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_titular_arriendos" name="fin_titular_arriendos" placeholder="Si recibes arriendos"></div>
                         </div>
                         
@@ -361,79 +315,149 @@
         </div>
     </div>
 
-   <script>
+    <script>
         // ============================================================
-        // CONFIGURACIÓN: PEGA AQUÍ TU URL VERIFICADA
+        // 1. CONFIGURACIÓN (VERIFICA ESTA URL)
         // ============================================================
         const URL_SCRIPT_UPLOAD = "https://script.google.com/macros/s/AKfycbxO56Ws-bdkEiv-sCQZgnldzxGd-Ve-gVAVX1vSpbOsTiNrIYLVU9IYAOP8jMzH24gc/exec";
 
         // ============================================================
-        // LÓGICA DEL FRONTEND (v3.5 - Debug Mode)
+        // 2. DATOS ESTÁTICOS (REGIONES, COMUNAS, LISTAS DOCUMENTOS)
         // ============================================================
+        const regionesYComunas = {
+            "regiones": [
+                {"nombre": "Arica y Parinacota", "comunas": ["Arica", "Camarones", "Putre", "General Lagos"]},
+                {"nombre": "Tarapacá", "comunas": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"]},
+                {"nombre": "Antofagasta", "comunas": ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"]},
+                {"nombre": "Atacama", "comunas": ["Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"]},
+                {"nombre": "Coquimbo", "comunas": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"]},
+                {"nombre": "Valparaíso", "comunas": ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana"]},
+                {"nombre": "Metropolitana de Santiago", "comunas": ["Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"]},
+                {"nombre": "O'Higgins", "comunas": ["Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"]},
+                {"nombre": "Maule", "comunas": ["Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas"]},
+                {"nombre": "Ñuble", "comunas": ["Chillán", "Bulnes", "Chillán Viejo", "El Carmen", "Pemuco", "Pinto", "Quillón", "San Ignacio", "Yungay", "Quirihue", "Cobquecura", "Coelemu", "Ninhue", "Portezuelo", "Ránquil", "Treguaco", "San Carlos", "Coihueco", "Ñiquén", "San Fabián", "San Nicolás"]},
+                {"nombre": "Biobío", "comunas": ["Concepción", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío"]},
+                {"nombre": "La Araucanía", "comunas": ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria"]},
+                {"nombre": "Los Ríos", "comunas": ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno"]},
+                {"nombre": "Los Lagos", "comunas": ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena"]},
+                {"nombre": "Aysén", "comunas": ["Coyhaique", "Lago Verde", "Aysén", "Cisnes", "Guaitecas", "Cochrane", "O'Higgins", "Tortel", "Chile Chico", "Río Ibáñez"]},
+                {"nombre": "Magallanes", "comunas": ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos (Ex Navarino)", "Antártica", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine"]}
+            ]
+        };
 
-        // --- Referencias DOM ---
+        const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf";
+        const LINK_DICOM = "https://www.equifax.cl/ecfx/informe-comercial/dicom-platinum-360";	
+        
+        const documentosComunes = [
+            { nombre: "Informe de Deudas CMF", ayuda: TUTORIAL_DEUDA_URL, tipo: "tutorial", textoAyuda: "[Ver Tutorial]" },
+            { nombre: "Informe DICOM Platinum 360", ayuda: LINK_DICOM, tipo: "tutorial", textoAyuda: "[Obtener Aquí]" }
+        ];
+        const documentosDependiente = [
+            { nombre: "Cédula de Identidad (ambos lados)" },
+            { nombre: "6 últimas liquidaciones de sueldo" },
+            { nombre: "12 últimas cotizaciones de AFP" },
+            { nombre: "Certificado de antigüedad laboral (o Contrato)" },
+            { nombre: "Certificado de Matrimonio / AUC (si aplica)" }
+        ];
+        const documentosIndependiente = [
+            { nombre: "Cédula de Identidad (ambos lados)" },
+            { nombre: "Formulario 22 (Declaración Renta 2 últimos años)" },
+            { nombre: "Resumen Boletas de Honorarios (2 últimos años)" },
+            { nombre: "6 últimos Pagos Provisionales (F29)" },
+            { nombre: "Iniciación de Actividades (SII)" }
+        ];
+        const documentosEmpresa = [
+            { nombre: "Cédula de Identidad (Rep. Legal)" },
+            { nombre: "RUT de la Empresa" },
+            { nombre: "Escritura de la Sociedad (y modificaciones)" },
+            { nombre: "Vigencia de Poderes (Rep. Legal)" },
+            { nombre: "Nómina de Accionistas (si aplica)" },
+            { nombre: "2 últimos Balances (Contador)" },
+            { nombre: "12 últimos IVAs (F29)" },
+            { nombre: "Carpeta Tributaria (SII)" }
+        ];
+
+        // ============================================================
+        // 3. LÓGICA DE UX Y PESTAÑAS (RECUPERADA DE v3.4)
+        // ============================================================
         const paso1 = document.getElementById('paso-1-perfil');
         const paso2 = document.getElementById('paso-2-formulario');
         const paso3 = document.getElementById('paso-3-checklist');
         const paso4 = document.getElementById('paso-4-uploader');
+        
         const radiosPerfil = document.querySelectorAll('input[name="perfilCliente"]');
+        let perfilSeleccionado = "";
+        
+        const tabNavLaboralTitular = document.getElementById('tab-nav-laboral-titular');
+        const tituloLaboralTitular = document.getElementById('titulo-laboral-titular');
+        const contentLabTitularDep = document.getElementById('content-lab-titular-dep');
+        const contentLabTitularInd = document.getElementById('content-lab-titular-ind');
+        const contentActTitularDep = document.getElementById('content-act-titular-dep');
+        const contentActTitularInd = document.getElementById('content-act-titular-ind');
+
         const eessForm = document.getElementById('eessForm');
+        let tabs = []; 
+        let tabNavButtons = []; 
         const btnPrev = document.getElementById('btn-form-prev');
         const btnNext = document.getElementById('btn-form-next');
         const btnFinalizar = document.getElementById('btn-finalizar-formulario');
-        const radiosCodeudor = document.querySelectorAll('input[name="complementa_renta"]');
-        const checklistFinal = document.getElementById('checklist-final');
-        const radiosPerfilCodeudor = document.querySelectorAll('input[name="perfilCodeudor"]');
-        
-        // Referencias Dinámicas
-        let perfilSeleccionado = "";
-        let perfilCodeudorSeleccionado = "dependiente";
-        let tabs = [];
-        let tabNavButtons = [];
         let currentTab = 0;
-
-        // Datos Estáticos
-        const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf";
-        const LINK_DICOM = "https://www.equifax.cl/ecfx/informe-comercial/dicom-platinum-360";
-        const regionesYComunas = { "regiones": [ {"nombre": "Arica y Parinacota", "comunas": ["Arica", "Camarones", "Putre"]}, {"nombre": "Metropolitana de Santiago", "comunas": ["Santiago", "Providencia", "Las Condes", "Macul", "Ñuñoa", "La Florida", "Maipú", "Puente Alto"]}, {"nombre": "Valparaíso", "comunas": ["Valparaíso", "Viña del Mar", "Concón"]} ] }; // (Simplificado para el script, el HTML tiene la lista completa si no la borraste del select, pero el JS necesita cargarla si se borra el HTML. NOTA: Si borraste el script anterior, asegurate de que tu HTML tenga las opciones o usa la versión anterior para la lista completa de comunas, aquí pongo una reducida para no saturar el chat).
-
-        // --- INICIALIZACIÓN ---
-        // Restauramos la carga de regiones completa si la tienes en el HTML no hay problema, 
-        // pero aquí dejo la función genérica.
-        function cargarRegionesYComunas() {
-             // Nota: Como copiaste el script nuevo, asegúrate de que la variable 'regionesYComunas' 
-             // tenga todos los datos si los necesitas. Si ya están cargados en los <select> no pasa nada.
-             // Por seguridad, el script anterior tenía la lista gigante. 
-             // SI LA NECESITAS DE NUEVO, DÍMELO Y TE LA PEGO APARTE.
-             // Asumiremos que la lógica de UX básica funciona y nos centraremos en el UPLOAD.
-        }
-
-        // --- 1. CONTROL DE PESTAÑAS Y PERFILES ---
         
-        // Listener Perfil Titular
+        const radiosCodeudor = document.querySelectorAll('input[name="complementa_renta"]');
+        const codeudorTabs = document.querySelectorAll('.codeudor-tab');
+        const codeudorContents = document.querySelectorAll('.tab-content.codeudor-content');
+        const perfilCodeudorSelector = document.getElementById('perfil-codeudor-selector');
+
+        const radiosPerfilCodeudor = document.querySelectorAll('input[name="perfilCodeudor"]');
+        let perfilCodeudorSeleccionado = "dependiente";
+        const contentLabCodeudorDep = document.getElementById('content-lab-codeudor-dep');
+        const contentLabCodeudorInd = document.getElementById('content-lab-codeudor-ind');
+        const contentActCodeudorDep = document.getElementById('content-act-codeudor-dep');
+        const contentActCodeudorInd = document.getElementById('content-act-codeudor-ind');
+
+        const checklistFinal = document.getElementById('checklist-final');
+
+        // --- Listeners ---
         radiosPerfil.forEach(radio => {
             radio.addEventListener('change', (e) => {
                 perfilSeleccionado = e.target.value;
                 paso2.style.display = 'block';
-                ajustarVisibilidadPorPerfil();
-                actualizarTabsVisibles();
+                
+                if (perfilSeleccionado === 'independiente' || perfilSeleccionado === 'empresa') {
+                    tabNavLaboralTitular.textContent = "2. Actividad (Titular)";
+                    tituloLaboralTitular.textContent = "Antecedentes de Actividad (Titular)";
+                    contentLabTitularDep.style.display = 'none';
+                    contentLabTitularInd.style.display = 'grid';
+                    contentActTitularDep.style.display = 'none';
+                    contentActTitularInd.style.display = 'grid';
+                } else {
+                    tabNavLaboralTitular.textContent = "2. Laboral (Titular)";
+                    tituloLaboralTitular.textContent = "Antecedentes Laborales (Titular)";
+                    contentLabTitularDep.style.display = 'grid';
+                    contentLabTitularInd.style.display = 'none';
+                    contentActTitularDep.style.display = 'grid';
+                    contentActTitularInd.style.display = 'none';
+                }
+                actualizarTabsVisibles(); 
                 validarFormulario();
             });
         });
 
-        // Listener Switch Codeudor
         radiosCodeudor.forEach(radio => {
             radio.addEventListener('change', (e) => {
                 const showCodeudor = e.target.value === 'si';
-                document.getElementById('perfil-codeudor-selector').style.display = showCodeudor ? 'block' : 'none';
-                document.querySelectorAll('.codeudor-content input, .codeudor-content select').forEach(i => i.required = showCodeudor);
+                perfilCodeudorSelector.style.display = showCodeudor ? 'block' : 'none';
+                codeudorContents.forEach(content => {
+                    content.querySelectorAll('input, select').forEach(input => {
+                        input.required = showCodeudor;
+                    });
+                });
                 actualizarPerfilCodeudor();
                 actualizarTabsVisibles();
                 validarFormulario();
             });
         });
 
-        // Listener Perfil Codeudor
         radiosPerfilCodeudor.forEach(radio => {
             radio.addEventListener('change', (e) => {
                 perfilCodeudorSeleccionado = e.target.value;
@@ -442,27 +466,29 @@
             });
         });
 
-        function ajustarVisibilidadPorPerfil() {
-            const esIndep = (perfilSeleccionado === 'independiente' || perfilSeleccionado === 'empresa');
-            document.getElementById('tab-nav-laboral-titular').textContent = esIndep ? "2. Actividad (Titular)" : "2. Laboral (Titular)";
-            document.getElementById('titulo-laboral-titular').textContent = esIndep ? "Antecedentes de Actividad (Titular)" : "Antecedentes Laborales (Titular)";
-            
-            // Togglear campos Titular
-            document.getElementById('content-lab-titular-dep').style.display = esIndep ? 'none' : 'grid';
-            document.getElementById('content-lab-titular-ind').style.display = esIndep ? 'grid' : 'none';
-            document.getElementById('content-act-titular-dep').style.display = esIndep ? 'none' : 'grid';
-            document.getElementById('content-act-titular-ind').style.display = esIndep ? 'grid' : 'none';
-        }
-
         function actualizarPerfilCodeudor() {
-            const esDep = perfilCodeudorSeleccionado === 'dependiente';
-            document.getElementById('content-lab-codeudor-dep').style.display = esDep ? 'grid' : 'none';
-            document.getElementById('content-lab-codeudor-ind').style.display = esDep ? 'none' : 'grid';
-            document.getElementById('content-act-codeudor-dep').style.display = esDep ? 'grid' : 'none';
-            document.getElementById('content-act-codeudor-ind').style.display = esDep ? 'none' : 'grid';
+            const esDependiente = perfilCodeudorSeleccionado === 'dependiente';
+            contentLabCodeudorDep.style.display = esDependiente ? 'grid' : 'none';
+            contentLabCodeudorInd.style.display = esDependiente ? 'none' : 'grid';
+            contentActCodeudorDep.style.display = esDependiente ? 'grid' : 'none';
+            contentActCodeudorInd.style.display = esDependiente ? 'none' : 'grid';
+            
+            contentLabCodeudorDep.querySelectorAll('input').forEach(i => i.required = false);
+            contentLabCodeudorInd.querySelectorAll('input').forEach(i => i.required = false);
+            contentActCodeudorDep.querySelectorAll('input').forEach(i => i.required = false);
+            contentActCodeudorInd.querySelectorAll('input').forEach(i => i.required = false);
+
+            if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
+                if (esDependiente) {
+                    contentLabCodeudorDep.querySelectorAll('input').forEach(i => i.required = true);
+                    contentActCodeudorDep.querySelectorAll('input').forEach(i => i.required = true);
+                } else {
+                    contentLabCodeudorInd.querySelectorAll('input').forEach(i => i.required = true);
+                    contentActCodeudorInd.querySelectorAll('input').forEach(i => i.required = true);
+                }
+            }
         }
 
-        // --- 2. MOTOR DE PESTAÑAS ---
         function actualizarTabsVisibles() {
             const allTabs = Array.from(document.querySelectorAll('.tab-content'));
             const allNavButtons = Array.from(document.querySelectorAll('.tab-nav-button'));
@@ -472,65 +498,123 @@
             tabNavButtons = [];
 
             for (let i = 0; i < allTabs.length; i++) {
-                const btn = allNavButtons[i];
-                const content = allTabs[i];
-                if (btn) {
-                    const esCodeudor = btn.classList.contains('codeudor-tab');
-                    if (!esCodeudor || (esCodeudor && showCodeudor)) {
-                        tabs.push(content);
-                        tabNavButtons.push(btn);
-                        btn.style.display = 'inline-block';
+                const tabContent = allTabs[i];
+                const tabButton = allNavButtons[i];
+                if (tabButton) {
+                    if (tabButton.classList.contains('codeudor-tab')) {
+                        if (showCodeudor) {
+                            tabs.push(tabContent);
+                            tabNavButtons.push(tabButton);
+                            tabButton.style.display = 'inline-block';
+                        } else {
+                            tabButton.style.display = 'none';
+                        }
                     } else {
-                        btn.style.display = 'none';
+                        tabs.push(tabContent);
+                        tabNavButtons.push(tabButton);
+                        tabButton.style.display = 'inline-block';
                     }
                 }
             }
-            currentTab = 0;
-            showTab(0);
+            currentTab = 0; 
+            showTab(currentTab);
         }
 
-        function showTab(n) {
-            if (!tabs.length) return;
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-nav-button').forEach(b => b.classList.remove('active'));
+        function showTab(tabIndex) {
+            if (!tabs || tabs.length === 0 || !tabNavButtons || tabNavButtons.length === 0) return;
             
-            tabs[n].classList.add('active');
-            tabNavButtons[n].classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-nav-button').forEach(btn => btn.classList.remove('active'));
+            
+            if (tabs[tabIndex]) tabs[tabIndex].classList.add('active');
+            if (tabNavButtons[tabIndex]) tabNavButtons[tabIndex].classList.add('active');
 
-            btnPrev.style.display = n === 0 ? 'none' : 'inline-block';
-            btnNext.style.display = n === tabs.length - 1 ? 'none' : 'inline-block';
-            btnFinalizar.style.display = n === tabs.length - 1 ? 'inline-block' : 'none';
+            btnPrev.style.display = (tabIndex === 0) ? 'none' : 'inline-block';
+            btnNext.style.display = (tabIndex === tabs.length - 1) ? 'none' : 'inline-block';
+            btnFinalizar.style.display = (tabIndex === tabs.length - 1) ? 'inline-block' : 'none';
+            
+            validarFormulario(); 
         }
 
-        // Navegación
         document.querySelector('.tab-navigation').addEventListener('click', (e) => {
             if (e.target.classList.contains('tab-nav-button')) {
-                const idx = tabNavButtons.indexOf(e.target);
-                if (idx > -1) { currentTab = idx; showTab(currentTab); }
+                let newIndex = tabNavButtons.indexOf(e.target);
+                if (newIndex > -1) { currentTab = newIndex; showTab(currentTab); }
             }
         });
-        btnNext.addEventListener('click', () => { if(currentTab < tabs.length -1) { currentTab++; showTab(currentTab); } });
-        btnPrev.addEventListener('click', () => { if(currentTab > 0) { currentTab--; showTab(currentTab); } });
 
-        // Validación Simplificada
-        eessForm.addEventListener('input', validarFormulario);
+        btnNext.addEventListener('click', () => { if (currentTab < tabs.length - 1) { currentTab++; showTab(currentTab); } });
+        btnPrev.addEventListener('click', () => { if (currentTab > 0) { currentTab--; showTab(currentTab); } });
+
+        eessForm.addEventListener('input', validarFormulario); 
+
         function validarFormulario() {
-            // Por ahora, para DEBUG, dejamos el botón siempre habilitado para que puedas probar la subida
-            // En producción, descomenta la lógica de validación real.
-            btnFinalizar.disabled = false; 
+            let formValido = true;
+            document.querySelectorAll('#tab-titular input[required], #tab-titular select[required]').forEach(input => {
+                if (!input.value) formValido = false;
+            });
+            
+            if (!perfilSeleccionado) {
+                formValido = false;
+            } else {
+                if (perfilSeleccionado === 'dependiente' && !document.getElementById('fin_titular_sueldo').value) formValido = false;
+                if (perfilSeleccionado === 'independiente' && !document.getElementById('fin_titular_honorarios').value) formValido = false;
+                if (perfilSeleccionado === 'empresa' && !document.getElementById('fin_titular_retiros').value) formValido = false;
+            }
+
+            if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
+                document.querySelectorAll('.codeudor-content input[required], .codeudor-content select[required]').forEach(input => {
+                    if (input.required && !input.value) formValido = false;
+                });
+                
+                const codeudorIngresos = document.getElementById('fin_codeudor_sueldo').value || document.getElementById('fin_codeudor_honorarios').value || document.getElementById('fin_codeudor_retiros').value;
+                if (!codeudorIngresos) formValido = false;
+            }
+            btnFinalizar.disabled = !formValido;
         }
 
-        // --- 3. CHECKLIST ---
         btnFinalizar.addEventListener('click', () => {
+            if (btnFinalizar.disabled) return; 
             paso2.style.display = 'none';
-            // Aquí iría la lógica de generarChecklist, la simplificamos para el fix
+            generarChecklist(perfilSeleccionado, document.querySelector('input[name="complementa_renta"]:checked').value === 'si', perfilCodeudorSeleccionado);
             paso3.style.display = 'block';
             paso4.style.display = 'block';
         });
 
+        function generarChecklist(perfilTitular, hayCodeudor, perfilCodeudor) {
+            let listaAMostrar = [];
+            if (perfilTitular === 'empresa') {
+                listaAMostrar = [...documentosComunes, ...documentosEmpresa];
+            } else {
+                listaAMostrar = (perfilTitular === 'dependiente') ? 
+                    [...documentosComunes, ...documentosDependiente] : 
+                    [...documentosComunes, ...documentosIndependiente];
+            }
+            
+            if (hayCodeudor) {
+                let listaCodeudor = [];
+                if (perfilCodeudor === 'dependiente') {
+                     listaCodeudor = [ { nombre: "--- DOCUMENTOS CODEUDOR (Dependiente) ---" }, ...documentosDependiente ];
+                } else { 
+                     listaCodeudor = [ { nombre: "--- DOCUMENTOS CODEUDOR (Independiente) ---" }, ...documentosIndependiente ];
+                }
+                listaAMostrar = [...listaAMostrar, ...listaCodeudor];
+            }
+            checklistFinal.innerHTML = ''; 
+            listaAMostrar.forEach(doc => {
+                let linkAyuda = "";
+                if (doc.ayuda) {
+                    const target = doc.tipo === 'tutorial' ? 'target="_blank"' : 'download';
+                    linkAyuda = `<a href="${doc.ayuda}" class="doc-help" ${target}>${doc.textoAyuda}</a>`;
+                }
+                checklistFinal.innerHTML += `<li><strong>${doc.nombre}</strong> ${linkAyuda}</li>`;
+            });
+        }
+
         // ============================================================
-        // 4. LÓGICA DE UPLOAD (CORREGIDA Y ROBUSTA)
+        // 4. LÓGICA DE UPLOAD MEJORADA (v3.5 - La solución al error)
         // ============================================================
+        
         const uploadForm = document.getElementById('uploadForm');
         const fileInput = document.getElementById('fileInput');
         const fileList = document.getElementById('fileList');
@@ -602,7 +686,6 @@
                 const response = await fetch(URL_SCRIPT_UPLOAD, {
                     method: 'POST',
                     body: JSON.stringify(payload),
-                    // Modo 'no-cors' es solo para pruebas ciegas, aquí usamos normal esperando JSON
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
                 });
 
@@ -629,6 +712,49 @@
                 submitButton.innerText = "Reintentar Subida";
             }
         });
+
+        // --- FUNCIONES UX ---
+        function formatearRUT(input) {
+            let rut = input.value.replace(/[^0-9kK]/g, ''); 
+            if (rut.length > 1) {
+                let cuerpo = rut.slice(0, -1);
+                let dv = rut.slice(-1);
+                cuerpo = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); 
+                input.value = cuerpo + '-' + dv.toUpperCase();
+            } else {
+                input.value = rut.toUpperCase();
+            }
+        }
+
+        function cargarRegionesYComunas() {
+            const regionSelect = document.getElementById('titular_region');
+            const comunaSelect = document.getElementById('titular_comuna');
+            regionSelect.innerHTML = '<option value="">Selecciona Región...</option>'; 
+            regionesYComunas.regiones.forEach((region, index) => {
+                regionSelect.innerHTML += `<option value="${index}">${region.nombre}</option>`;
+            });
+            regionSelect.addEventListener('change', () => {
+                comunaSelect.innerHTML = '<option value="">Selecciona Comuna...</option>'; 
+                const regionIndex = regionSelect.value;
+                if (regionIndex) {
+                    regionesYComunas.regiones[regionIndex].comunas.forEach(comuna => {
+                        comunaSelect.innerHTML += `<option value="${comuna}">${comuna}</option>`;
+                    });
+                }
+            });
+            // Default Metropolitana
+            const rmIndex = regionesYComunas.regiones.findIndex(r => r.nombre === "Metropolitana de Santiago");
+            if (rmIndex > -1) {
+                regionSelect.value = rmIndex;
+                regionSelect.dispatchEvent(new Event('change'));
+            }
+        }
+
+        // INICIO
+        cargarRegionesYComunas();
+        actualizarPerfilCodeudor();
+        validarFormulario();
+
     </script>
 
 </body>

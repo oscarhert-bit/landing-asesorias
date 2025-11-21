@@ -42,15 +42,22 @@
         .file-list { margin-top: 15px; font-style: italic; }
         input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
+        
+        /* --- MEJORA UX MÓVIL: Evitar Zoom en iPhone --- */
+        input, select, textarea { font-size: 16px !important; }
     </style>
 </head>
 <body>
+
+    <div style="background-color: #000; color: #fff; text-align: center; padding: 10px; font-size: 14px; font-weight: bold; font-family: 'Lato', sans-serif;">
+        🔥 BLACK FRIDAY: Evaluación Prioritaria Habilitada
+    </div>
 
     <div class="container-upload">
         <div class="form-col">
 
             <div id="paso-1-perfil">
-                <h2>Paso 1: ¿Cuál es tu perfil? (v3.7)</h2>
+                <h2>Paso 1: ¿Cuál es tu perfil?</h2>
                 <p>Selecciona tu situación laboral para mostrarte los documentos exactos que necesitamos.</p>
                 <div class="profile-selector">
                     <label><input type="radio" name="perfilCliente" value="dependiente"><span>Soy Trabajador <strong>Dependiente</strong> (con contrato)</span></label>
@@ -85,7 +92,7 @@
                             
                             <div class="input-group"><label for="titular_nacionalidad">Nacionalidad</label>
                                 <select id="titular_nacionalidad" name="titular_nacionalidad">
-                                    <option value="">Selecciona...</option><option value="Chilena">Chilena</option><option value="Extranjera">Extranjera</option>
+                                    <option value="">Selecciona...</option><option value="Chilena">Chilena</option><option value="Peruana">Peruana</option><option value="Venezolana">Venezolana</option><option value="Colombiana">Colombiana</option><option value="Argentina">Argentina</option><option value="Boliviana">Boliviana</option><option value="Ecuatoriana">Ecuatoriana</option><option value="Haitiana">Haitiana</option><option value="Otra">Otra</option>
                                 </select>
                             </div>
 
@@ -247,7 +254,7 @@
             </div>
 
             <div id="paso-4-uploader">
-                <h2>Paso 4: Sube tus archivos</h2>
+                <h2>Paso Final: Activa tu Evaluación Segura</h2>
                 <p>Sube aquí todos los documentos de la lista anterior (PDF, JPG, PNG).</p>
                 <form id="uploadForm">
                     <div class="input-group">
@@ -255,7 +262,9 @@
                         <input type="file" id="fileInput" name="files" multiple required>
                         <div id="fileList" class="file-list"></div>
                     </div>
-                    <button type="submit" id="submitButton">Subir Formulario y Archivos</button>
+                    <button type="submit" id="submitButton">ENVIAR Y ACTIVAR EVALUACIÓN 🔒</button>
+                    <p style="text-align: center; font-size: 0.8em; color: #666; margin-top: 10px;">🔒 Tus documentos están protegidos con encriptación de grado bancario (SSL). 100% confidencial.</p>
+                    
                     <div id="loadingMessage" style="display:none;">Subiendo todo... esto puede tardar un minuto.</div>
                     <div id="successMessage" style="display:none; color: green;">¡Sistema completo! Recibimos tus datos y archivos. Te contactaremos pronto.</div>
                     <div id="errorMessage" style="display:none; color: red;">Hubo un error. Intenta de nuevo.</div>
@@ -268,6 +277,7 @@
         // ============================================================
         // CONFIGURACIÓN
         // ============================================================
+        // VERIFICA QUE ESTA SEA TU URL REAL
         const URL_SCRIPT_UPLOAD = "https://script.google.com/macros/s/AKfycbxO56Ws-bdkEiv-sCQZgnldzxGd-Ve-gVAVX1vSpbOsTiNrIYLVU9IYAOP8jMzH24gc/exec";
         const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf";
         const LINK_DICOM = "https://www.equifax.cl/ecfx/informe-comercial/dicom-platinum-360";
@@ -355,7 +365,6 @@
             document.getElementById('content-act-codeudor-dep').style.display = esDep ? 'grid' : 'none';
             document.getElementById('content-act-codeudor-ind').style.display = esDep ? 'none' : 'grid';
             
-            // Limpiar requireds anteriores
             document.querySelectorAll('.codeudor-sub-content input').forEach(i => i.required = false);
             
             if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
@@ -405,7 +414,7 @@
         btnPrev.addEventListener('click', () => { if(currentTab > 0) { currentTab--; showTab(currentTab); } });
         eessForm.addEventListener('input', validarFormulario);
 
-        function validarFormulario() { btnFinalizar.disabled = false; } // Debug Mode: Validación relajada
+        function validarFormulario() { btnFinalizar.disabled = false; } // Debug Mode
 
         btnFinalizar.addEventListener('click', () => {
             paso2.style.display = 'none';
@@ -430,7 +439,7 @@
         }
 
         // ============================================================
-        // MOTOR DE SUBIDA (v3.5 - ASYNC/AWAIT)
+        // MOTOR DE SUBIDA
         // ============================================================
         const uploadForm = document.getElementById('uploadForm');
         const fileInput = document.getElementById('fileInput');
@@ -530,7 +539,7 @@
                 }
             });
             // Default RM
-            regionSelect.value = 6; // Metropolitana (indice 6 en esta lista corta)
+            regionSelect.value = 6; 
             regionSelect.dispatchEvent(new Event('change'));
         }
 

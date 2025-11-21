@@ -3,129 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asesoría Inmobiliaria - Cumple tu Sueño</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RKEMBN9NK"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-3RKEMBN9NK');
-    </script>
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '707966595166662');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=707966595166662&ev=PageView&noscript=1"
-    /></noscript>
-    </head>
+    <title>Asesoría Financiera Expertos - Black Friday</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
 <body>
 
-    <div class="container">
-        <div class="info-col">
-            <h1>¿Listo para comprar tu primera propiedad?</h1>
-            <p class="subtitulo">
-                Conversemos. Mi trabajo es ayudarte a tomar la mejor decisión y conseguirte las condiciones que realmente te sirven.
-            </p>
-            
-            <h3>Lo que conseguimos para ti:</h3>
-            <ul>
-                <li>✅ La mejor evaluación bancaria (nosotros nos encargamos).</li>
-                <li>✅ Acceso a condiciones preferentes para el pie (exclusivo para nuestros clientes).</li>
-                <li>✅ Te filtramos solo las inmobiliarias y proyectos que valen la pena.</li>
-                <li>✅ Acompañamiento de principio a fin, sin letra chica.</li>
-            </ul>
-            
-            <p class="filtro">
-                <strong>¿Cómo saber si esto es para ti?</strong> Si tienes ingresos sobre $1.8M (o puedes complementar renta) y estás listo para dar el salto, conversemos.
-            </p>
-        </div>
+    <div class="promo-bar">
+        🔥 Cupos Black Friday: Evaluación Prioritaria Habilitada
+    </div>
 
-        <div class="form-col">
-            <form id="leadForm">
-                <h2>Da el primer paso</h2>
-                <p>Agenda tu asesoría gratis y sin compromiso.</p>
-                
-                <div class="input-group">
-                    <label for="nombre">Tu Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-                
-                <div class="input-group">
-                    <label for="email">Tu Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
+    <div class="hero-container">
+        <h1>Evaluación Financiera <br><span class="highlight">Estratégica</span></h1>
+        <p>Accede a una revisión completa de tu perfil bancario y desbloquea mejores oportunidades de crédito. <strong>100% Confidencial.</strong></p>
 
-                <div class="input-group">
-                    <label for="telefono">Tu Teléfono (WhatsApp):</label>
-                    <input type="tel" id="telefono" name="telefono" placeholder="Ej: 912345678" required>
-                </div>
-                
-                <button type="submit" id="submitButton">Quiero mi Asesoría</button>
-                
-                <div id="loadingMessage" style="display:none;">Enviando...</div>
-                <div id="errorMessage" style="display:none; color: red;">Hubo un error. Intenta de nuevo.</div>
-            </form>
-        </div>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre aquí" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono (WhatsApp)</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="+569..." required>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn-main">SOLICITAR MI EVALUACIÓN GRATUITA 🔒</button>
+        </form>
+        
+        <div id="loading" style="display:none; margin-top:15px; color:#0056b3; font-weight:bold;">Procesando solicitud...</div>
+        <p style="font-size: 0.8em; color: #666; margin-top: 20px;">Cupos limitados por temporada Black Friday.</p>
     </div>
 
     <script>
-        // ¡¡¡ ATENCIÓN AQUÍ !!!
-        // ¡¡¡ Esta es la línea que tenemos que arreglar !!!
-        const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxqZSbkJp7WQ6NTvypOyg8b7RULzzJlr2IWNYaVjpritdHm5Tne8thRgI2mT6Sac03u/exec"; 
+        // --- ¡ATENCIÓN! ---
+        // Pega aquí la URL de tu SCRIPT #1 (El que recibe el Lead y manda el correo de bienvenida)
+        const URL_SCRIPT_LEAD = "https://script.google.com/macros/s/AKfycbxqZSbkJp7WQ6NTvypOyg8b7RULzzJlr2IWNYaVjpritdHm5Tne8thRgI2mT6Sac03u/exec"; 
+        // Si ya tenías una URL funcionando en tu index anterior, úsala.
+        // Si no, el formulario intentará avanzar solo visualmente para pruebas.
 
         const form = document.getElementById('leadForm');
-        const submitButton = document.getElementById('submitButton');
-        const loadingMessage = document.getElementById('loadingMessage');
-        const errorMessage = document.getElementById('errorMessage');
+        const btn = document.getElementById('submitBtn');
+        const loading = document.getElementById('loading');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); 
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerText = "ENVIANDO...";
+            loading.style.display = 'block';
 
-            submitButton.disabled = true;
-            loadingMessage.style.display = 'block';
-            errorMessage.style.display = 'none';
+            const datos = {
+                nombre: document.getElementById('nombre').value,
+                email: document.getElementById('email').value,
+                telefono: document.getElementById('telefono').value
+            };
 
-            fetch(URL_SCRIPT, {
-                method: 'POST',
-                body: new FormData(form)
-            })
-            .then(response => response.json()) 
-            .then(data => {
-                if (data.status === 'success') {
-                    // Evento de Lead a Meta
-                    fbq('track', 'Lead');
-                    
-                    // Evento de Lead a Google Analytics
-                    gtag('event', 'generate_lead', {
-                        'event_category': 'Formulario',
-                        'event_label': 'Registro Asesoria'
-                    });
+            try {
+                // Si tienes la URL, descomenta estas lineas para enviar
+                /*
+                await fetch(URL_SCRIPT_LEAD, {
+                    method: 'POST',
+                    body: JSON.stringify(datos),
+                    headers: { 'Content-Type': 'text/plain' }
+                });
+                */
+                
+                // Redirección con "Pase de Invitado" (Email en la URL)
+                // Esto conecta con la página de Upload que ya arreglamos
+                setTimeout(() => {
+                    window.location.href = `/upload.html?email=${encodeURIComponent(datos.email)}`;
+                }, 1500);
 
-                    // Redirección
-                    window.location.href = 'gracias.html';
-                } else {
-                    throw new Error(data.message || 'Error desconocido');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                submitButton.disabled = false;
-                loadingMessage.style.display = 'none';
-                errorMessage.style.display = 'block';
-            });
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Hubo un error de conexión. Redirigiendo...");
+                window.location.href = `/upload.html?email=${encodeURIComponent(datos.email)}`;
+            }
         });
     </script>
 

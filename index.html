@@ -41,11 +41,10 @@
     </div>
 
     <script>
-        // --- ¡ATENCIÓN! ---
-        // Pega aquí la URL de tu SCRIPT #1 (El que recibe el Lead y manda el correo de bienvenida)
-        const URL_SCRIPT_LEAD = "https://script.google.com/macros/s/AKfycbxqZSbkJp7WQ6NTvypOyg8b7RULzzJlr2IWNYaVjpritdHm5Tne8thRgI2mT6Sac03u/exec"; 
-        // Si ya tenías una URL funcionando en tu index anterior, úsala.
-        // Si no, el formulario intentará avanzar solo visualmente para pruebas.
+        // --- ¡ATENCIÓN COMPADRE! ---
+        // Aquí va la URL de tu SCRIPT #1 (El que llena la planilla Google Sheets de Leads)
+        // Si no la pones, el formulario igual redirigirá a "Gracias", pero no guardará el dato.
+        const URL_SCRIPT_LEAD = "https://script.google.com/macros/library/d/1ea_zBb1HN-3v94-Ak7wyaM9UJK1owoaQd2PUk5mkHunXh65MyIvMgQ11/4"; 
 
         const form = document.getElementById('leadForm');
         const btn = document.getElementById('submitBtn');
@@ -64,25 +63,23 @@
             };
 
             try {
-                // Si tienes la URL, descomenta estas lineas para enviar
-                /*
-                await fetch(URL_SCRIPT_LEAD, {
-                    method: 'POST',
-                    body: JSON.stringify(datos),
-                    headers: { 'Content-Type': 'text/plain' }
-                });
-                */
+                // Intenta enviar al Script #1 si la URL es válida
+                if (URL_SCRIPT_LEAD && URL_SCRIPT_LEAD.startsWith("http")) {
+                    await fetch(URL_SCRIPT_LEAD, {
+                        method: 'POST',
+                        body: JSON.stringify(datos),
+                        headers: { 'Content-Type': 'text/plain' }
+                    });
+                }
                 
-                // Redirección con "Pase de Invitado" (Email en la URL)
-                // Esto conecta con la página de Upload que ya arreglamos
-                setTimeout(() => {
-                    window.location.href = `/upload.html?email=${encodeURIComponent(datos.email)}`;
-                }, 1500);
+                // --- CORRECCIÓN DE FLUJO ---
+                // Redirige a la página de GRACIAS (no a upload)
+                window.location.href = "/gracias.html";
 
             } catch (error) {
                 console.error("Error:", error);
-                alert("Hubo un error de conexión. Redirigiendo...");
-                window.location.href = `/upload.html?email=${encodeURIComponent(datos.email)}`;
+                // Si falla el envío, igual redirige a gracias para no perder al cliente visualmente
+                window.location.href = "/gracias.html";
             }
         });
     </script>

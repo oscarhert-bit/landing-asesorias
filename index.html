@@ -41,10 +41,9 @@
     </div>
 
     <script>
-        // --- ¡ATENCIÓN COMPADRE! ---
-        // Aquí va la URL de tu SCRIPT #1 (El que llena la planilla Google Sheets de Leads)
-        // Si no la pones, el formulario igual redirigirá a "Gracias", pero no guardará el dato.
-        const URL_SCRIPT_LEAD = "https://script.google.com/macros/library/d/1ea_zBb1HN-3v94-Ak7wyaM9UJK1owoaQd2PUk5mkHunXh65MyIvMgQ11/4"; 
+        // --- CONFIGURACIÓN DE CONEXIÓN ---
+        // URL PROPORCIONADA POR EL USUARIO
+        const URL_SCRIPT_LEAD = "https://script.google.com/macros/s/AKfycbxqZSbkJp7WQ6NTvypOyg8b7RULzzJlr2IWNYaVjpritdHm5Tne8thRgI2mT6Sac03u/exec"; 
 
         const form = document.getElementById('leadForm');
         const btn = document.getElementById('submitBtn');
@@ -52,6 +51,8 @@
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // UI: Bloquear botón para evitar doble envío
             btn.disabled = true;
             btn.innerText = "ENVIANDO...";
             loading.style.display = 'block';
@@ -63,22 +64,21 @@
             };
 
             try {
-                // Intenta enviar al Script #1 si la URL es válida
-                if (URL_SCRIPT_LEAD && URL_SCRIPT_LEAD.startsWith("http")) {
-                    await fetch(URL_SCRIPT_LEAD, {
-                        method: 'POST',
-                        body: JSON.stringify(datos),
-                        headers: { 'Content-Type': 'text/plain' }
-                    });
-                }
+                // Enviar datos al Script #1 (Google Sheets + Mail Agenda)
+                // Usamos 'no-cors' para asegurar que el navegador no bloquee la redirección si Google responde raro
+                await fetch(URL_SCRIPT_LEAD, {
+                    method: 'POST',
+                    body: JSON.stringify(datos),
+                    mode: 'no-cors', 
+                    headers: { 'Content-Type': 'application/json' }
+                });
                 
-                // --- CORRECCIÓN DE FLUJO ---
-                // Redirige a la página de GRACIAS (no a upload)
+                // Éxito: Redirigir a la página de Gracias
                 window.location.href = "/gracias.html";
 
             } catch (error) {
                 console.error("Error:", error);
-                // Si falla el envío, igual redirige a gracias para no perder al cliente visualmente
+                // Fallo silencioso: Si falla la conexión, igual redirigimos para no perder al cliente en la pantalla de carga
                 window.location.href = "/gracias.html";
             }
         });

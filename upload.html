@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css"> 
     <style>
-        /* --- ESTILOS --- */
+        /* ESTILOS DEL FORMULARIO */
         .container-upload { max-width: 900px; margin: 40px auto; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; }
         .form-col { width: 100%; border-left: none; border-top: 5px solid #007bff; padding: 30px 40px; box-sizing: border-box; }
         #paso-2-formulario, #paso-3-checklist, #paso-4-uploader { display: none; margin-top: 30px; animation: fadeIn 0.5s; }
@@ -85,12 +85,460 @@
                             
                             <div class="input-group"><label for="titular_nacionalidad">Nacionalidad</label>
                                 <select id="titular_nacionalidad" name="titular_nacionalidad">
-                                    <option value="">Selecciona...</option>
-                                    <option value="Chilena">Chilena</option>
-                                    <option value="Extranjera">Extranjera</option>
+                                    <option value="">Selecciona...</option><option value="Chilena">Chilena</option><option value="Peruana">Peruana</option><option value="Venezolana">Venezolana</option><option value="Colombiana">Colombiana</option><option value="Argentina">Argentina</option><option value="Boliviana">Boliviana</option><option value="Ecuatoriana">Ecuatoriana</option><option value="Haitiana">Haitiana</option><option value="Otra">Otra</option>
                                 </select>
                             </div>
 
                             <div class="input-group"><label for="titular_estado_civil">Estado Civil</label>
                                 <select id="titular_estado_civil" name="titular_estado_civil">
-                                    <option value="">Selecciona...</option>
+                                    <option value="">Selecciona...</option><option value="Soltero(a)">Soltero(a)</option><option value="Casado(a)">Casado(a)</option><option value="Divorciado(a)">Divorciado(a)</option><option value="Viudo(a)">Viudo(a)</option><option value="AUC">Acuerdo de Unión Civil</option>
+                                </select>
+                            </div>
+                            <div class="input-group"><label for="titular_regimen">Régimen conyugal</label>
+                                <select id="titular_regimen" name="titular_regimen">
+                                    <option value="">Selecciona...</option><option value="Separación de Bienes">Separación de Bienes</option><option value="Sociedad Conyugal">Sociedad Conyugal</option><option value="Participación en Gananciales">Participación en Gananciales</option><option value="No Aplica">No Aplica</option>
+                                </select>
+                            </div>
+                            <div class="input-group"><label for="titular_domicilio">Domicilio Particular</label><input type="text" id="titular_domicilio" name="titular_domicilio"></div>
+                            
+                            <div class="input-group"><label for="titular_region">Región</label>
+                                <select id="titular_region" name="titular_region"></select>
+                            </div>
+                            <div class="input-group"><label for="titular_comuna">Comuna</label>
+                                <select id="titular_comuna" name="titular_comuna"></select>
+                            </div>
+
+                            <div class="input-group"><label for="titular_profesion">Profesión</label><input type="text" id="titular_profesion" name="titular_profesion"></div>
+                        </div>
+                        <hr style="margin: 20px 0;">
+                        <h3>Codeudor</h3>
+                        <p>¿Vas a complementar renta con alguien (cónyuge, pareja, familiar, etc.)?</p>
+                        <div class="profile-selector" style="flex-direction: row; gap: 20px;">
+                            <label><input type="radio" name="complementa_renta" value="no" checked><span>No, postulo solo</span></label>
+                            <label><input type="radio" name="complementa_renta" value="si"><span><strong>Sí</strong>, complemento renta</span></label>
+                        </div>
+                    </div>
+
+                    <div id="tab-laboral-titular" class="tab-content">
+                        <h3 id="titulo-laboral-titular">Antecedentes Laborales (Titular)</h3>
+                        <div id="content-lab-titular-dep" class="form-grid">
+                            <div class="input-group"><label for="lab_titular_empleador">Empleador</label><input type="text" id="lab_titular_empleador" name="lab_titular_empleador"></div>
+                            <div class="input-group"><label for="lab_titular_rut_empleador">RUT Empleador</label><input type="text" id="lab_titular_rut_empleador" name="lab_titular_rut_empleador" placeholder="Ej: 76.123.456-7" oninput="formatearRUT(this)"></div>
+                            <div class="input-group"><label for="lab_titular_cargo">Cargo</label><input type="text" id="lab_titular_cargo_dep" name="lab_titular_cargo"></div>
+                            <div class="input-group"><label for="lab_titular_telefono">Teléfono Laboral</label><input type="tel" id="lab_titular_telefono" name="lab_titular_telefono"></div>
+                            <div class="input-group"><label for="lab_titular_direccion">Dirección Laboral</label><input type="text" id="lab_titular_direccion" name="lab_titular_direccion"></div>
+                            <div class="input-group"><label for="lab_titular_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_titular_fecha_ingreso" name="lab_titular_fecha_ingreso"></div>
+                        </div>
+                        <div id="content-lab-titular-ind" class="form-grid" style="display: none;">
+                            <div class="input-group"><label for="lab_titular_actividad">Actividad Económica</label><input type="text" id="lab_titular_actividad" name="lab_titular_actividad"></div>
+                            <div class="input-group"><label for="lab_titular_fecha_ia">Fecha Inicio Actividades</label><input type="date" id="lab_titular_fecha_ia" name="lab_titular_fecha_ia"></div>
+                        </div>
+                    </div>
+
+                    <div id="tab-activos-titular" class="tab-content">
+                        <h3>Antecedentes Financieros (Titular)</h3>
+                        <h4>Ingresos Mensuales</h4>
+                        <div id="content-act-titular-dep" class="form-grid">
+                            <div class="input-group"><label for="fin_titular_sueldo">Sueldo (Líquido)</label><input type="text" inputmode="numeric" id="fin_titular_sueldo" name="fin_titular_sueldo" placeholder="Ej: 1500000 (lo que llega a tu cuenta)"></div>
+                        </div>
+                        <div id="content-act-titular-ind" class="form-grid" style="display: none;">
+                            <div class="input-group"><label for="fin_titular_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_titular_honorarios" name="fin_titular_honorarios" placeholder="Promedio de tus últimas 6 boletas"></div>
+                            <div class="input-group"><label for="fin_titular_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_titular_retiros" name="fin_titular_retiros" placeholder="Si eres dueño de empresa"></div>
+                        </div>
+                        <div class="form-grid" style="margin-top: 10px;">
+                           <div class="input-group"><label for="fin_titular_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_titular_arriendos" name="fin_titular_arriendos" placeholder="Si recibes arriendos"></div>
+                        </div>
+                        <h4 style="margin-top: 20px;">Ahorros (Pie)</h4>
+                        <div class="form-grid">
+                            <div class="input-group"><label for="fin_titular_ahorros">Ahorros (Cta. Ahorro)</label><input type="text" inputmode="numeric" id="fin_titular_ahorros" name="fin_titular_ahorros"></div>
+                            <div class="input-group"><label for="fin_titular_dap">Depósito a Plazo</label><input type="text" inputmode="numeric" id="fin_titular_dap" name="fin_titular_dap"></div>
+                            <div class="input-group"><label for="fin_titular_ffmm">Fondos Mutuos</label><input type="text" inputmode="numeric" id="fin_titular_ffmm" name="fin_titular_ffmm"></div>
+                        </div>
+                    </div>
+
+                    <div id="tab-codeudor" class="tab-content">
+                        <h3>Datos del Codeudor</h3>
+                        <div class="form-grid">
+                            <div class="input-group"><label for="codeudor_nombre">Nombre Completo</label><input type="text" id="codeudor_nombre" name="codeudor_nombre"></div>
+                            <div class="input-group"><label for="codeudor_rut">RUT</label><input type="text" id="codeudor_rut" name="codeudor_rut" placeholder="Ej: 12.345.678-9" oninput="formatearRUT(this)"></div>
+                            <div class="input-group"><label for="codeudor_email">Email</label><input type="email" id="codeudor_email" name="codeudor_email"></div>
+                            <div class="input-group"><label for="codeudor_telefono">Teléfono</label><input type="tel" id="codeudor_telefono" name="codeudor_telefono"></div>
+                            <div class="input-group"><label for="codeudor_fecha_nac">Fecha Nacimiento</label><input type="date" id="codeudor_fecha_nac" name="codeudor_fecha_nac"></div>
+                            <div class="input-group"><label for="codeudor_profesion">Profesión</label><input type="text" id="codeudor_profesion" name="codeudor_profesion"></div>
+                        </div>
+                        <div id="perfil-codeudor-selector">
+                            <hr style="margin: 20px 0;">
+                            <h4>¿Cuál es el perfil de tu codeudor?</h4>
+                            <div class="profile-selector">
+                                <label><input type="radio" name="perfilCodeudor" value="dependiente" checked><span>Es Trabajador <strong>Dependiente</strong></span></label>
+                                <label><input type="radio" name="perfilCodeudor" value="independiente"><span>Es Trabajador <strong>Independiente</strong></span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-laboral-codeudor" class="tab-content">
+                        <h3 id="titulo-laboral-codeudor">Antecedentes Laborales (Codeudor)</h3>
+                        <div id="content-lab-codeudor-dep" class="form-grid codeudor-sub-content">
+                            <div class="input-group"><label for="lab_codeudor_empleador">Empleador</label><input type="text" id="lab_codeudor_empleador" name="lab_codeudor_empleador"></div>
+                            <div class="input-group"><label for="lab_codeudor_rut_empleador">RUT Empleador</label><input type="text" id="lab_codeudor_rut_empleador" name="lab_codeudor_rut_empleador" oninput="formatearRUT(this)"></div>
+                            <div class="input-group"><label for="lab_codeudor_cargo">Cargo</label><input type="text" id="lab_codeudor_cargo" name="lab_codeudor_cargo"></div>
+                            <div class="input-group"><label for="lab_codeudor_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_codeudor_fecha_ingreso" name="lab_codeudor_fecha_ingreso"></div>
+                        </div>
+                        <div id="content-lab-codeudor-ind" class="form-grid codeudor-sub-content" style="display: none;">
+                            <div class="input-group"><label for="lab_codeudor_actividad">Actividad Económica</label><input type="text" id="lab_codeudor_actividad" name="lab_codeudor_actividad"></div>
+                            <div class="input-group"><label for="lab_codeudor_fecha_ia">Fecha Inicio Actividades</label><input type="date" id="lab_codeudor_fecha_ia" name="lab_codeudor_fecha_ia"></div>
+                        </div>
+                    </div>
+
+                    <div id="tab-activos-codeudor" class="tab-content">
+                        <h3>Antecedentes Financieros (Codeudor)</h3>
+                        <h4>Ingresos Mensuales</h4>
+                        <div id="content-act-codeudor-dep" class="form-grid codeudor-sub-content">
+                            <div class="input-group"><label for="fin_codeudor_sueldo">Sueldo (Líquido)</label><input type="text" inputmode="numeric" id="fin_codeudor_sueldo" name="fin_codeudor_sueldo" placeholder="Ej: 1500000"></div>
+                        </div>
+                        <div id="content-act-codeudor-ind" class="form-grid codeudor-sub-content" style="display: none;">
+                            <div class="input-group"><label for="fin_codeudor_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_codeudor_honorarios" name="fin_codeudor_honorarios" placeholder="Promedio de 6 boletas"></div>
+                            <div class="input-group"><label for="fin_codeudor_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_codeudor_retiros" name="fin_codeudor_retiros" placeholder="Si es dueño de empresa"></div>
+                        </div>
+                        <div class="form-grid" style="margin-top: 10px;">
+                            <div class="input-group"><label for="fin_codeudor_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_codeudor_arriendos" name="fin_codeudor_arriendos"></div>
+                        </div>
+                    </div>
+
+                    <div id="tab-pasivos" class="tab-content">
+                        <h3>Antecedentes de Deudas (Pasivos de ambos)</h3>
+                        <p>Informa las deudas principales (tuyas y/o de tu codeudor).</p>
+                        <h4>Crédito Hipotecario (si tienes)</h4>
+                        <div class="form-grid">
+                            <div class="input-group"><label for="deuda_hip_institucion">Institución</label><input type="text" id="deuda_hip_institucion" name="deuda_hip_institucion" placeholder="Ej: Banco Santander"></div>
+                            <div class="input-group"><label for="deuda_hip_cuota">Cuota Mensual</label><input type="text" inputmode="numeric" id="deuda_hip_cuota" name="deuda_hip_cuota" placeholder="Ej: 450000"></div>
+                            <div class="input-group"><label for="deuda_hip_saldo">Saldo Deuda Total</label><input type="text" inputmode="numeric" id="deuda_hip_saldo" name="deuda_hip_saldo" placeholder="Ej: 50000000"></div>
+                        </div>
+                        <h4 style="margin-top: 20px;">Créditos de Consumo</h4>
+                        <div class="form-grid">
+                            <div class="input-group"><label for="deuda_con1_institucion">Consumo 1: Institución</label><input type="text" id="deuda_con1_institucion" name="deuda_con1_institucion" placeholder="Ej: BCI"></div>
+                            <div class="input-group"><label for="deuda_con1_cuota">Cuota</label><input type="text" inputmode="numeric" id="deuda_con1_cuota" name="deuda_con1_cuota" placeholder="Ej: 150000"></div>
+                            <div class="input-group"><label for="deuda_con1_saldo">Saldo Deuda</label><input type="text" inputmode="numeric" id="deuda_con1_saldo" name="deuda_con1_saldo" placeholder="Ej: 2500000"></div>
+                        </div>
+                        <div class="form-grid" style="margin-top: 10px;">
+                            <div class="input-group"><label for="deuda_con2_institucion">Consumo 2: Institución</label><input type="text" id="deuda_con2_institucion" name="deuda_con2_institucion" placeholder="Ej: Falabella"></div>
+                            <div class="input-group"><label for="deuda_con2_cuota">Cuota</label><input type="text" inputmode="numeric" id="deuda_con2_cuota" name="deuda_con2_cuota"></div>
+                            <div class="input-group"><label for="deuda_con2_saldo">Saldo Deuda</label><input type="text" inputmode="numeric" id="deuda_con2_saldo" name="deuda_con2_saldo"></div>
+                        </div>
+                        <h4 style="margin-top: 20px;">Tarjetas y Líneas de Crédito</h4>
+                         <div class="form-grid">
+                            <div class="input-group"><label for="deuda_tarjeta_total">Cupo Total Utilizado (Tarjetas)</label><input type="text" inputmode="numeric" id="deuda_tarjeta_total" name="deuda_tarjeta_total" placeholder="Suma de todas tus tarjetas"></div>
+                            <div class="input-group"><label for="deuda_linea_total">Cupo Total Utilizado (Líneas de Crédito)</label><input type="text" inputmode="numeric" id="deuda_linea_total" name="deuda_linea_total" placeholder="Suma de todas tus líneas"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation-buttons">
+                        <button type="button" class="form-nav-btn secondary" id="btn-form-prev" style="display: none;">&laquo; Anterior</button>
+                        <button type="button" class="form-nav-btn" id="btn-form-next">Siguiente &raquo;</button>
+                        <button type="button" class="form-nav-btn" id="btn-finalizar-formulario" style="display: none;">¡Listo! Ir a Subir Archivos &raquo;</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="paso-3-checklist">
+                <h2>Paso 3: Tu Checklist de Documentos</h2>
+                <p>¡Perfecto! Ya tenemos tus datos. Ahora, basado en tu perfil, solo necesitamos los siguientes archivos:</p>
+                <ul id="checklist-final" class="checklist"></ul>
+            </div>
+
+            <div id="paso-4-uploader">
+                <h2>Paso 4: Sube tus archivos</h2>
+                <p>Sube aquí todos los documentos de la lista anterior (PDF, JPG, PNG).</p>
+                <form id="uploadForm">
+                    <div class="input-group">
+                        <label for="fileInput">Haz clic aquí o arrastra tus archivos:</label>
+                        <input type="file" id="fileInput" name="files" multiple required>
+                        <div id="fileList" class="file-list"></div>
+                    </div>
+                    <button type="submit" id="submitButton">Subir Formulario y Archivos</button>
+                    <div id="loadingMessage" style="display:none;">Subiendo todo... esto puede tardar un minuto.</div>
+                    <div id="successMessage" style="display:none; color: green;">¡Sistema completo! Recibimos tus datos y archivos. Te contactaremos pronto.</div>
+                    <div id="errorMessage" style="display:none; color: red;">Hubo un error. Intenta de nuevo.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // CONFIGURACIÓN Y DATOS
+        // ============================================================
+        const URL_SCRIPT_UPLOAD = "https://script.google.com/macros/s/AKfycbxO56Ws-bdkEiv-sCQZgnldzxGd-Ve-gVAVX1vSpbOsTiNrIYLVU9IYAOP8jMzH24gc/exec";
+        const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf";
+        const LINK_DICOM = "https://www.equifax.cl/ecfx/informe-comercial/dicom-platinum-360";
+        
+        const regionesYComunas = { "regiones": [ 
+            {"nombre": "Arica y Parinacota", "comunas": ["Arica", "Camarones", "Putre", "General Lagos"]},
+            {"nombre": "Tarapaca", "comunas": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camina", "Colchane", "Huara", "Pica"]},
+            {"nombre": "Antofagasta", "comunas": ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollague", "San Pedro de Atacama", "Tocopilla", "Maria Elena"]},
+            {"nombre": "Atacama", "comunas": ["Copiapo", "Caldera", "Tierra Amarilla", "Chanaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"]},
+            {"nombre": "Coquimbo", "comunas": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuna", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbala", "Monte Patria", "Punitaqui", "Rio Hurtado"]},
+            {"nombre": "Valparaiso", "comunas": ["Valparaiso", "Casablanca", "Concon", "Juan Fernandez", "Puchuncavi", "Quintero", "Vina del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa Maria", "Quilpue", "Limache", "Olmue", "Villa Alemana"]},
+            {"nombre": "Metropolitana de Santiago", "comunas": ["Santiago", "Cerrillos", "Cerro Navia", "Conchali", "El Bosque", "Estacion Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipu", "Nunoa", "Pedro Aguirre Cerda", "Penalolen", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquin", "San Miguel", "San Ramon", "Vitacura", "Puente Alto", "Pirque", "San Jose de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhue", "Curacavi", "Maria Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Penaflor"]},
+            {"nombre": "O Higgins", "comunas": ["Rancagua", "Codegua", "Coinco", "Coltauco", "Donihue", "Graneros", "Las Cabras", "Machali", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requinoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chepica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"]},
+            {"nombre": "Maule", "comunas": ["Talca", "Constitucion", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Rio Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curico", "Hualane", "Licanten", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquen", "Linares", "Colbun", "Longavi", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas"]},
+            {"nombre": "Nuble", "comunas": ["Chillan", "Bulnes", "Chillan Viejo", "El Carmen", "Pemuco", "Pinto", "Quillon", "San Ignacio", "Yungay", "Quirihue", "Cobquecura", "Coelemu", "Ninhue", "Portezuelo", "Ranquil", "Treguaco", "San Carlos", "Coihueco", "Niquen", "San Fabian", "San Nicolas"]},
+            {"nombre": "Biobio", "comunas": ["Concepcion", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tome", "Hualpen", "Lebu", "Arauco", "Canete", "Contulmo", "Curanilahue", "Los Alamos", "Tirua", "Los Angeles", "Antuco", "Cabrero", "Laja", "Mulchen", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Barbara", "Tucapel", "Yumbel", "Alto Biobio"]},
+            {"nombre": "Araucania", "comunas": ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco", "Pitrufquen", "Pucon", "Saavedra", "Teodoro Schmidt", "Tolten", "Vilcun", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautin", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Puren", "Renaico", "Traiguen", "Victoria"]},
+            {"nombre": "Los Rios", "comunas": ["Valdivia", "Corral", "Lanco", "Los Lagos", "Mafil", "Mariquina", "Paillaco", "Panguipulli", "La Union", "Futrono", "Lago Ranco", "Rio Bueno"]},
+            {"nombre": "Los Lagos", "comunas": ["Puerto Montt", "Calbuco", "Cochamo", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullin", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Velez", "Dalcahue", "Puqueldon", "Queilen", "Quellon", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Rio Negro", "San Juan de la Costa", "San Pablo", "Chaiten", "Futaleufu", "Hualaihue", "Palena"]},
+            {"nombre": "Aysen", "comunas": ["Coyhaique", "Lago Verde", "Aysen", "Cisnes", "Guaitecas", "Cochrane", "O Higgins", "Tortel", "Chile Chico", "Rio Ibanez"]},
+            {"nombre": "Magallanes", "comunas": ["Punta Arenas", "Laguna Blanca", "Rio Verde", "San Gregorio", "Cabo de Hornos", "Antartica", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine"]}
+        ] };
+
+        const documentosComunes = [ { nombre: "Informe de Deudas CMF", ayuda: TUTORIAL_DEUDA_URL, tipo: "tutorial", textoAyuda: "[Ver Tutorial]" }, { nombre: "Informe DICOM Platinum 360", ayuda: LINK_DICOM, tipo: "tutorial", textoAyuda: "[Obtener Aquí]" } ];
+        const documentosDependiente = [ { nombre: "Cédula de Identidad (ambos lados)" }, { nombre: "6 últimas liquidaciones de sueldo" }, { nombre: "12 últimas cotizaciones de AFP" }, { nombre: "Certificado de antigüedad laboral (o Contrato)" }, { nombre: "Certificado de Matrimonio / AUC (si aplica)" } ];
+        const documentosIndependiente = [ { nombre: "Cédula de Identidad (ambos lados)" }, { nombre: "Formulario 22 (Declaración Renta 2 últimos años)" }, { nombre: "Resumen Boletas de Honorarios (2 últimos años)" }, { nombre: "6 últimos Pagos Provisionales (F29)" }, { nombre: "Iniciación de Actividades (SII)" } ];
+        const documentosEmpresa = [ { nombre: "Cédula de Identidad (Rep. Legal)" }, { nombre: "RUT de la Empresa" }, { nombre: "Escritura de la Sociedad (y modificaciones)" }, { nombre: "Vigencia de Poderes (Rep. Legal)" }, { nombre: "Nómina de Accionistas (si aplica)" }, { nombre: "2 últimos Balances (Contador)" }, { nombre: "12 últimos IVAs (F29)" }, { nombre: "Carpeta Tributaria (SII)" } ];
+
+        // ============================================================
+        // LÓGICA DE NAVEGACIÓN Y UX
+        // ============================================================
+        const paso1 = document.getElementById('paso-1-perfil');
+        const paso2 = document.getElementById('paso-2-formulario');
+        const paso3 = document.getElementById('paso-3-checklist');
+        const paso4 = document.getElementById('paso-4-uploader');
+        const eessForm = document.getElementById('eessForm');
+        const btnPrev = document.getElementById('btn-form-prev');
+        const btnNext = document.getElementById('btn-form-next');
+        const btnFinalizar = document.getElementById('btn-finalizar-formulario');
+        const checklistFinal = document.getElementById('checklist-final');
+        const perfilCodeudorSelector = document.getElementById('perfil-codeudor-selector');
+
+        let perfilSeleccionado = "";
+        let perfilCodeudorSeleccionado = "dependiente";
+        let tabs = []; 
+        let tabNavButtons = []; 
+        let currentTab = 0;
+
+        document.querySelectorAll('input[name="perfilCliente"]').forEach(r => r.addEventListener('change', (e) => {
+            perfilSeleccionado = e.target.value;
+            paso2.style.display = 'block';
+            actualizarUXTitular();
+            actualizarTabsVisibles(); 
+            validarFormulario();
+        }));
+
+        document.querySelectorAll('input[name="complementa_renta"]').forEach(r => r.addEventListener('change', (e) => {
+            const show = e.target.value === 'si';
+            perfilCodeudorSelector.style.display = show ? 'block' : 'none';
+            actualizarPerfilCodeudor();
+            actualizarTabsVisibles();
+            validarFormulario();
+        }));
+
+        document.querySelectorAll('input[name="perfilCodeudor"]').forEach(r => r.addEventListener('change', (e) => {
+            perfilCodeudorSeleccionado = e.target.value;
+            actualizarPerfilCodeudor();
+            validarFormulario();
+        }));
+
+        function actualizarUXTitular() {
+            const esIndep = (perfilSeleccionado === 'independiente' || perfilSeleccionado === 'empresa');
+            document.getElementById('tab-nav-laboral-titular').textContent = esIndep ? "2. Actividad (Titular)" : "2. Laboral (Titular)";
+            document.getElementById('titulo-laboral-titular').textContent = esIndep ? "Antecedentes de Actividad (Titular)" : "Antecedentes Laborales (Titular)";
+            document.getElementById('content-lab-titular-dep').style.display = esIndep ? 'none' : 'grid';
+            document.getElementById('content-lab-titular-ind').style.display = esIndep ? 'grid' : 'none';
+            document.getElementById('content-act-titular-dep').style.display = esIndep ? 'none' : 'grid';
+            document.getElementById('content-act-titular-ind').style.display = esIndep ? 'grid' : 'none';
+        }
+
+        function actualizarPerfilCodeudor() {
+            const esDep = perfilCodeudorSeleccionado === 'dependiente';
+            document.getElementById('content-lab-codeudor-dep').style.display = esDep ? 'grid' : 'none';
+            document.getElementById('content-lab-codeudor-ind').style.display = esDep ? 'none' : 'grid';
+            document.getElementById('content-act-codeudor-dep').style.display = esDep ? 'grid' : 'none';
+            document.getElementById('content-act-codeudor-ind').style.display = esDep ? 'none' : 'grid';
+            
+            // Limpiar requireds anteriores
+            document.querySelectorAll('.codeudor-sub-content input').forEach(i => i.required = false);
+            
+            if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
+                const targetLab = esDep ? 'content-lab-codeudor-dep' : 'content-lab-codeudor-ind';
+                const targetAct = esDep ? 'content-act-codeudor-dep' : 'content-act-codeudor-ind';
+                document.getElementById(targetLab).querySelectorAll('input').forEach(i => i.required = true);
+                document.getElementById(targetAct).querySelectorAll('input').forEach(i => i.required = true);
+            }
+        }
+
+        function actualizarTabsVisibles() {
+            const allTabs = Array.from(document.querySelectorAll('.tab-content'));
+            const allNavButtons = Array.from(document.querySelectorAll('.tab-nav-button'));
+            const showCodeudor = document.querySelector('input[name="complementa_renta"]:checked').value === 'si';
+            tabs = []; tabNavButtons = [];
+            for (let i = 0; i < allTabs.length; i++) {
+                const btn = allNavButtons[i];
+                const content = allTabs[i];
+                if (btn) {
+                    if (btn.classList.contains('codeudor-tab')) {
+                        if (showCodeudor) { tabs.push(content); tabNavButtons.push(btn); btn.style.display = 'inline-block'; }
+                        else { btn.style.display = 'none'; }
+                    } else { tabs.push(content); tabNavButtons.push(btn); btn.style.display = 'inline-block'; }
+                }
+            }
+            currentTab = 0; showTab(0);
+        }
+
+        function showTab(n) {
+            if (!tabs.length) return;
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-nav-button').forEach(b => b.classList.remove('active'));
+            tabs[n].classList.add('active');
+            tabNavButtons[n].classList.add('active');
+            btnPrev.style.display = n === 0 ? 'none' : 'inline-block';
+            btnNext.style.display = n === tabs.length - 1 ? 'none' : 'inline-block';
+            btnFinalizar.style.display = n === tabs.length - 1 ? 'inline-block' : 'none';
+        }
+
+        document.querySelector('.tab-navigation').addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab-nav-button')) {
+                const idx = tabNavButtons.indexOf(e.target);
+                if (idx > -1) { currentTab = idx; showTab(currentTab); }
+            }
+        });
+        btnNext.addEventListener('click', () => { if(currentTab < tabs.length -1) { currentTab++; showTab(currentTab); } });
+        btnPrev.addEventListener('click', () => { if(currentTab > 0) { currentTab--; showTab(currentTab); } });
+        eessForm.addEventListener('input', validarFormulario);
+
+        function validarFormulario() { btnFinalizar.disabled = false; } // Debug Mode: Validación relajada
+
+        btnFinalizar.addEventListener('click', () => {
+            paso2.style.display = 'none';
+            generarChecklist();
+            paso3.style.display = 'block';
+            paso4.style.display = 'block';
+        });
+
+        function generarChecklist() {
+            const hayCodeudor = document.querySelector('input[name="complementa_renta"]:checked').value === 'si';
+            let lista = (perfilSeleccionado === 'empresa') ? [...documentosComunes, ...documentosEmpresa] :
+                        (perfilSeleccionado === 'dependiente') ? [...documentosComunes, ...documentosDependiente] : [...documentosComunes, ...documentosIndependiente];
+            if (hayCodeudor) {
+                lista.push({ nombre: `--- CODEUDOR (${perfilCodeudorSeleccionado.toUpperCase()}) ---` });
+                lista = lista.concat((perfilCodeudorSeleccionado === 'dependiente') ? documentosDependiente : documentosIndependiente);
+            }
+            checklistFinal.innerHTML = '';
+            lista.forEach(doc => {
+                let link = doc.ayuda ? `<a href="${doc.ayuda}" class="doc-help" target="_blank">${doc.textoAyuda}</a>` : '';
+                checklistFinal.innerHTML += `<li><strong>${doc.nombre}</strong> ${link}</li>`;
+            });
+        }
+
+        // ============================================================
+        // MOTOR DE SUBIDA (v3.5 - ASYNC/AWAIT)
+        // ============================================================
+        const uploadForm = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const submitButton = document.getElementById('submitButton');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        fileInput.addEventListener('change', () => {
+            fileList.innerHTML = '';
+            for(const file of fileInput.files) fileList.innerHTML += `<div>${file.name}</div>`;
+        });
+
+        const leerArchivo = (file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve({ fileName: file.name, mimeType: file.type, data: reader.result.split(',')[1] });
+                reader.onerror = () => reject(new Error(`Error al leer ${file.name}`));
+                reader.readAsDataURL(file);
+            });
+        };
+
+        uploadForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            submitButton.disabled = true;
+            loadingMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const email = params.get('email');
+                if (!email) throw new Error("Falta el email en la URL.");
+
+                const formData = new FormData(eessForm);
+                const eessData = {};
+                formData.forEach((value, key) => eessData[key] = value);
+
+                const files = fileInput.files;
+                if (!files.length) throw new Error("Selecciona al menos un archivo.");
+                
+                const filesArray = await Promise.all(Array.from(files).map(leerArchivo));
+
+                const payload = {
+                    email: email,
+                    perfil: perfilSeleccionado,
+                    perfilCodeudor: document.querySelector('input[name="complementa_renta"]:checked').value === 'si' ? perfilCodeudorSeleccionado : "no_aplica",
+                    formData: eessData,
+                    files: filesArray
+                };
+
+                const response = await fetch(URL_SCRIPT_UPLOAD, {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
+                });
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    loadingMessage.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    paso1.innerHTML = "<h2>¡Recibido!</h2><p>Todo subido correctamente.</p>";
+                    paso1.style.display = 'block';
+                    paso3.style.display = 'none';
+                    paso4.style.display = 'none';
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error(error);
+                errorMessage.innerText = "Error: " + error.message;
+                errorMessage.style.display = 'block';
+                loadingMessage.style.display = 'none';
+                submitButton.disabled = false;
+            }
+        });
+
+        // Funciones Auxiliares
+        function formatearRUT(input) {
+            let rut = input.value.replace(/[^0-9kK]/g, '');
+            if (rut.length > 1) {
+                input.value = rut.slice(0, -1).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '-' + rut.slice(-1).toUpperCase();
+            } else { input.value = rut.toUpperCase(); }
+        }
+
+        function cargarRegionesYComunas() {
+            const regionSelect = document.getElementById('titular_region');
+            const comunaSelect = document.getElementById('titular_comuna');
+            regionSelect.innerHTML = '<option value="">Selecciona...</option>';
+            regionesYComunas.regiones.forEach((r, i) => regionSelect.innerHTML += `<option value="${i}">${r.nombre}</option>`);
+            
+            regionSelect.addEventListener('change', () => {
+                comunaSelect.innerHTML = '<option value="">Selecciona...</option>';
+                if (regionSelect.value) {
+                    regionesYComunas.regiones[regionSelect.value].comunas.forEach(c => comunaSelect.innerHTML += `<option value="${c}">${c}</option>`);
+                }
+            });
+            // Default RM
+            regionSelect.value = 6; // Metropolitana (indice 6 en esta lista corta)
+            regionSelect.dispatchEvent(new Event('change'));
+        }
+
+        // Inicializar
+        cargarRegionesYComunas();
+        actualizarUXTitular();
+        actualizarPerfilCodeudor();
+        validarFormulario();
+    </script>
+</body>
+</html>

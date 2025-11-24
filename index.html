@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asesoría Financiera Expertos - Black Friday</title>
+    <title>Asesoría Financiera - Black Friday</title>
+    
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/921/921591.png" type="image/png">
+    <meta property="og:title" content="Evaluación Financiera Black Friday 🔒">
+    <meta property="og:description" content="Accede a una revisión prioritaria de tu perfil y mejora tus opciones de crédito.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1000&auto=format&fit=crop">
+    
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
@@ -40,9 +46,13 @@
         <p style="font-size: 0.8em; color: #666; margin-top: 20px;">Cupos limitados por temporada Black Friday.</p>
     </div>
 
+    <footer style="background: #000; color: #666; padding: 30px 20px; text-align: center; font-size: 12px; margin-top: 60px; border-top: 1px solid #333;">
+        <p style="margin-bottom: 10px;">© 2025 Asesoría Financiera Experta. Todos los derechos reservados.</p>
+        <p>Tus datos son tratados con estricta confidencialidad y seguridad (SSL).</p>
+    </footer>
+
     <script>
-        // --- CONFIGURACIÓN DE CONEXIÓN ---
-        // URL PROPORCIONADA POR EL USUARIO
+        // URL DE TU SCRIPT #1 (LEADS) - YA CONFIGURADA
         const URL_SCRIPT_LEAD = "https://script.google.com/macros/s/AKfycbx_-oQvqInqLrUHiR7bwvl6ySgawGw-Zu1skhG1t4xPWShuA1lWBThZ5bvYgA1V4NkP/exec"; 
 
         const form = document.getElementById('leadForm');
@@ -51,8 +61,6 @@
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // UI: Bloquear botón para evitar doble envío
             btn.disabled = true;
             btn.innerText = "ENVIANDO...";
             loading.style.display = 'block';
@@ -64,21 +72,15 @@
             };
 
             try {
-                // Enviar datos al Script #1 (Google Sheets + Mail Agenda)
-                // Usamos 'no-cors' para asegurar que el navegador no bloquee la redirección si Google responde raro
                 await fetch(URL_SCRIPT_LEAD, {
                     method: 'POST',
                     body: JSON.stringify(datos),
                     mode: 'no-cors', 
                     headers: { 'Content-Type': 'application/json' }
                 });
-                
-                // Éxito: Redirigir a la página de Gracias
                 window.location.href = "/gracias.html";
-
             } catch (error) {
                 console.error("Error:", error);
-                // Fallo silencioso: Si falla la conexión, igual redirigimos para no perder al cliente en la pantalla de carga
                 window.location.href = "/gracias.html";
             }
         });

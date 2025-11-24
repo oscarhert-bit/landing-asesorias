@@ -71,6 +71,13 @@ body::before {
     z-index: 1;
 }
 
+/* Ajuste específico para el formulario Upload (alineación izquierda) */
+.container-upload {
+    text-align: left; 
+    padding: 0; 
+    /* El estilo base ya está en el HTML de upload, pero esto asegura consistencia si se usa externo */
+}
+
 /* --- TIPOGRAFÍA PREMIUM --- */
 h1 {
     color: var(--primary-navy);
@@ -160,6 +167,7 @@ input:focus {
     filter: brightness(1.1);
 }
 
+/* Botón WhatsApp */
 .btn-whatsapp {
     background: #25D366;
     color: white;
@@ -170,6 +178,12 @@ input:focus {
     font-weight: 700;
     margin-top: 20px;
     box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
 }
 
 /* --- RESPONSIVE --- */

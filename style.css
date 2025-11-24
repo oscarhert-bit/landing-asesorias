@@ -1,15 +1,12 @@
 /* ==========================================================================
-   ESTILO VISUAL: FINANCIAL GLASS PREMIUM (BLACK FRIDAY EDITION v4.0)
-   Aplicable a: index.html, upload.html, gracias.html
-   ========================================================================== 
-*/
+   ESTILO VISUAL: FINANCIAL GLASS PREMIUM (BLACK FRIDAY EDITION v5.0)
+   ========================================================================== */
 
 :root {
-    --primary-navy: #0a2540; /* Azul Profundo */
-    --primary-blue: #0056b3; /* Azul Acción */
-    --accent-gold: #D4AF37;  /* Dorado Lujo */
-    --success-green: #00C853; /* Verde Éxito */
-    --glass-surface: rgba(255, 255, 255, 0.92); /* Cristal Blanco */
+    --primary-navy: #0a2540;
+    --primary-blue: #0056b3;
+    --accent-gold: #D4AF37;
+    --glass-surface: rgba(255, 255, 255, 0.92);
     --glass-border: rgba(255, 255, 255, 0.5);
     --text-main: #334e68;
     --text-dark: #102a43;
@@ -17,20 +14,17 @@
     --font-main: 'Lato', sans-serif;
 }
 
-/* --- FONDO CINEMÁTICO COMÚN --- */
 body {
     margin: 0;
     padding: 0;
     font-family: var(--font-main);
     color: var(--text-main);
     min-height: 100vh;
-    /* Imagen: Rascacielos en hora azul */
     background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed; 
     background-size: cover;
     position: relative;
 }
 
-/* Máscara oscura para legibilidad */
 body::before {
     content: '';
     position: fixed;
@@ -39,7 +33,6 @@ body::before {
     z-index: -1;
 }
 
-/* --- BARRA BLACK FRIDAY --- */
 .promo-bar {
     background: #000;
     color: var(--accent-gold);
@@ -55,9 +48,8 @@ body::before {
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
-/* --- CONTENEDORES DE CRISTAL --- */
-.container, .hero-container, .thank-you-card {
-    max-width: 600px; /* Ancho optimizado para lectura */
+.container, .hero-container, .thank-you-card, .container-upload {
+    max-width: 800px;
     margin: 60px auto;
     padding: 50px;
     background: var(--glass-surface);
@@ -66,133 +58,62 @@ body::before {
     border-radius: 24px;
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-float);
-    text-align: center;
     position: relative;
     z-index: 1;
 }
 
-/* Ajuste específico para el formulario Upload (alineación izquierda) */
-.container-upload {
-    text-align: left; 
-    padding: 0; 
-    /* El estilo base ya está en el HTML de upload, pero esto asegura consistencia si se usa externo */
-}
+/* Ajustes específicos de alineación */
+.hero-container, .thank-you-card { text-align: center; max-width: 600px; }
+.container-upload { padding: 0; text-align: left; } /* El padding lo maneja form-col */
+.form-col { padding: 40px 50px; border-top: 5px solid var(--primary-blue); }
 
-/* --- TIPOGRAFÍA PREMIUM --- */
-h1 {
-    color: var(--primary-navy);
-    font-weight: 800;
-    font-size: 2.2rem;
-    margin-bottom: 15px;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
-    text-transform: uppercase;
-}
+h1 { color: var(--primary-navy); font-weight: 800; font-size: 2.2rem; margin-bottom: 15px; text-transform: uppercase; line-height: 1.2; }
+h2 { color: var(--primary-blue); font-size: 1.6rem; font-weight: 700; margin-bottom: 20px; margin-top: 0; }
+h3 { color: #444; font-weight: 600; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 30px; font-size: 1.2rem; }
+p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px; }
+.highlight { color: var(--primary-blue); }
 
-h2 {
-    color: var(--primary-blue);
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
+/* FORMULARIOS */
+.form-group, .input-group { margin-bottom: 20px; text-align: left; }
+label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+input, select { width: 100%; padding: 15px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px !important; background: #f9f9f9; color: var(--primary-navy); box-sizing: border-box; transition: all 0.3s; font-family: 'Lato', sans-serif; }
+input:focus, select:focus { outline: none; border-color: var(--primary-blue); background: #fff; box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1); }
 
-p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--text-main);
-    margin-bottom: 30px;
-}
-
-.highlight {
-    color: var(--primary-blue);
-    font-weight: 700;
-}
-
-/* --- INPUTS --- */
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-input[type="text"], input[type="email"], input[type="tel"] {
-    width: 100%;
-    padding: 16px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 16px !important; /* Evita zoom en iPhone */
-    background: #f9f9f9;
-    color: var(--primary-navy);
-    box-sizing: border-box;
-    transition: all 0.3s;
-}
-
-input:focus {
-    outline: none;
-    border-color: var(--primary-blue);
-    background: #fff;
-    box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1);
-}
-
-/* --- BOTONES --- */
-.btn-main {
+/* BOTONES */
+.btn-main, #submitButton, .form-nav-btn {
     background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-blue) 100%);
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 18px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 10px 25px rgba(0, 86, 179, 0.3);
-    margin-top: 10px;
+    color: white; border: none; width: 100%; padding: 18px; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; cursor: pointer; transition: all 0.3s; box-shadow: 0 10px 25px rgba(0, 86, 179, 0.3); margin-top: 10px;
 }
+.btn-main:hover, #submitButton:hover, .form-nav-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 86, 179, 0.4); filter: brightness(1.1); }
+.form-nav-btn.secondary { background: #bcccdc; color: var(--primary-navy); box-shadow: none; }
+#btn-finalizar-formulario { background: linear-gradient(135deg, #00C853 0%, #009624 100%); }
 
-.btn-main:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(0, 86, 179, 0.4);
-    filter: brightness(1.1);
-}
+.btn-whatsapp { background: #25D366; color: white; text-decoration: none; display: inline-block; padding: 15px 30px; border-radius: 50px; font-weight: 700; margin-top: 20px; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); transition: all 0.3s; }
+.btn-whatsapp:hover { transform: translateY(-2px); }
 
-/* Botón WhatsApp */
-.btn-whatsapp {
-    background: #25D366;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    padding: 15px 30px;
-    border-radius: 50px;
-    font-weight: 700;
-    margin-top: 20px;
-    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-    transition: all 0.3s;
-}
+/* UI Upload */
+.tab-navigation { display: flex; flex-wrap: wrap; gap: 5px; border-bottom: none; margin-bottom: 25px; }
+.tab-nav-button { padding: 10px 18px; border: 1px solid transparent; background-color: rgba(0,0,0,0.05); border-radius: 20px; color: #666; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+.tab-nav-button.active { background-color: var(--primary-navy); color: white; }
+.profile-selector { display: flex; flex-direction: column; gap: 10px; }
+.profile-selector label { display: flex; align-items: center; padding: 15px; background: #fff; border: 2px solid #e0e6ed; border-radius: 10px; cursor: pointer; }
+.profile-selector input { width: auto; margin-right: 15px; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.form-navigation-buttons { display: flex; gap: 15px; margin-top: 30px; }
+#fileInput { border: 2px dashed var(--primary-blue); background: rgba(0,86,179,0.03); padding: 40px; border-radius: 15px; text-align: center; cursor: pointer; }
+.checklist li { background: #fff; border: 1px solid #e0e6ed; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; font-weight: 600; }
+.doc-help { color: var(--primary-blue); text-decoration: none; font-size: 0.85rem; background: rgba(0,86,179,0.1); padding: 5px 10px; border-radius: 4px; }
 
-.btn-whatsapp:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
-}
+/* Ocultos */
+#paso-2-formulario, #paso-3-checklist, #paso-4-uploader, .codeudor-tab, .codeudor-sub-content, #perfil-codeudor-selector, #btn-finalizar-formulario, #loadingMessage, #successMessage, #errorMessage, #loading { display: none; }
+#btn-form-next { display: inline-block; }
+.tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+.tab-content.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* --- RESPONSIVE --- */
+/* Responsive */
 @media (max-width: 768px) {
-    .container, .hero-container, .thank-you-card {
-        margin: 20px;
-        padding: 30px 20px;
-        width: auto;
-        border-radius: 16px;
-    }
-    h1 { font-size: 1.8rem; }
+    .container, .hero-container, .thank-you-card, .container-upload { margin: 20px 15px; padding: 30px 20px; width: auto; }
+    .form-col { padding: 20px; }
+    .form-navigation-buttons { flex-direction: column-reverse; }
 }

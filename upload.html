@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carga de Documentos - Evaluación</title>
-    
+    <title>Tu Carpeta Digital - Oscar Hert</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/921/921591.png" type="image/png">
-    <meta property="og:title" content="Portal Seguro de Carga 🔒">
-    
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css"> 
     <style>
-        /* ESTILOS DEL FORMULARIO */
+        /* ESTILOS DEL FORMULARIO (Mismos de v4.0) */
         .container-upload { max-width: 900px; margin: 40px auto; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; }
         .form-col { width: 100%; border-left: none; border-top: 5px solid #007bff; padding: 30px 40px; box-sizing: border-box; }
         #paso-2-formulario, #paso-3-checklist, #paso-4-uploader { display: none; margin-top: 30px; animation: fadeIn 0.5s; }
@@ -52,25 +49,25 @@
 <body>
 
     <div class="promo-bar">
-        🔥 Cupos Black Friday: Evaluación Prioritaria Habilitada
+        🔥 Evaluación Prioritaria en Curso
     </div>
 
     <div class="container-upload">
         <div class="form-col">
 
             <div id="paso-1-perfil">
-                <h2>Paso 1: ¿Cuál es tu perfil?</h2>
-                <p>Selecciona tu situación laboral para mostrarte los documentos exactos que necesitamos.</p>
+                <h2>Paso 1: Armemos tu Perfil</h2>
+                <p>Para encontrar el mejor crédito para ti, necesito saber cómo generas tus ingresos hoy.</p>
                 <div class="profile-selector">
                     <label><input type="radio" name="perfilCliente" value="dependiente"><span>Soy Trabajador <strong>Dependiente</strong> (con contrato)</span></label>
-                    <label><input type="radio" name="perfilCliente" value="independiente"><span>Soy Trabajador <strong>Independiente</strong> (boletas de honorarios)</span></label>
+                    <label><input type="radio" name="perfilCliente" value="independiente"><span>Soy Trabajador <strong>Independiente</strong> (boletas)</span></label>
                     <label><input type="radio" name="perfilCliente" value="empresa"><span>Soy <strong>Empresa</strong> (tengo mi propia sociedad)</span></label>
                 </div>
             </div>
 
             <div id="paso-2-formulario">
-                <h2>Paso 2: Completa tu "Estado de Situación"</h2>
-                <p>Por favor, completa estos datos para agilizar tu evaluación.</p>
+                <h2>Paso 2: Tu Realidad Financiera</h2>
+                <p>Estos datos son clave para ver cuánto nos presta el banco. Compleméntalos con precisión.</p>
                 
                 <form id="eessForm">
                     <div class="tab-navigation">
@@ -78,91 +75,86 @@
                         <button type="button" class="tab-nav-button" data-tab="tab-laboral-titular" id="tab-nav-laboral-titular">2. Laboral</button>
                         <button type="button" class="tab-nav-button" data-tab="tab-activos-titular">3. Activos</button>
                         <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-codeudor">4. Codeudor</button>
-                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-laboral-codeudor" id="tab-nav-laboral-codeudor">5. Laboral (Codeudor)</button>
-                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-activos-codeudor" id="tab-nav-activos-codeudor">6. Activos (Codeudor)</button>
-                        <button type="button" class="tab-nav-button" data-tab="tab-pasivos">Últ. Pasivos (Deudas)</button>
+                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-laboral-codeudor" id="tab-nav-laboral-codeudor">5. Laboral (Cod.)</button>
+                        <button type="button" class="tab-nav-button codeudor-tab" data-tab="tab-activos-codeudor" id="tab-nav-activos-codeudor">6. Activos (Cod.)</button>
+                        <button type="button" class="tab-nav-button" data-tab="tab-pasivos">Deudas</button>
                     </div>
 
                     <div id="tab-titular" class="tab-content active">
-                        <h3>Datos del Titular</h3>
+                        <h3>Datos Personales</h3>
                         <div class="form-grid">
-                            <div class="input-group"><label for="titular_nombre">Nombre Completo</label><input type="text" id="titular_nombre" name="titular_nombre" required></div>
-                            <div class="input-group"><label for="titular_rut">RUT</label><input type="text" id="titular_rut" name="titular_rut" placeholder="Ej: 12.345.678-9" required oninput="formatearRUT(this)"></div>
-                            <div class="input-group"><label for="titular_email">Email</label><input type="email" id="titular_email" name="titular_email" required></div>
-                            <div class="input-group"><label for="titular_telefono">Teléfono</label><input type="tel" id="titular_telefono" name="titular_telefono" placeholder="Ej: +56912345678" required></div>
-                            <div class="input-group"><label for="titular_fecha_nac">Fecha Nacimiento</label><input type="date" id="titular_fecha_nac" name="titular_fecha_nac"></div>
-                            <div class="input-group"><label for="titular_nacionalidad">Nacionalidad</label>
-                                <select id="titular_nacionalidad" name="titular_nacionalidad"><option value="">Selecciona...</option><option value="Chilena">Chilena</option><option value="Extranjera">Extranjera</option></select>
-                            </div>
-                            <div class="input-group"><label for="titular_estado_civil">Estado Civil</label>
-                                <select id="titular_estado_civil" name="titular_estado_civil"><option value="">Selecciona...</option><option value="Soltero(a)">Soltero(a)</option><option value="Casado(a)">Casado(a)</option><option value="Divorciado(a)">Divorciado(a)</option><option value="Viudo(a)">Viudo(a)</option><option value="AUC">Acuerdo de Unión Civil</option></select>
-                            </div>
-                            <div class="input-group"><label for="titular_regimen">Régimen conyugal</label>
-                                <select id="titular_regimen" name="titular_regimen"><option value="">Selecciona...</option><option value="Separación de Bienes">Separación de Bienes</option><option value="Sociedad Conyugal">Sociedad Conyugal</option><option value="Participación en Gananciales">Participación en Gananciales</option><option value="No Aplica">No Aplica</option></select>
-                            </div>
-                            <div class="input-group"><label for="titular_domicilio">Domicilio Particular</label><input type="text" id="titular_domicilio" name="titular_domicilio"></div>
-                            <div class="input-group"><label for="titular_region">Región</label><select id="titular_region" name="titular_region"></select></div>
-                            <div class="input-group"><label for="titular_comuna">Comuna</label><select id="titular_comuna" name="titular_comuna"></select></div>
-                            <div class="input-group"><label for="titular_profesion">Profesión</label><input type="text" id="titular_profesion" name="titular_profesion"></div>
+                            <div class="input-group"><label>Nombre Completo</label><input type="text" id="titular_nombre" name="titular_nombre" required></div>
+                            <div class="input-group"><label>RUT</label><input type="text" id="titular_rut" name="titular_rut" placeholder="Ej: 12.345.678-9" required oninput="formatearRUT(this)"></div>
+                            <div class="input-group"><label>Email</label><input type="email" id="titular_email" name="titular_email" required></div>
+                            <div class="input-group"><label>Teléfono</label><input type="tel" id="titular_telefono" name="titular_telefono" placeholder="+569..." required></div>
+                            <div class="input-group"><label>Fecha Nacimiento</label><input type="date" id="titular_fecha_nac" name="titular_fecha_nac"></div>
+                            <div class="input-group"><label>Nacionalidad</label><select id="titular_nacionalidad" name="titular_nacionalidad"><option value="">Selecciona...</option><option value="Chilena">Chilena</option><option value="Extranjera">Extranjera</option></select></div>
+                            <div class="input-group"><label>Estado Civil</label><select id="titular_estado_civil" name="titular_estado_civil"><option value="">Selecciona...</option><option value="Soltero(a)">Soltero(a)</option><option value="Casado(a)">Casado(a)</option><option value="Divorciado(a)">Divorciado(a)</option><option value="Viudo(a)">Viudo(a)</option><option value="AUC">Acuerdo de Unión Civil</option></select></div>
+                            <div class="input-group"><label>Régimen conyugal</label><select id="titular_regimen" name="titular_regimen"><option value="">Selecciona...</option><option value="Separación de Bienes">Separación de Bienes</option><option value="Sociedad Conyugal">Sociedad Conyugal</option><option value="Participación en Gananciales">Participación en Gananciales</option><option value="No Aplica">No Aplica</option></select></div>
+                            <div class="input-group"><label>Domicilio Particular</label><input type="text" id="titular_domicilio" name="titular_domicilio"></div>
+                            <div class="input-group"><label>Región</label><select id="titular_region" name="titular_region"></select></div>
+                            <div class="input-group"><label>Comuna</label><select id="titular_comuna" name="titular_comuna"></select></div>
+                            <div class="input-group"><label>Profesión</label><input type="text" id="titular_profesion" name="titular_profesion"></div>
                         </div>
-                        <hr style="margin: 20px 0;">
-                        <h3>Codeudor</h3>
-                        <div class="profile-selector" style="flex-direction: row; gap: 20px;">
-                            <label><input type="radio" name="complementa_renta" value="no" checked><span>No, postulo solo</span></label>
-                            <label><input type="radio" name="complementa_renta" value="si"><span><strong>Sí</strong>, complemento renta</span></label>
+                        
+                        <div style="margin-top: 30px; padding: 20px; background: #f0f4f8; border-radius: 10px;">
+                            <h3 style="margin-top: 0; border: none;">¿Hay alguien más en la compra?</h3>
+                            <p style="font-size: 0.9em;">Si compras con pareja o socio (codeudor), marca "Sí" para evaluar ambos ingresos.</p>
+                            <div class="profile-selector" style="flex-direction: row; gap: 20px;">
+                                <label><input type="radio" name="complementa_renta" value="no" checked><span>No, voy solo</span></label>
+                                <label><input type="radio" name="complementa_renta" value="si"><span><strong>Sí</strong>, complemento</span></label>
+                            </div>
                         </div>
                     </div>
 
                     <div id="tab-laboral-titular" class="tab-content">
-                        <h3 id="titulo-laboral-titular">Antecedentes Laborales (Titular)</h3>
+                        <h3 id="titulo-laboral-titular">Antecedentes Laborales</h3>
                         <div id="content-lab-titular-dep" class="form-grid">
-                            <div class="input-group"><label for="lab_titular_empleador">Empleador</label><input type="text" id="lab_titular_empleador" name="lab_titular_empleador"></div>
-                            <div class="input-group"><label for="lab_titular_rut_empleador">RUT Empleador</label><input type="text" id="lab_titular_rut_empleador" name="lab_titular_rut_empleador" oninput="formatearRUT(this)"></div>
-                            <div class="input-group"><label for="lab_titular_cargo">Cargo</label><input type="text" id="lab_titular_cargo_dep" name="lab_titular_cargo"></div>
-                            <div class="input-group"><label for="lab_titular_telefono">Teléfono Laboral</label><input type="tel" id="lab_titular_telefono" name="lab_titular_telefono"></div>
-                            <div class="input-group"><label for="lab_titular_direccion">Dirección Laboral</label><input type="text" id="lab_titular_direccion" name="lab_titular_direccion"></div>
-                            <div class="input-group"><label for="lab_titular_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_titular_fecha_ingreso" name="lab_titular_fecha_ingreso"></div>
+                            <div class="input-group"><label>Empleador Actual</label><input type="text" id="lab_titular_empleador" name="lab_titular_empleador"></div>
+                            <div class="input-group"><label>RUT Empleador</label><input type="text" id="lab_titular_rut_empleador" name="lab_titular_rut_empleador" oninput="formatearRUT(this)"></div>
+                            <div class="input-group"><label>Cargo</label><input type="text" id="lab_titular_cargo_dep" name="lab_titular_cargo"></div>
+                            <div class="input-group"><label>Teléfono Laboral</label><input type="tel" id="lab_titular_telefono" name="lab_titular_telefono"></div>
+                            <div class="input-group"><label>Dirección Laboral</label><input type="text" id="lab_titular_direccion" name="lab_titular_direccion"></div>
+                            <div class="input-group"><label>Fecha Ingreso (Antigüedad)</label><input type="date" id="lab_titular_fecha_ingreso" name="lab_titular_fecha_ingreso"></div>
                         </div>
                         <div id="content-lab-titular-ind" class="form-grid" style="display: none;">
-                            <div class="input-group"><label for="lab_titular_actividad">Actividad Económica</label><input type="text" id="lab_titular_actividad" name="lab_titular_actividad"></div>
-                            <div class="input-group"><label for="lab_titular_fecha_ia">Fecha Inicio Actividades</label><input type="date" id="lab_titular_fecha_ia" name="lab_titular_fecha_ia"></div>
+                            <div class="input-group"><label>Actividad Económica</label><input type="text" id="lab_titular_actividad" name="lab_titular_actividad"></div>
+                            <div class="input-group"><label>Fecha Inicio Actividades</label><input type="date" id="lab_titular_fecha_ia" name="lab_titular_fecha_ia"></div>
                         </div>
                     </div>
 
                     <div id="tab-activos-titular" class="tab-content">
-                        <h3>Antecedentes Financieros (Titular)</h3>
-                        <h4>Ingresos Mensuales</h4>
+                        <h3>Tus Ingresos Mensuales</h3>
                         <div id="content-act-titular-dep" class="form-grid">
-                            <div class="input-group"><label for="fin_titular_sueldo">Sueldo (Líquido)</label><input type="text" inputmode="numeric" id="fin_titular_sueldo" name="fin_titular_sueldo" placeholder="$"></div>
+                            <div class="input-group"><label>Sueldo Líquido</label><input type="text" inputmode="numeric" id="fin_titular_sueldo" name="fin_titular_sueldo" placeholder="$"></div>
                         </div>
                         <div id="content-act-titular-ind" class="form-grid" style="display: none;">
-                            <div class="input-group"><label for="fin_titular_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_titular_honorarios" name="fin_titular_honorarios" placeholder="$"></div>
-                            <div class="input-group"><label for="fin_titular_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_titular_retiros" name="fin_titular_retiros" placeholder="$"></div>
+                            <div class="input-group"><label>Honorarios (Promedio Mensual)</label><input type="text" inputmode="numeric" id="fin_titular_honorarios" name="fin_titular_honorarios" placeholder="$"></div>
+                            <div class="input-group"><label>Retiros (Si tienes empresa)</label><input type="text" inputmode="numeric" id="fin_titular_retiros" name="fin_titular_retiros" placeholder="$"></div>
                         </div>
-                        <div class="form-grid" style="margin-top: 10px;">
-                           <div class="input-group"><label for="fin_titular_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_titular_arriendos" name="fin_titular_arriendos" placeholder="$"></div>
+                        <div class="form-grid" style="margin-top: 20px;">
+                           <div class="input-group"><label>Otros Ingresos (Ej: Arriendos)</label><input type="text" inputmode="numeric" id="fin_titular_arriendos" name="fin_titular_arriendos" placeholder="$"></div>
                         </div>
-                        <h4 style="margin-top: 20px;">Ahorros (Pie)</h4>
+                        <h3 style="margin-top: 30px;">Tu Ahorro (Pie)</h3>
                         <div class="form-grid">
-                            <div class="input-group"><label for="fin_titular_ahorros">Ahorros (Cta. Ahorro)</label><input type="text" inputmode="numeric" id="fin_titular_ahorros" name="fin_titular_ahorros" placeholder="$"></div>
-                            <div class="input-group"><label for="fin_titular_dap">Depósito a Plazo</label><input type="text" inputmode="numeric" id="fin_titular_dap" name="fin_titular_dap" placeholder="$"></div>
-                            <div class="input-group"><label for="fin_titular_ffmm">Fondos Mutuos</label><input type="text" inputmode="numeric" id="fin_titular_ffmm" name="fin_titular_ffmm" placeholder="$"></div>
+                            <div class="input-group"><label>Cta. Ahorro / Vista</label><input type="text" inputmode="numeric" id="fin_titular_ahorros" name="fin_titular_ahorros" placeholder="$"></div>
+                            <div class="input-group"><label>Depósitos a Plazo</label><input type="text" inputmode="numeric" id="fin_titular_dap" name="fin_titular_dap" placeholder="$"></div>
+                            <div class="input-group"><label>Fondos Mutuos / Acciones</label><input type="text" inputmode="numeric" id="fin_titular_ffmm" name="fin_titular_ffmm" placeholder="$"></div>
                         </div>
                     </div>
 
                     <div id="tab-codeudor" class="tab-content">
                         <h3>Datos del Codeudor</h3>
                         <div class="form-grid">
-                            <div class="input-group"><label for="codeudor_nombre">Nombre Completo</label><input type="text" id="codeudor_nombre" name="codeudor_nombre"></div>
-                            <div class="input-group"><label for="codeudor_rut">RUT</label><input type="text" id="codeudor_rut" name="codeudor_rut" placeholder="Ej: 12.345.678-9" oninput="formatearRUT(this)"></div>
-                            <div class="input-group"><label for="codeudor_email">Email</label><input type="email" id="codeudor_email" name="codeudor_email"></div>
-                            <div class="input-group"><label for="codeudor_telefono">Teléfono</label><input type="tel" id="codeudor_telefono" name="codeudor_telefono"></div>
-                            <div class="input-group"><label for="codeudor_fecha_nac">Fecha Nacimiento</label><input type="date" id="codeudor_fecha_nac" name="codeudor_fecha_nac"></div>
-                            <div class="input-group"><label for="codeudor_profesion">Profesión</label><input type="text" id="codeudor_profesion" name="codeudor_profesion"></div>
+                            <div class="input-group"><label>Nombre Completo</label><input type="text" id="codeudor_nombre" name="codeudor_nombre"></div>
+                            <div class="input-group"><label>RUT</label><input type="text" id="codeudor_rut" name="codeudor_rut" placeholder="Ej: 12.345.678-9" oninput="formatearRUT(this)"></div>
+                            <div class="input-group"><label>Email</label><input type="email" id="codeudor_email" name="codeudor_email"></div>
+                            <div class="input-group"><label>Teléfono</label><input type="tel" id="codeudor_telefono" name="codeudor_telefono"></div>
+                            <div class="input-group"><label>Fecha Nacimiento</label><input type="date" id="codeudor_fecha_nac" name="codeudor_fecha_nac"></div>
+                            <div class="input-group"><label>Profesión</label><input type="text" id="codeudor_profesion" name="codeudor_profesion"></div>
                         </div>
-                        <div id="perfil-codeudor-selector">
-                            <hr style="margin: 20px 0;">
-                            <h4>¿Cuál es el perfil de tu codeudor?</h4>
+                        <div id="perfil-codeudor-selector" style="margin-top: 30px; padding: 20px; background: #f0f4f8; border-radius: 10px;">
+                            <h3 style="margin-top: 0; border: none;">¿Cuál es su perfil laboral?</h3>
                             <div class="profile-selector">
                                 <label><input type="radio" name="perfilCodeudor" value="dependiente" checked><span>Es Trabajador <strong>Dependiente</strong></span></label>
                                 <label><input type="radio" name="perfilCodeudor" value="independiente"><span>Es Trabajador <strong>Independiente</strong></span></label>
@@ -173,98 +165,98 @@
                     <div id="tab-laboral-codeudor" class="tab-content">
                         <h3 id="titulo-laboral-codeudor">Antecedentes Laborales (Codeudor)</h3>
                         <div id="content-lab-codeudor-dep" class="form-grid codeudor-sub-content">
-                            <div class="input-group"><label for="lab_codeudor_empleador">Empleador</label><input type="text" id="lab_codeudor_empleador" name="lab_codeudor_empleador"></div>
-                            <div class="input-group"><label for="lab_codeudor_rut_empleador">RUT Empleador</label><input type="text" id="lab_codeudor_rut_empleador" name="lab_codeudor_rut_empleador" oninput="formatearRUT(this)"></div>
-                            <div class="input-group"><label for="lab_codeudor_cargo">Cargo</label><input type="text" id="lab_codeudor_cargo" name="lab_codeudor_cargo"></div>
-                            <div class="input-group"><label for="lab_codeudor_fecha_ingreso">Fecha de ingreso</label><input type="date" id="lab_codeudor_fecha_ingreso" name="lab_codeudor_fecha_ingreso"></div>
+                            <div class="input-group"><label>Empleador</label><input type="text" id="lab_codeudor_empleador" name="lab_codeudor_empleador"></div>
+                            <div class="input-group"><label>RUT Empleador</label><input type="text" id="lab_codeudor_rut_empleador" name="lab_codeudor_rut_empleador" oninput="formatearRUT(this)"></div>
+                            <div class="input-group"><label>Cargo</label><input type="text" id="lab_codeudor_cargo" name="lab_codeudor_cargo"></div>
+                            <div class="input-group"><label>Fecha Ingreso</label><input type="date" id="lab_codeudor_fecha_ingreso" name="lab_codeudor_fecha_ingreso"></div>
                         </div>
                         <div id="content-lab-codeudor-ind" class="form-grid codeudor-sub-content" style="display: none;">
-                            <div class="input-group"><label for="lab_codeudor_actividad">Actividad Económica</label><input type="text" id="lab_codeudor_actividad" name="lab_codeudor_actividad"></div>
-                            <div class="input-group"><label for="lab_codeudor_fecha_ia">Fecha Inicio Actividades</label><input type="date" id="lab_codeudor_fecha_ia" name="lab_codeudor_fecha_ia"></div>
+                            <div class="input-group"><label>Actividad Económica</label><input type="text" id="lab_codeudor_actividad" name="lab_codeudor_actividad"></div>
+                            <div class="input-group"><label>Inicio Actividades</label><input type="date" id="lab_codeudor_fecha_ia" name="lab_codeudor_fecha_ia"></div>
                         </div>
                     </div>
 
                     <div id="tab-activos-codeudor" class="tab-content">
-                        <h3>Antecedentes Financieros (Codeudor)</h3>
-                        <h4>Ingresos Mensuales</h4>
+                        <h3>Ingresos Codeudor</h3>
                         <div id="content-act-codeudor-dep" class="form-grid codeudor-sub-content">
-                            <div class="input-group"><label for="fin_codeudor_sueldo">Sueldo (Líquido)</label><input type="text" inputmode="numeric" id="fin_codeudor_sueldo" name="fin_codeudor_sueldo" placeholder="$"></div>
+                            <div class="input-group"><label>Sueldo Líquido</label><input type="text" inputmode="numeric" id="fin_codeudor_sueldo" name="fin_codeudor_sueldo" placeholder="$"></div>
                         </div>
                         <div id="content-act-codeudor-ind" class="form-grid codeudor-sub-content" style="display: none;">
-                            <div class="input-group"><label for="fin_codeudor_honorarios">Honorarios (Prom. Mensual)</label><input type="text" inputmode="numeric" id="fin_codeudor_honorarios" name="fin_codeudor_honorarios" placeholder="$"></div>
-                            <div class="input-group"><label for="fin_codeudor_retiros">Retiros</label><input type="text" inputmode="numeric" id="fin_codeudor_retiros" name="fin_codeudor_retiros" placeholder="$"></div>
+                            <div class="input-group"><label>Honorarios</label><input type="text" inputmode="numeric" id="fin_codeudor_honorarios" name="fin_codeudor_honorarios" placeholder="$"></div>
+                            <div class="input-group"><label>Retiros</label><input type="text" inputmode="numeric" id="fin_codeudor_retiros" name="fin_codeudor_retiros" placeholder="$"></div>
                         </div>
                         <div class="form-grid" style="margin-top: 10px;">
-                            <div class="input-group"><label for="fin_codeudor_arriendos">Arriendos (Ingreso)</label><input type="text" inputmode="numeric" id="fin_codeudor_arriendos" name="fin_codeudor_arriendos" placeholder="$"></div>
+                            <div class="input-group"><label>Otros Ingresos</label><input type="text" inputmode="numeric" id="fin_codeudor_arriendos" name="fin_codeudor_arriendos" placeholder="$"></div>
                         </div>
                     </div>
 
                     <div id="tab-pasivos" class="tab-content">
-                        <h3>Antecedentes de Deudas (Pasivos de ambos)</h3>
+                        <h3>Deudas Vigentes (Total Hogar)</h3>
                         <h4>Crédito Hipotecario</h4>
                         <div class="form-grid">
-                            <div class="input-group"><label for="deuda_hip_institucion">Institución</label><input type="text" id="deuda_hip_institucion" name="deuda_hip_institucion"></div>
-                            <div class="input-group"><label for="deuda_hip_cuota">Cuota Mensual</label><input type="text" inputmode="numeric" id="deuda_hip_cuota" name="deuda_hip_cuota" placeholder="$"></div>
-                            <div class="input-group"><label for="deuda_hip_saldo">Saldo Deuda Total</label><input type="text" inputmode="numeric" id="deuda_hip_saldo" name="deuda_hip_saldo" placeholder="$"></div>
+                            <div class="input-group"><label>Institución</label><input type="text" id="deuda_hip_institucion" name="deuda_hip_institucion"></div>
+                            <div class="input-group"><label>Cuota Mensual</label><input type="text" inputmode="numeric" id="deuda_hip_cuota" name="deuda_hip_cuota" placeholder="$"></div>
+                            <div class="input-group"><label>Saldo por Pagar</label><input type="text" inputmode="numeric" id="deuda_hip_saldo" name="deuda_hip_saldo" placeholder="$"></div>
                         </div>
-                        <h4 style="margin-top: 20px;">Créditos de Consumo</h4>
+                        <h4>Créditos de Consumo</h4>
                         <div class="form-grid">
-                            <div class="input-group"><label for="deuda_con1_institucion">Consumo 1: Institución</label><input type="text" id="deuda_con1_institucion" name="deuda_con1_institucion"></div>
-                            <div class="input-group"><label for="deuda_con1_cuota">Cuota</label><input type="text" inputmode="numeric" id="deuda_con1_cuota" name="deuda_con1_cuota" placeholder="$"></div>
-                            <div class="input-group"><label for="deuda_con1_saldo">Saldo</label><input type="text" inputmode="numeric" id="deuda_con1_saldo" name="deuda_con1_saldo" placeholder="$"></div>
+                            <div class="input-group"><label>Institución (1)</label><input type="text" id="deuda_con1_institucion" name="deuda_con1_institucion"></div>
+                            <div class="input-group"><label>Cuota</label><input type="text" inputmode="numeric" id="deuda_con1_cuota" name="deuda_con1_cuota" placeholder="$"></div>
+                            <div class="input-group"><label>Saldo</label><input type="text" inputmode="numeric" id="deuda_con1_saldo" name="deuda_con1_saldo" placeholder="$"></div>
                         </div>
                         <div class="form-grid" style="margin-top: 10px;">
-                            <div class="input-group"><label for="deuda_con2_institucion">Consumo 2: Institución</label><input type="text" id="deuda_con2_institucion" name="deuda_con2_institucion"></div>
-                            <div class="input-group"><label for="deuda_con2_cuota">Cuota</label><input type="text" inputmode="numeric" id="deuda_con2_cuota" name="deuda_con2_cuota"></div>
-                            <div class="input-group"><label for="deuda_con2_saldo">Saldo</label><input type="text" inputmode="numeric" id="deuda_con2_saldo" name="deuda_con2_saldo" placeholder="$"></div>
+                            <div class="input-group"><label>Institución (2)</label><input type="text" id="deuda_con2_institucion" name="deuda_con2_institucion"></div>
+                            <div class="input-group"><label>Cuota</label><input type="text" inputmode="numeric" id="deuda_con2_cuota" name="deuda_con2_cuota"></div>
+                            <div class="input-group"><label>Saldo</label><input type="text" inputmode="numeric" id="deuda_con2_saldo" name="deuda_con2_saldo"></div>
                         </div>
-                        <h4 style="margin-top: 20px;">Tarjetas y Líneas de Crédito</h4>
+                        <h4>Tarjetas y Líneas</h4>
                          <div class="form-grid">
-                            <div class="input-group"><label for="deuda_tarjeta_total">Cupo Total Utilizado (Tarjetas)</label><input type="text" inputmode="numeric" id="deuda_tarjeta_total" name="deuda_tarjeta_total" placeholder="$"></div>
-                            <div class="input-group"><label for="deuda_linea_total">Cupo Total Utilizado (Líneas de Crédito)</label><input type="text" inputmode="numeric" id="deuda_linea_total" name="deuda_linea_total" placeholder="$"></div>
+                            <div class="input-group"><label>Cupo Usado (Tarjetas)</label><input type="text" inputmode="numeric" id="deuda_tarjeta_total" name="deuda_tarjeta_total" placeholder="$"></div>
+                            <div class="input-group"><label>Cupo Usado (Líneas)</label><input type="text" inputmode="numeric" id="deuda_linea_total" name="deuda_linea_total" placeholder="$"></div>
                         </div>
                     </div>
 
                     <div class="form-navigation-buttons">
-                        <button type="button" class="form-nav-btn secondary" id="btn-form-prev" style="display: none;">&laquo; Anterior</button>
+                        <button type="button" class="form-nav-btn secondary" id="btn-form-prev" style="display: none;">&laquo; Volver</button>
                         <button type="button" class="form-nav-btn" id="btn-form-next">Siguiente &raquo;</button>
-                        <button type="button" class="form-nav-btn" id="btn-finalizar-formulario" style="display: none;">¡Listo! Ir a Subir Archivos &raquo;</button>
+                        <button type="button" class="form-nav-btn" id="btn-finalizar-formulario" style="display: none;">¡Listo! Ver documentos necesarios &raquo;</button>
                     </div>
                 </form>
             </div>
 
             <div id="paso-3-checklist">
-                <h2>Paso 3: Tu Checklist de Documentos</h2>
-                <p>¡Perfecto! Ya tenemos tus datos. Ahora, basado en tu perfil, solo necesitamos los siguientes archivos:</p>
+                <h2>Paso 3: Checklist Estratégico</h2>
+                <p>Para armar tu carpeta y presentarla al banco, necesito estos documentos exactos:</p>
                 <ul id="checklist-final" class="checklist"></ul>
             </div>
 
             <div id="paso-4-uploader">
-                <h2>Paso 4: Sube tus archivos</h2>
-                <p>Sube aquí todos los documentos de la lista anterior (PDF, JPG, PNG).</p>
+                <h2>Paso Final: Envíame tu Carpeta</h2>
+                <p>Sube aquí todos los archivos digitales (PDF, JPG, PNG). Yo me encargo de ordenarlos y evaluar la estrategia.</p>
                 <form id="uploadForm">
                     <div class="input-group">
-                        <label for="fileInput">Haz clic aquí o arrastra tus archivos:</label>
+                        <label for="fileInput">Seleccionar Archivos</label>
                         <input type="file" id="fileInput" name="files" multiple required>
                         <div id="fileList" class="file-list"></div>
                     </div>
                     <button type="submit" id="submitButton">ENVIAR Y ACTIVAR EVALUACIÓN 🔒</button>
-                    <p style="text-align: center; font-size: 0.8em; color: #666; margin-top: 10px;">Tus documentos están protegidos con encriptación de grado bancario (SSL).</p>
-                    <div id="loadingMessage" style="display:none;">Subiendo todo... esto puede tardar un minuto.</div>
-                    <div id="successMessage" style="display:none; color: green;">¡Sistema completo! Recibimos tus datos y archivos. Te contactaremos pronto.</div>
-                    <div id="errorMessage" style="display:none; color: red;">Hubo un error. Intenta de nuevo.</div>
+                    <p style="text-align: center; font-size: 0.85em; color: #666; margin-top: 15px;">
+                        Tus antecedentes son 100% confidenciales.
+                    </p>
+                    <div id="loadingMessage" style="display:none;"><strong>Procesando...</strong> Estoy recibiendo y ordenando tu carpeta.</div>
+                    <div id="successMessage" style="display:none; color: green;"><strong>¡RECIBIDO!</strong> Tu información llegó perfecta. Revisa tu correo para la confirmación.</div>
+                    <div id="errorMessage" style="display:none; color: red;">Hubo un error técnico. Por favor intenta nuevamente.</div>
                 </form>
             </div>
         </div>
     </div>
 
     <footer style="background: #000; color: #666; padding: 30px 20px; text-align: center; font-size: 12px; margin-top: 60px; border-top: 1px solid #333;">
-        <p style="margin-bottom: 10px;">© 2025 Asesoría Financiera Experta. Todos los derechos reservados.</p>
-        <p>Tus datos son tratados con estricta confidencialidad y seguridad (SSL).</p>
+        <p style="margin-bottom: 10px;">© 2025 Oscar Hert - Broker Inmobiliario.</p>
     </footer>
 
     <script>
-        // URL VERIFICADA DE TU SCRIPT
+        // CONFIGURACIÓN URL Y DATOS
         const URL_SCRIPT_UPLOAD = "https://script.google.com/macros/s/AKfycbxO56Ws-bdkEiv-sCQZgnldzxGd-Ve-gVAVX1vSpbOsTiNrIYLVU9IYAOP8jMzH24gc/exec";
         const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf";
         const LINK_DICOM = "https://www.equifax.cl/ecfx/informe-comercial/dicom-platinum-360";
@@ -310,6 +302,7 @@
         let tabNavButtons = []; 
         let currentTab = 0;
 
+        // --- Lógica de Navegación ---
         document.querySelectorAll('input[name="perfilCliente"]').forEach(r => r.addEventListener('change', (e) => {
             perfilSeleccionado = e.target.value;
             paso2.style.display = 'block';
@@ -395,7 +388,7 @@
         btnPrev.addEventListener('click', () => { if(currentTab > 0) { currentTab--; showTab(currentTab); } });
         eessForm.addEventListener('input', validarFormulario);
 
-        function validarFormulario() { btnFinalizar.disabled = false; } 
+        function validarFormulario() { btnFinalizar.disabled = false; }
 
         btnFinalizar.addEventListener('click', () => {
             paso2.style.display = 'none';
@@ -409,7 +402,7 @@
             let lista = (perfilSeleccionado === 'empresa') ? [...documentosComunes, ...documentosEmpresa] :
                         (perfilSeleccionado === 'dependiente') ? [...documentosComunes, ...documentosDependiente] : [...documentosComunes, ...documentosIndependiente];
             if (hayCodeudor) {
-                lista.push({ nombre: `--- CODEUDOR ---` });
+                lista.push({ nombre: `--- CODEUDOR (${perfilCodeudorSeleccionado.toUpperCase()}) ---` });
                 lista = lista.concat((perfilCodeudorSeleccionado === 'dependiente') ? documentosDependiente : documentosIndependiente);
             }
             checklistFinal.innerHTML = '';
@@ -451,7 +444,7 @@
             try {
                 const params = new URLSearchParams(window.location.search);
                 const email = params.get('email');
-                if (!email) throw new Error("Falta el email en la URL (usa el link del correo).");
+                if (!email) throw new Error("Falta el email en la URL.");
 
                 const formData = new FormData(eessForm);
                 const eessData = {};

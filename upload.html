@@ -3,46 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Carpeta Digital - Oscar Hert</title>
+    <title>Carga de Documentos - Evaluación</title>
+    
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/921/921591.png" type="image/png">
+    <meta property="og:title" content="Portal Seguro de Carga 🔒">
+    
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="/style.css"> 
+    
     <style>
-        /* ESTILOS DEL FORMULARIO (Mismos de v4.0) */
-        .container-upload { max-width: 900px; margin: 40px auto; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; }
-        .form-col { width: 100%; border-left: none; border-top: 5px solid #007bff; padding: 30px 40px; box-sizing: border-box; }
-        #paso-2-formulario, #paso-3-checklist, #paso-4-uploader { display: none; margin-top: 30px; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .profile-selector { display: flex; flex-direction: column; gap: 10px; }
-        .profile-selector label { display: block; padding: 15px 20px; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; }
-        .profile-selector input[type="radio"] { margin-right: 12px; accent-color: #005a9c; }
-        .profile-selector label:hover { background-color: #f4f7f6; }
-        .profile-selector input[type="radio"]:checked + span { font-weight: 700; color: #005a9c; }
-        .tab-navigation { display: flex; flex-wrap: wrap; border-bottom: 2px solid #ccc; margin-bottom: 20px; }
-        .tab-nav-button { padding: 10px 15px; border: none; background-color: #f4f7f6; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; font-size: 0.95em; font-weight: 600; }
-        .tab-nav-button.active { background-color: #fff; border-top: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 2px solid #fff; color: #005a9c; }
-        .tab-content { display: none; animation: fadeIn 0.3s; }
-        .tab-content.active { display: block; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .form-grid .input-group { margin-bottom: 0; }
-        .codeudor-tab { display: none; }
-        .codeudor-sub-content { display: none; }
-        #perfil-codeudor-selector { display: none; margin-top: 20px; }
-        .form-navigation-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
-        .form-nav-btn { padding: 12px 25px; background-color: #005a9c; color: white; border: none; border-radius: 5px; font-size: 1em; font-weight: 700; cursor: pointer; }
-        .form-nav-btn:disabled { background-color: #aaa; cursor: not-allowed; }
-        .form-nav-btn.secondary { background-color: #6c757d; }
-        #btn-finalizar-formulario { background-color: #28a745; display: none; } 
-        #btn-form-next { display: inline-block; } 
-        .checklist { list-style: none; padding-left: 0; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 20px; }
-        .checklist li { font-size: 1.1em; padding: 12px 10px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; }
-        .checklist li:last-child { border-bottom: none; }
-        .checklist li strong { color: #333; }
-        .checklist li .doc-help { font-weight: 700; text-decoration: none; color: #005a9c; margin-left: 10px; white-space: nowrap; }
-        #fileInput { border: 2px dashed #007bff; padding: 20px; border-radius: 5px; cursor: pointer; text-align: center; }
-        .file-list { margin-top: 15px; font-style: italic; }
-        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        input[type=number] { -moz-appearance: textfield; }
+        /* Estilos funcionales específicos para que la lógica (ocultar/mostrar) funcione 
+           incluso si el CSS externo tarda en cargar */
+        #paso-2-formulario, #paso-3-checklist, #paso-4-uploader, 
+        .codeudor-tab, .codeudor-sub-content, #perfil-codeudor-selector, 
+        #btn-finalizar-formulario, #loadingMessage, #successMessage, #errorMessage { 
+            display: none; 
+        }
+        /* Ajuste para móviles en los inputs para evitar zoom */
         input, select, textarea { font-size: 16px !important; }
     </style>
 </head>
@@ -207,7 +185,7 @@
                         <div class="form-grid" style="margin-top: 10px;">
                             <div class="input-group"><label>Institución (2)</label><input type="text" id="deuda_con2_institucion" name="deuda_con2_institucion"></div>
                             <div class="input-group"><label>Cuota</label><input type="text" inputmode="numeric" id="deuda_con2_cuota" name="deuda_con2_cuota"></div>
-                            <div class="input-group"><label>Saldo</label><input type="text" inputmode="numeric" id="deuda_con2_saldo" name="deuda_con2_saldo"></div>
+                            <div class="input-group"><label>Saldo</label><input type="text" inputmode="numeric" id="deuda_con2_saldo" name="deuda_con2_saldo" placeholder="$"></div>
                         </div>
                         <h4>Tarjetas y Líneas</h4>
                          <div class="form-grid">
@@ -252,11 +230,14 @@
     </div>
 
     <footer style="background: #000; color: #666; padding: 30px 20px; text-align: center; font-size: 12px; margin-top: 60px; border-top: 1px solid #333;">
-        <p style="margin-bottom: 10px;">© 2025 Oscar Hert - Broker Inmobiliario.</p>
+        <p style="margin-bottom: 10px;">© 2025 Oscar Hernández - Broker Inmobiliario.</p>
+        <p>Tus datos son tratados con estricta confidencialidad y seguridad (SSL).</p>
     </footer>
 
     <script>
-        // CONFIGURACIÓN URL Y DATOS
+        // ============================================================
+        // CONFIGURACIÓN Y DATOS
+        // ============================================================
         const URL_SCRIPT_UPLOAD = "https://script.google.com/macros/s/AKfycbxO56Ws-bdkEiv-sCQZgnldzxGd-Ve-gVAVX1vSpbOsTiNrIYLVU9IYAOP8jMzH24gc/exec";
         const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf";
         const LINK_DICOM = "https://www.equifax.cl/ecfx/informe-comercial/dicom-platinum-360";
@@ -285,6 +266,9 @@
         const documentosIndependiente = [ { nombre: "Cédula de Identidad (ambos lados)" }, { nombre: "Formulario 22 (Declaración Renta 2 últimos años)" }, { nombre: "Resumen Boletas de Honorarios (2 últimos años)" }, { nombre: "6 últimos Pagos Provisionales (F29)" }, { nombre: "Iniciación de Actividades (SII)" } ];
         const documentosEmpresa = [ { nombre: "Cédula de Identidad (Rep. Legal)" }, { nombre: "RUT de la Empresa" }, { nombre: "Escritura de la Sociedad (y modificaciones)" }, { nombre: "Vigencia de Poderes (Rep. Legal)" }, { nombre: "Nómina de Accionistas (si aplica)" }, { nombre: "2 últimos Balances (Contador)" }, { nombre: "12 últimos IVAs (F29)" }, { nombre: "Carpeta Tributaria (SII)" } ];
 
+        // ============================================================
+        // LÓGICA DE NAVEGACIÓN Y UX
+        // ============================================================
         const paso1 = document.getElementById('paso-1-perfil');
         const paso2 = document.getElementById('paso-2-formulario');
         const paso3 = document.getElementById('paso-3-checklist');
@@ -302,7 +286,6 @@
         let tabNavButtons = []; 
         let currentTab = 0;
 
-        // --- Lógica de Navegación ---
         document.querySelectorAll('input[name="perfilCliente"]').forEach(r => r.addEventListener('change', (e) => {
             perfilSeleccionado = e.target.value;
             paso2.style.display = 'block';
@@ -340,7 +323,9 @@
             document.getElementById('content-lab-codeudor-ind').style.display = esDep ? 'none' : 'grid';
             document.getElementById('content-act-codeudor-dep').style.display = esDep ? 'grid' : 'none';
             document.getElementById('content-act-codeudor-ind').style.display = esDep ? 'none' : 'grid';
+            
             document.querySelectorAll('.codeudor-sub-content input').forEach(i => i.required = false);
+            
             if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
                 const targetLab = esDep ? 'content-lab-codeudor-dep' : 'content-lab-codeudor-ind';
                 const targetAct = esDep ? 'content-act-codeudor-dep' : 'content-act-codeudor-ind';
@@ -412,6 +397,9 @@
             });
         }
 
+        // ============================================================
+        // MOTOR DE SUBIDA
+        // ============================================================
         const uploadForm = document.getElementById('uploadForm');
         const fileInput = document.getElementById('fileInput');
         const fileList = document.getElementById('fileList');
@@ -473,7 +461,7 @@
                 if (result.status === 'success') {
                     loadingMessage.style.display = 'none';
                     successMessage.style.display = 'block';
-                    document.getElementById('paso-1-perfil').style.display = 'none'; // Ocultar todo
+                    document.getElementById('paso-1-perfil').style.display = 'none'; 
                     paso3.style.display = 'none';
                     paso4.style.display = 'none';
                 } else {

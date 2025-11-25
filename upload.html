@@ -8,19 +8,41 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/921/921591.png" type="image/png">
     <meta property="og:title" content="Portal Seguro de Carga 🔒">
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RKEMBN9NK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3RKEMBN9NK');
+    </script>
+
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '707966595166662');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=707966595166662&ev=PageView&noscript=1"
+    /></noscript>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="/style.css"> 
     
     <style>
-        /* Estilos funcionales específicos para que la lógica (ocultar/mostrar) funcione 
-           incluso si el CSS externo tarda en cargar */
+        /* Estilos funcionales específicos */
         #paso-2-formulario, #paso-3-checklist, #paso-4-uploader, 
         .codeudor-tab, .codeudor-sub-content, #perfil-codeudor-selector, 
         #btn-finalizar-formulario, #loadingMessage, #successMessage, #errorMessage { 
             display: none; 
         }
-        /* Ajuste para móviles en los inputs para evitar zoom */
+        /* Ajuste para móviles */
         input, select, textarea { font-size: 16px !important; }
     </style>
 </head>
@@ -236,7 +258,7 @@
 
     <script>
         // ============================================================
-        // CONFIGURACIÓN Y DATOS
+        // CONFIGURACIÓN URL Y DATOS
         // ============================================================
         const URL_SCRIPT_UPLOAD = "https://script.google.com/macros/s/AKfycbxO56Ws-bdkEiv-sCQZgnldzxGd-Ve-gVAVX1vSpbOsTiNrIYLVU9IYAOP8jMzH24gc/exec";
         const TUTORIAL_DEUDA_URL = "tutorial-deuda.pdf";
@@ -266,9 +288,6 @@
         const documentosIndependiente = [ { nombre: "Cédula de Identidad (ambos lados)" }, { nombre: "Formulario 22 (Declaración Renta 2 últimos años)" }, { nombre: "Resumen Boletas de Honorarios (2 últimos años)" }, { nombre: "6 últimos Pagos Provisionales (F29)" }, { nombre: "Iniciación de Actividades (SII)" } ];
         const documentosEmpresa = [ { nombre: "Cédula de Identidad (Rep. Legal)" }, { nombre: "RUT de la Empresa" }, { nombre: "Escritura de la Sociedad (y modificaciones)" }, { nombre: "Vigencia de Poderes (Rep. Legal)" }, { nombre: "Nómina de Accionistas (si aplica)" }, { nombre: "2 últimos Balances (Contador)" }, { nombre: "12 últimos IVAs (F29)" }, { nombre: "Carpeta Tributaria (SII)" } ];
 
-        // ============================================================
-        // LÓGICA DE NAVEGACIÓN Y UX
-        // ============================================================
         const paso1 = document.getElementById('paso-1-perfil');
         const paso2 = document.getElementById('paso-2-formulario');
         const paso3 = document.getElementById('paso-3-checklist');
@@ -323,9 +342,7 @@
             document.getElementById('content-lab-codeudor-ind').style.display = esDep ? 'none' : 'grid';
             document.getElementById('content-act-codeudor-dep').style.display = esDep ? 'grid' : 'none';
             document.getElementById('content-act-codeudor-ind').style.display = esDep ? 'none' : 'grid';
-            
             document.querySelectorAll('.codeudor-sub-content input').forEach(i => i.required = false);
-            
             if (document.querySelector('input[name="complementa_renta"]:checked').value === 'si') {
                 const targetLab = esDep ? 'content-lab-codeudor-dep' : 'content-lab-codeudor-ind';
                 const targetAct = esDep ? 'content-act-codeudor-dep' : 'content-act-codeudor-ind';
@@ -397,9 +414,6 @@
             });
         }
 
-        // ============================================================
-        // MOTOR DE SUBIDA
-        // ============================================================
         const uploadForm = document.getElementById('uploadForm');
         const fileInput = document.getElementById('fileInput');
         const fileList = document.getElementById('fileList');

@@ -5,6 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Estrategia Inmobiliaria - Black Friday</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/921/921591.png" type="image/png">
+    
+    <meta property="og:title" content="Evaluación de Estrategia Inmobiliaria 🔒">
+    <meta property="og:description" content="Analicemos tu perfil para encontrar la propiedad que calce con tu vida.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000&auto=format&fit=crop">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RKEMBN9NK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3RKEMBN9NK');
+    </script>
+
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '707966595166662');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=707966595166662&ev=PageView&noscript=1"
+    /></noscript>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
@@ -12,7 +40,7 @@
     <div class="promo-bar">🔥 Cupos Black Friday: Evaluación de Perfil Prioritaria</div>
     <div class="hero-container">
         <h1>No es solo una propiedad,<br><span class="highlight">es tu próximo paso.</span></h1>
-        <p>Soy Oscar, y mi trabajo es que logres tu objetivo inmobiliario con una estrategia inteligente. <strong>Sin rodeos y 100% confidencial.</strong></p>
+        <p>Soy Oscar, y mi trabajo es que logres tu objetivo inmobiliario (vivir o invertir) con una estrategia financiera inteligente. <strong>Sin rodeos y 100% online.</strong></p>
         <form id="leadForm">
             <div class="form-group"><label>¿Cómo te llamas?</label><input type="text" id="nombre" name="nombre" placeholder="Nombre y Apellido" required></div>
             <div class="form-group"><label>Tu correo principal</label><input type="email" id="email" name="email" placeholder="nombre@ejemplo.com" required></div>
@@ -20,16 +48,14 @@
             <button type="submit" id="submitBtn" class="btn-main">QUIERO EVALUAR MIS OPCIONES 🔒</button>
         </form>
         <div id="loading" style="display:none; margin-top:15px; color:#0056b3; font-weight:bold;">Analizando disponibilidad...</div>
-        <p style="font-size: 0.8em; color: #666; margin-top: 20px;">Cupos limitados por temporada Black Friday.</p>
+        <p style="font-size: 0.8em; color: #666; margin-top: 20px;">Aprovecha las condiciones especiales de esta temporada.</p>
     </div>
-
     <footer style="background: #000; color: #666; padding: 30px 20px; text-align: center; font-size: 12px; margin-top: 60px; border-top: 1px solid #333;">
         <p style="margin-bottom: 10px;">© 2025 Oscar Hernández - Broker Inmobiliario.</p>
         <p>Tus sueños y tus datos están seguros aquí (SSL).</p>
     </footer>
-
     <script>
-        // URL SCRIPT #1
+        // CONFIGURACIÓN
         const URL_SCRIPT_LEAD = "https://script.google.com/macros/s/AKfycbx_-oQvqInqLrUHiR7bwvl6ySgawGw-Zu1skhG1t4xPWShuA1lWBThZ5bvYgA1V4NkP/exec"; 
         const form = document.getElementById('leadForm');
         const btn = document.getElementById('submitBtn');
@@ -37,6 +63,11 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault(); btn.disabled = true; btn.innerText = "ENVIANDO..."; loading.style.display = 'block';
             const datos = { nombre: document.getElementById('nombre').value, email: document.getElementById('email').value, telefono: document.getElementById('telefono').value };
+            
+            // TRACKING EVENTO LEAD (Intento)
+            if(typeof fbq !== 'undefined') fbq('track', 'Lead'); 
+            if(typeof gtag !== 'undefined') gtag('event', 'generate_lead');
+
             try {
                 await fetch(URL_SCRIPT_LEAD, { method: 'POST', body: JSON.stringify(datos), mode: 'no-cors', headers: { 'Content-Type': 'application/json' } });
                 window.location.href = "/gracias.html";

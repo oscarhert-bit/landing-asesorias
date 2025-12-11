@@ -31,11 +31,11 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=707966595166662&ev=PageView&noscript=1"
     /></noscript>
+
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="/style.css"> 
     
-   <style>
+    <style>
         /* =========================================
            1. ESTILOS FUNCIONALES (NO TOCAR)
            Estos controlan la lógica de qué se muestra y qué no.
@@ -47,7 +47,7 @@
         }
 
         /* =========================================
-           2. ESTILO "APP EXPERIENCE" (PREMIUM)
+           2. ESTILO "APP EXPERIENCE" (PREMIUM - FASE 2)
            ========================================= */
         :root {
             --primary-color: #0a2540; /* Azul oscuro elegante */
@@ -59,21 +59,40 @@
         body {
             background-color: var(--bg-light);
             font-family: 'Lato', sans-serif;
+            color: var(--text-dark);
+        }
+
+        .promo-bar {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+            font-weight: bold;
         }
 
         /* Contenedores más limpios */
         .container-upload {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
             background: white;
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
-        h2 { color: var(--primary-color); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; font-size: 1.5rem; }
+        h2 { 
+            color: var(--primary-color); 
+            border-bottom: 2px solid #eee; 
+            padding-bottom: 10px; 
+            margin-bottom: 20px; 
+            font-size: 1.5rem; 
+        }
+        
         h3 { color: #555; margin-top: 25px; font-size: 1.2rem; }
         
+        p { line-height: 1.5; color: #555; }
+
         /* INPUTS GIGANTES (MOBILE FIRST) */
         .input-group { margin-bottom: 18px; }
         .input-group label { display: block; margin-bottom: 6px; font-weight: 700; color: #444; font-size: 0.9rem; }
@@ -86,7 +105,7 @@
             border-radius: 8px; /* Bordes redondeados */
             background-color: #fff;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            box-sizing: border-box; /* Para que el padding no rompa el ancho */
+            box-sizing: border-box; 
         }
 
         input:focus, select:focus {
@@ -210,6 +229,35 @@
             content: "📄"; /* Icono documento */
             margin-right: 10px;
         }
+        .doc-help {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.85em;
+            background: #e3f2fd;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* UPLOADER Y MENSAJES */
+        #fileInput { margin-top: 10px; }
+        .file-list div { margin-top: 5px; font-size: 0.9em; color: #555; }
+        
+        #submitButton {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--accent-color); /* Verde acción */
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.1s;
+        }
+        #submitButton:active { transform: scale(0.98); }
+        #submitButton:disabled { background-color: #ccc; cursor: not-allowed; }
 
         /* MENSAJES DE ESTADO */
         #loadingMessage, #successMessage, #errorMessage {
@@ -221,7 +269,6 @@
         #loadingMessage { background: #e3f2fd; color: #0d47a1; }
         #successMessage { background: #e8f5e9; color: #1b5e20; border: 1px solid #c8e6c9; }
         #errorMessage { background: #ffebee; color: #b71c1c; border: 1px solid #ffcdd2; }
-
     </style>
 </head>
 <body>
@@ -234,8 +281,8 @@
         <div class="form-col">
 
             <div id="paso-1-perfil">
-                <h2>Paso 1: Armemos tu Perfil</h2>
-                <p>Para encontrar el mejor crédito para ti, necesito saber cómo generas tus ingresos hoy.</p>
+                <h2>📍 Paso 1: Tu Perfil Profesional</h2>
+                <p>Para saber qué bancos se pelearán por financiarte, primero dime cómo generas tus ingresos.</p>
                 <div class="profile-selector">
                     <label><input type="radio" name="perfilCliente" value="dependiente"><span>Soy Trabajador <strong>Dependiente</strong> (con contrato)</span></label>
                     <label><input type="radio" name="perfilCliente" value="independiente"><span>Soy Trabajador <strong>Independiente</strong> (boletas)</span></label>
@@ -244,10 +291,12 @@
             </div>
 
             <div id="paso-2-formulario">
-                <h2>Paso 2: Tu Realidad Financiera</h2>
-                <p>Estos datos son clave para ver cuánto nos presta el banco. Compleméntalos con precisión.</p>
+                <h2>💰 Paso 2: Análisis de Capacidad</h2>
+                <p>Aquí calculamos tu "Ticket de Compra". Sé exacto para que el resultado sea real y evitemos sorpresas.</p>
                 
                 <form id="eessForm">
+                    <input type="hidden" id="origen_lead" name="origen_lead" value="organico">
+
                     <div class="tab-navigation">
                         <button type="button" class="tab-nav-button active" data-tab="tab-titular">1. Titular</button>
                         <button type="button" class="tab-nav-button" data-tab="tab-laboral-titular" id="tab-nav-laboral-titular">2. Laboral</button>
@@ -409,15 +458,17 @@
             </div>
 
             <div id="paso-4-uploader">
-                <h2>Paso Final: Envíame tu Carpeta</h2>
-                <p>Sube aquí todos los archivos digitales (PDF, JPG, PNG). Yo me encargo de ordenarlos y evaluar la estrategia.</p>
+                <h2>🚀 Paso Final: Activa tu Pre-Aprobación</h2>
+                <p>Sube tus documentos digitales aquí. Mi sistema los ordenará automáticamente para presentarlos a riesgo bancario.</p>
+                
                 <form id="uploadForm">
                     <div class="input-group">
                         <label for="fileInput">Seleccionar Archivos</label>
                         <input type="file" id="fileInput" name="files" multiple required>
                         <div id="fileList" class="file-list"></div>
                     </div>
-                    <button type="submit" id="submitButton">ENVIAR Y ACTIVAR EVALUACIÓN 🔒</button>
+                    <button type="submit" id="submitButton">ANALIZAR MI ESTRATEGIA AHORA 🔒</button>
+                    
                     <p style="text-align: center; font-size: 0.85em; color: #666; margin-top: 15px;">
                         Tus antecedentes son 100% confidenciales.
                     </p>

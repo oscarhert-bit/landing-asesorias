@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Estrategia Inmobiliaria - Black Friday</title>
+    <title>Tu Estrategia Inmobiliaria - Oscar Hernández</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/921/921591.png" type="image/png">
     
     <meta property="og:title" content="Evaluación de Estrategia Inmobiliaria 🔒">
@@ -33,45 +33,263 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=707966595166662&ev=PageView&noscript=1"
     /></noscript>
+
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+    
+    <style>
+        /* =========================================
+           ESTILO UNIFICADO "APP EXPERIENCE"
+           ========================================= */
+        :root {
+            --primary-color: #0a2540; /* Azul Corporativo */
+            --accent-color: #00C853;  /* Verde Acción */
+            --bg-light: #f4f7f6;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* BARRA SUPERIOR DE URGENCIA */
+        .promo-bar {
+            background: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .hero-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: var(--accent-color); /* Toque de color en el título */
+            display: block; /* Salto de línea forzado para impacto */
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* FORMULARIO ESTILO APP */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px; /* Evita zoom en iOS */
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background-color: #fcfcfc;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            background-color: #fff;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(10, 37, 64, 0.1);
+        }
+
+        /* BOTÓN DE ACCIÓN PRINCIPAL */
+        .btn-main {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.1s, background-color 0.3s;
+            box-shadow: 0 4px 15px rgba(10, 37, 64, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn-main:hover {
+            background-color: #15385b;
+            transform: translateY(-2px);
+        }
+
+        .btn-main:active {
+            transform: scale(0.98);
+        }
+
+        .btn-main:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #111;
+            color: #666;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: auto;
+        }
+
+        /* AVISO DE CARGA */
+        #loading {
+            margin-top: 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* SPINNER SIMPLE */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(10,37,64,0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+    </style>
 </head>
 <body>
-    <div class="promo-bar">🔥 Cupos Black Friday: Evaluación de Perfil Prioritaria</div>
+    
+    <div class="promo-bar">🔥 Cupos Limitados: Evaluación de Perfil</div>
+    
     <div class="hero-container">
         <h1>No es solo una propiedad,<br><span class="highlight">es tu próximo paso.</span></h1>
-        <p>Soy Oscar, y mi trabajo es que logres tu objetivo inmobiliario (vivir o invertir) con una estrategia financiera inteligente. <strong>Sin rodeos y 100% online.</strong></p>
+        <p>Soy Oscar. Mi trabajo es que logres tu objetivo inmobiliario (vivir o invertir) con una estrategia financiera inteligente. <strong>Sin rodeos y 100% online.</strong></p>
+        
         <form id="leadForm">
-            <div class="form-group"><label>¿Cómo te llamas?</label><input type="text" id="nombre" name="nombre" placeholder="Nombre y Apellido" required></div>
-            <div class="form-group"><label>Tu correo principal</label><input type="email" id="email" name="email" placeholder="nombre@ejemplo.com" required></div>
-            <div class="form-group"><label>WhatsApp</label><input type="tel" id="telefono" name="telefono" placeholder="+569..." required></div>
+            <input type="hidden" id="origen_lead" name="origen_lead" value="web_organico">
+
+            <div class="form-group">
+                <label for="nombre">¿Cómo te llamas?</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre y Apellido" required autocomplete="name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Tu correo principal</label>
+                <input type="email" id="email" name="email" placeholder="nombre@ejemplo.com" required autocomplete="email">
+            </div>
+            
+            <div class="form-group">
+                <label for="telefono">WhatsApp (Sin espacios)</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Ej: 944504962" required pattern="[0-9]*" inputmode="numeric">
+            </div>
+
             <button type="submit" id="submitBtn" class="btn-main">QUIERO EVALUAR MIS OPCIONES 🔒</button>
         </form>
-        <div id="loading" style="display:none; margin-top:15px; color:#0056b3; font-weight:bold;">Analizando disponibilidad...</div>
-        <p style="font-size: 0.8em; color: #666; margin-top: 20px;">Aprovecha las condiciones especiales de esta temporada.</p>
+        
+        <div id="loading">
+            <div class="spinner"></div>
+            <div>Analizando disponibilidad...</div>
+        </div>
+        
+        <p style="font-size: 0.8em; color: #888; margin-top: 25px;">
+            Al registrarte accedes a una sesión estratégica de diagnóstico.
+        </p>
     </div>
-    <footer style="background: #000; color: #666; padding: 30px 20px; text-align: center; font-size: 12px; margin-top: 60px; border-top: 1px solid #333;">
+
+    <footer>
         <p style="margin-bottom: 10px;">© 2025 Oscar Hernández - Broker Inmobiliario.</p>
         <p>Tus sueños y tus datos están seguros aquí (SSL).</p>
     </footer>
+
     <script>
-        // CONFIGURACIÓN
+        // CONFIGURACIÓN (Verificada)
         const URL_SCRIPT_LEAD = "https://script.google.com/macros/s/AKfycbwk8GMbobMSLlUEsDPRqzycp0JzoiNVueVE7ICN7yD27yHWbtfYVOuniUsydtydyRry/exec"; 
+        
         const form = document.getElementById('leadForm');
         const btn = document.getElementById('submitBtn');
         const loading = document.getElementById('loading');
+
         form.addEventListener('submit', async (e) => {
-            e.preventDefault(); btn.disabled = true; btn.innerText = "ENVIANDO..."; loading.style.display = 'block';
-            const datos = { nombre: document.getElementById('nombre').value, email: document.getElementById('email').value, telefono: document.getElementById('telefono').value };
+            e.preventDefault(); 
             
-            // TRACKING EVENTO LEAD (Intento)
+            // UX: Bloquear botón para evitar doble envío
+            btn.disabled = true; 
+            btn.innerText = "PROCESANDO..."; 
+            loading.style.display = 'flex'; // Mostrar Spinner
+
+            const datos = { 
+                nombre: document.getElementById('nombre').value, 
+                email: document.getElementById('email').value, 
+                telefono: document.getElementById('telefono').value,
+                origen: document.getElementById('origen_lead').value 
+            };
+            
+            // TRACKING EVENTO LEAD (Meta & Google)
             if(typeof fbq !== 'undefined') fbq('track', 'Lead'); 
             if(typeof gtag !== 'undefined') gtag('event', 'generate_lead');
 
             try {
-                await fetch(URL_SCRIPT_LEAD, { method: 'POST', body: JSON.stringify(datos), mode: 'no-cors', headers: { 'Content-Type': 'application/json' } });
-                window.location.href = "/gracias.html";
-            } catch (error) { console.error("Error:", error); window.location.href = "/gracias.html"; }
+                // Enviar datos al script de Google
+                await fetch(URL_SCRIPT_LEAD, { 
+                    method: 'POST', 
+                    body: JSON.stringify(datos), 
+                    mode: 'no-cors', 
+                    headers: { 'Content-Type': 'application/json' } 
+                });
+
+                // Redirección exitosa (Simulada para mejor UX)
+                setTimeout(() => {
+                    window.location.href = "/gracias.html";
+                }, 1000);
+                
+            } catch (error) { 
+                console.error("Error:", error);
+                // En caso de error, redirigir igual (Fail-safe)
+                window.location.href = "/gracias.html"; 
+            }
         });
     </script>
 </body>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Primer Paso Listo! - Oscar Hert</title>
+    <title>¡Registro Exitoso! - Tu Estrategia Inmobiliaria</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/921/921591.png" type="image/png">
-    
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RKEMBN9NK"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -24,39 +24,137 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '707966595166662');
-    fbq('track', 'PageView');
-    fbq('track', 'CompleteRegistration'); // Evento extra: Registro Completado
+    fbq('track', 'PageView'); // Track base
+    fbq('track', 'CompleteRegistration'); // Evento específico de éxito
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=707966595166662&ev=PageView&noscript=1"
     /></noscript>
 
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+    
+    <style>
+        /* =========================================
+           ESTILO UNIFICADO (Mismo que Index)
+           ========================================= */
+        :root {
+            --primary-color: #0a2540; 
+            --accent-color: #00C853;  
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            
+            /* IMAGEN DE FONDO DE EDIFICIOS (Marca Unificada) */
+            background-image: linear-gradient(rgba(10, 37, 64, 0.8), rgba(10, 37, 64, 0.8)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 60px auto;
+            padding: 50px 30px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            text-align: center;
+            position: relative;
+        }
+
+        /* ÍCONO DE ÉXITO */
+        .success-icon {
+            font-size: 60px;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .highlight-box {
+            background-color: #f0f8ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            text-align: left;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            transform: scale(1.05);
+            background-color: #1ebc57;
+        }
+
+        footer {
+            background: rgba(0,0,0,0.8);
+            color: #999;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.75rem;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
-    <div class="promo-bar">🔥 Solicitud Ingresada con Éxito</div>
-    <div class="thank-you-card">
-        <div style="font-size: 50px; margin-bottom: 20px;">🤝</div>
-        <h1>¡Excelente decisión!</h1>
-        <h2>Ya estamos conectados.</h2>
-        <p>Acabas de dar el primer paso para concretar tu proyecto inmobiliario. Me llegó tu contacto y estoy revisando mi agenda.</p>
-        <div style="background: #f0f4f8; padding: 20px; border-radius: 12px; margin: 30px 0; text-align: left;">
-            <p style="margin:0; font-weight:bold; color:#0056b3;">¿Cómo seguimos?</p>
-            <ul style="margin:10px 0 0 20px; color:#334e68;">
-                <li><strong>Revisa tu correo:</strong> Te mandé un link para que agendemos nuestra reunión de perfilamiento.</li>
-                <li><strong>Hablemos:</strong> Quiero conocer tu objetivo (si es para vivir, invertir, tu familia, etc.).</li>
-                <li><strong>Estrategia:</strong> Buscaremos el financiamiento y la propiedad que calce contigo.</li>
-            </ul>
+
+    <div class="hero-container">
+        <span class="success-icon">✅</span>
+        <h1>¡Primer Paso Completado!</h1>
+        
+        <p>Tus datos han ingresado correctamente a mi sistema. Acabas de dar el primer paso hacia una estrategia inmobiliaria inteligente.</p>
+
+        <div class="highlight-box">
+            <strong>📩 ¿Qué sigue ahora?</strong><br>
+            En unos minutos recibirás un correo mío con el asunto <em>"Vamos por ese departamento"</em>. Ahí encontrarás el enlace para agendar o avanzar en tu evaluación.
         </div>
-        <hr style="border:0; border-top:1px solid #eee; margin: 30px 0;">
-        <p><strong>¿Ansioso por empezar?</strong><br>Si quieres ganar tiempo y asegurar tu evaluación Black Friday, escríbeme directo.</p>
-        <a href="https://wa.me/56944504962?text=Hola%20Oscar,%20acabo%20de%20llenar%20el%20formulario%20y%20quiero%20que%20veamos%20mi%20caso%20ahora." class="btn-whatsapp" target="_blank">
-            HABLAR CON OSCAR POR WHATSAPP 💬
+
+        <p style="font-size: 0.9em; margin-bottom: 10px;">¿Tienes una duda urgente?</p>
+        <a href="https://wa.me/56944504962?text=Hola%20Oscar,%20ya%20me%20registr%C3%A9%20y%20tengo%20una%20duda%20r%C3%A1pida." class="btn-whatsapp">
+            Hablar por WhatsApp
         </a>
     </div>
-    <footer style="background: #000; color: #666; padding: 30px 20px; text-align: center; font-size: 12px; margin-top: 60px; border-top: 1px solid #333;">
+
+    <footer>
         <p style="margin-bottom: 10px;">© 2025 Oscar Hernández - Broker Inmobiliario.</p>
+        <p>Tus sueños y tus datos están seguros aquí (SSL).</p>
     </footer>
+
 </body>
 </html>

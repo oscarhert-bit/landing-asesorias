@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GASAL - Inversión Inteligente</title>
-    <link rel="icon" href="logo.jpg" type="image/jpeg">
+    
+    <link rel="icon" href="favicon.png" type="image/png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +37,7 @@
     <div class="promo-bar">Evaluación de Perfil Profesional</div>
     
     <div class="hero-container">
-        <img src="logo.jpg" alt="GASAL Logo" class="brand-logo">
+        <img src="logo.png" alt="GASAL Logo" class="brand-logo">
 
         <h1>Estrategia <span class="highlight">Inmobiliaria</span></h1>
         <p>Soy Oscar. Mi trabajo es que logres tu objetivo inmobiliario con una estrategia financiera inteligente. Sin rodeos.</p>
@@ -84,8 +85,8 @@
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault(); 
-            btn.style.display = 'none'; // Ocultar botón
-            loading.style.display = 'block'; // Mostrar spinner
+            btn.style.display = 'none'; 
+            loading.style.display = 'block'; 
 
             const datos = { 
                 nombre: document.getElementById('nombre').value, 
@@ -101,7 +102,6 @@
                 await fetch(URL_SCRIPT_LEAD, { 
                     method: 'POST', body: JSON.stringify(datos), mode: 'no-cors', headers: { 'Content-Type': 'application/json' } 
                 });
-                // Redirección un poco más rápida
                 setTimeout(() => { window.location.href = "gracias.html"; }, 1500);
             } catch (error) { 
                 console.error("Error:", error);

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GASAL - Carga de Documentos</title>
-    <link rel="icon" href="logo.jpg" type="image/jpeg">
+    
+    <link rel="icon" href="favicon.png" type="image/png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +37,7 @@
     <div class="promo-bar">Evaluación Prioritaria en Curso</div>
 
     <div class="container-upload">
-        <img src="logo.jpg" alt="GASAL Logo" class="brand-logo">
+        <img src="logo.png" alt="GASAL Logo" class="brand-logo">
 
         <div class="form-col">
 
@@ -310,7 +311,7 @@
 
         function actualizarUXTitular() {
             const esIndep = (perfilSeleccionado === 'independiente' || perfilSeleccionado === 'empresa');
-            document.getElementById('tab-nav-laboral-titular').textContent = esIndep ? "2. Actividad" : "2. Laboral";
+            document.getElementById('tab-nav-laboral-titular').textContent = esIndep ? "ACTIVIDAD" : "LABORAL";
             document.getElementById('content-lab-titular-dep').style.display = esIndep ? 'none' : 'grid';
             document.getElementById('content-lab-titular-ind').style.display = esIndep ? 'grid' : 'none';
             document.getElementById('content-act-titular-dep').style.display = esIndep ? 'none' : 'grid';
@@ -391,7 +392,7 @@
             checklistFinal.innerHTML = '';
             lista.forEach(doc => {
                 let link = doc.ayuda ? `<a href="${doc.ayuda}" class="doc-help" target="_blank">${doc.textoAyuda}</a>` : '';
-                checklistFinal.innerHTML += `<li><strong>${doc.nombre}</strong> ${link}</li>`;
+                checklistFinal.innerHTML += `<li>${doc.nombre} ${link}</li>`;
             });
         }
 

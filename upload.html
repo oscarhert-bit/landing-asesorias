@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carga de Documentos - Evaluación</title>
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/921/921591.png" type="image/png">
+    <title>GASAL - Carga de Documentos</title>
+    <link rel="icon" href="logo.jpg" type="image/jpeg">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,11 +36,13 @@
     <div class="promo-bar">Evaluación Prioritaria en Curso</div>
 
     <div class="container-upload">
+        <img src="logo.jpg" alt="GASAL Logo" class="brand-logo">
+
         <div class="form-col">
 
             <div id="paso-1-perfil">
                 <h2>1. Perfil Profesional</h2>
-                <p>Para saber qué bancos se pelearán por financiarte, selecciona cómo generas tus ingresos.</p>
+                <p>Para analizar tu caso correctamente, selecciona cómo generas tus ingresos.</p>
                 <div class="profile-selector">
                     <label><input type="radio" name="perfilCliente" value="dependiente"><span>Trabajador <strong>Dependiente</strong></span></label>
                     <label><input type="radio" name="perfilCliente" value="independiente"><span>Trabajador <strong>Independiente</strong></span></label>
@@ -50,7 +52,7 @@
 
             <div id="paso-2-formulario">
                 <h2>2. Análisis de Capacidad</h2>
-                <p>Calcularemos tu "Ticket de Compra". Sé exacto para un resultado real.</p>
+                <p>Calcularemos tu "Ticket de Compra". Necesitamos datos exactos para un resultado real.</p>
                 
                 <form id="eessForm">
                     <input type="hidden" id="origen_lead" name="origen_lead" value="organico">
@@ -82,8 +84,8 @@
                             <div class="input-group"><label>Profesión</label><input type="text" id="titular_profesion" name="titular_profesion"></div>
                         </div>
                         
-                        <div style="margin-top: 30px; padding: 20px; background: var(--brand-light); border-radius: 8px;">
-                            <h3 style="margin-top: 0; border: none; font-size: 1rem;">¿Hay alguien más en la compra?</h3>
+                        <div style="margin-top: 30px; padding: 20px; background: rgba(0,178,169,0.05); border: 1px solid var(--brand-accent); border-radius: 8px;">
+                            <h3 style="margin-top: 0; border: none; font-size: 1rem; color: var(--brand-dark);">¿Hay alguien más en la compra?</h3>
                             <div class="profile-selector">
                                 <label><input type="radio" name="complementa_renta" value="no" checked><span>No, voy solo</span></label>
                                 <label><input type="radio" name="complementa_renta" value="si"><span><strong>Sí</strong>, complemento</span></label>
@@ -308,7 +310,7 @@
 
         function actualizarUXTitular() {
             const esIndep = (perfilSeleccionado === 'independiente' || perfilSeleccionado === 'empresa');
-            document.getElementById('tab-nav-laboral-titular').textContent = esIndep ? "ACTIVIDAD" : "LABORAL";
+            document.getElementById('tab-nav-laboral-titular').textContent = esIndep ? "2. Actividad" : "2. Laboral";
             document.getElementById('content-lab-titular-dep').style.display = esIndep ? 'none' : 'grid';
             document.getElementById('content-lab-titular-ind').style.display = esIndep ? 'grid' : 'none';
             document.getElementById('content-act-titular-dep').style.display = esIndep ? 'none' : 'grid';
@@ -389,7 +391,7 @@
             checklistFinal.innerHTML = '';
             lista.forEach(doc => {
                 let link = doc.ayuda ? `<a href="${doc.ayuda}" class="doc-help" target="_blank">${doc.textoAyuda}</a>` : '';
-                checklistFinal.innerHTML += `<li>${doc.nombre} ${link}</li>`;
+                checklistFinal.innerHTML += `<li><strong>${doc.nombre}</strong> ${link}</li>`;
             });
         }
 

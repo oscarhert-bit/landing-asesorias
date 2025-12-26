@@ -6,9 +6,11 @@
     <title>Tu Estrategia Inmobiliaria - Oscar Hernández</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/921/921591.png" type="image/png">
     
-    <meta property="og:title" content="Evaluación de Estrategia Inmobiliaria 🔒">
-    <meta property="og:description" content="Analicemos tu perfil para encontrar la propiedad que calce con tu vida.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000&auto=format&fit=crop">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RKEMBN9NK"></script>
     <script>
@@ -17,7 +19,6 @@
       gtag('js', new Date());
       gtag('config', 'G-3RKEMBN9NK');
     </script>
-
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -30,246 +31,61 @@
     fbq('init', '707966595166662');
     fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=707966595166662&ev=PageView&noscript=1"
-    /></noscript>
-
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        /* =========================================
-           ESTILO UNIFICADO "APP EXPERIENCE" CON FONDO
-           ========================================= */
-        :root {
-            --primary-color: #0a2540; /* Azul Corporativo */
-            --accent-color: #00C853;  /* Verde Acción */
-            --bg-light: #f4f7f6;
-            --text-dark: #333;
-        }
-
-        body {
-            font-family: 'Lato', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text-dark);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            
-            /* --- RECUPERACIÓN DEL FONDO --- */
-            /* Usamos la misma imagen de los correos para consistencia de marca */
-            background-image: linear-gradient(rgba(10, 37, 64, 0.7), rgba(10, 37, 64, 0.7)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Efecto Parallax en PC */
-        }
-
-        /* BARRA SUPERIOR DE URGENCIA */
-        .promo-bar {
-            background: rgba(0, 0, 0, 0.6); /* Semi transparente */
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(5px); /* Efecto vidrio */
-        }
-
-        /* CONTENEDOR PRINCIPAL FLOTANTE */
-        .hero-container {
-            flex: 1;
-            max-width: 500px; /* Un poco más angosto para elegancia */
-            margin: 40px auto;
-            padding: 40px 30px;
-            background: #fff; /* Blanco puro para contraste */
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3); /* Sombra profunda */
-            text-align: center;
-            position: relative;
-        }
-
-        h1 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            line-height: 1.2;
-            margin-bottom: 15px;
-        }
-
-        .highlight {
-            color: var(--accent-color); 
-            display: block; 
-        }
-
-        p {
-            font-size: 1rem;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        /* FORMULARIO ESTILO APP */
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 700;
-            color: var(--primary-color);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            font-size: 16px; 
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-
-        input:focus {
-            border-color: var(--primary-color);
-            background-color: #fff;
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(10, 37, 64, 0.1);
-        }
-
-        /* BOTÓN DE ACCIÓN PRINCIPAL */
-        .btn-main {
-            width: 100%;
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 18px;
-            font-size: 1.1rem;
-            font-weight: 900;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: transform 0.1s, background-color 0.3s;
-            box-shadow: 0 4px 15px rgba(10, 37, 64, 0.3);
-            margin-top: 10px;
-        }
-
-        .btn-main:hover {
-            background-color: #15385b;
-            transform: translateY(-2px);
-        }
-
-        .btn-main:active {
-            transform: scale(0.98);
-        }
-
-        .btn-main:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* FOOTER */
-        footer {
-            background: rgba(0,0,0,0.8);
-            color: #999;
-            padding: 30px 20px;
-            text-align: center;
-            font-size: 0.75rem;
-            margin-top: auto;
-        }
-
-        /* AVISO DE CARGA */
-        #loading {
-            margin-top: 20px;
-            color: var(--primary-color);
-            font-weight: bold;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        /* SPINNER SIMPLE */
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(10,37,64,0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary-color);
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-    </style>
 </head>
 <body>
     
-    <div class="promo-bar">🔥 Cupos Limitados: Evaluación de Perfil</div>
+    <div class="promo-bar">Evaluación de Perfil Profesional</div>
     
     <div class="hero-container">
-        <h1>No es solo una propiedad,<br><span class="highlight">es tu próximo paso.</span></h1>
-        <p>Soy Oscar. Mi trabajo es que logres tu objetivo inmobiliario (vivir o invertir) con una estrategia financiera inteligente. <strong>Sin rodeos y 100% online.</strong></p>
+        <h1>Estrategia <span class="highlight">Inmobiliaria</span></h1>
+        <p>Soy Oscar. Mi trabajo es que logres tu objetivo inmobiliario con una estrategia financiera inteligente. Sin rodeos.</p>
         
         <form id="leadForm">
             <input type="hidden" id="origen_lead" name="origen_lead" value="web_organico">
 
             <div class="form-group">
-                <label for="nombre">¿Cómo te llamas?</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre y Apellido" required autocomplete="name">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required autocomplete="name">
             </div>
             
             <div class="form-group">
-                <label for="email">Tu correo principal</label>
+                <label for="email">Correo Electrónico</label>
                 <input type="email" id="email" name="email" placeholder="nombre@ejemplo.com" required autocomplete="email">
             </div>
             
             <div class="form-group">
-                <label for="telefono">WhatsApp (Sin espacios)</label>
+                <label for="telefono">WhatsApp</label>
                 <input type="tel" id="telefono" name="telefono" placeholder="Ej: 944504962" required pattern="[0-9]*" inputmode="numeric">
             </div>
 
-            <button type="submit" id="submitBtn" class="btn-main">QUIERO EVALUAR MIS OPCIONES 🔒</button>
+            <button type="submit" id="submitBtn" class="btn-main">EVALUAR MIS OPCIONES</button>
         </form>
         
-        <div id="loading">
-            <div class="spinner"></div>
-            <div>Analizando disponibilidad...</div>
+        <div id="loading" style="display:none; text-align:center; margin-top:20px; color:var(--brand-accent); font-weight:bold;">
+            Procesando solicitud...
         </div>
         
-        <p style="font-size: 0.8em; color: #888; margin-top: 25px;">
+        <p style="font-size: 0.85em; color: #888; margin-top: 25px;">
             Al registrarte accedes a una sesión estratégica de diagnóstico.
         </p>
     </div>
 
     <footer>
-        <p style="margin-bottom: 10px;">© 2025 Oscar Hernández - Broker Inmobiliario.</p>
-        <p>Tus sueños y tus datos están seguros aquí (SSL).</p>
+        <p>© 2025 Oscar Hernández - Broker Inmobiliario.</p>
     </footer>
 
     <script>
-        // CONFIGURACIÓN (Verificada)
         const URL_SCRIPT_LEAD = "https://script.google.com/macros/s/AKfycbwk8GMbobMSLlUEsDPRqzycp0JzoiNVueVE7ICN7yD27yHWbtfYVOuniUsydtydyRry/exec"; 
-        
         const form = document.getElementById('leadForm');
         const btn = document.getElementById('submitBtn');
         const loading = document.getElementById('loading');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault(); 
-            
-            // UX: Bloquear botón para evitar doble envío
             btn.disabled = true; 
-            btn.innerText = "PROCESANDO..."; 
-            loading.style.display = 'flex'; // Mostrar Spinner
+            btn.style.opacity = "0.7";
+            btn.innerText = "CONECTANDO..."; 
+            loading.style.display = 'block';
 
             const datos = { 
                 nombre: document.getElementById('nombre').value, 
@@ -278,28 +94,17 @@
                 origen: document.getElementById('origen_lead').value 
             };
             
-            // TRACKING EVENTO LEAD (Meta & Google)
             if(typeof fbq !== 'undefined') fbq('track', 'Lead'); 
             if(typeof gtag !== 'undefined') gtag('event', 'generate_lead');
 
             try {
-                // Enviar datos al script de Google
                 await fetch(URL_SCRIPT_LEAD, { 
-                    method: 'POST', 
-                    body: JSON.stringify(datos), 
-                    mode: 'no-cors', 
-                    headers: { 'Content-Type': 'application/json' } 
+                    method: 'POST', body: JSON.stringify(datos), mode: 'no-cors', headers: { 'Content-Type': 'application/json' } 
                 });
-
-                // Redirección exitosa (Simulada para mejor UX)
-                setTimeout(() => {
-                    window.location.href = "/gracias.html";
-                }, 1000);
-                
+                setTimeout(() => { window.location.href = "gracias.html"; }, 1000);
             } catch (error) { 
                 console.error("Error:", error);
-                // En caso de error, redirigir igual (Fail-safe)
-                window.location.href = "/gracias.html"; 
+                window.location.href = "gracias.html"; 
             }
         });
     </script>

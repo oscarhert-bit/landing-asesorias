@@ -3,110 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GASAL - Inversión Inteligente</title>
-    
+    <title>Estrategia Inmobiliaria | Inicia tu Éxito</title>
     <link rel="icon" href="favicon.png" type="image/png">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RKEMBN9NK"></script>
+    <script src="config.js"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3RKEMBN9NK');
-    </script>
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '707966595166662');
-    fbq('track', 'PageView');
+        if (typeof CONFIG !== 'undefined') {
+            if (CONFIG.GOOGLE_ANALYTICS_ID) {
+                const s = document.createElement('script'); s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${CONFIG.GOOGLE_ANALYTICS_ID}`; document.head.appendChild(s);
+                window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date()); gtag('config', CONFIG.GOOGLE_ANALYTICS_ID);
+            }
+            if (CONFIG.META_PIXEL_ID) {
+                !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', CONFIG.META_PIXEL_ID); fbq('track', 'PageView');
+            }
+        }
     </script>
 </head>
 <body>
-    
-    <div class="promo-bar">Evaluación de Perfil Profesional</div>
-    
+    <div class="promo-bar">Tu Futuro Inmobiliario Comienza Hoy</div>
     <div class="hero-container">
-        <img src="logo.png" alt="GASAL Logo" class="brand-logo">
-
-        <h1>Estrategia <span class="highlight">Inmobiliaria</span></h1>
-        <p>Soy Oscar. Mi trabajo es que logres tu objetivo inmobiliario con una estrategia financiera inteligente. Sin rodeos.</p>
+        <img src="logo.png" alt="Logo Marca" class="brand-logo">
+        <h1>Tu Estrategia <span class="highlight">Definitiva</span></h1>
+        <p>No es "si puedes invertir". Es <strong>cómo vamos a lograrlo</strong> juntos.</p>
         
         <form id="leadForm">
             <input type="hidden" id="origen_lead" name="origen_lead" value="web_organico">
 
             <div class="form-group">
-                <label for="nombre">Nombre Completo</label>
+                <label for="nombre">Tu Nombre</label>
                 <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required autocomplete="name">
             </div>
             
             <div class="form-group">
-                <label for="email">Correo Electrónico</label>
+                <label for="email">Tu Mejor Correo</label>
                 <input type="email" id="email" name="email" placeholder="nombre@ejemplo.com" required autocomplete="email">
             </div>
             
             <div class="form-group">
                 <label for="telefono">WhatsApp</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Ej: 944504962" required pattern="[0-9]*" inputmode="numeric">
+                <input type="tel" id="telefono" name="telefono" placeholder="+56 9..." required pattern="[0-9+ ]*" inputmode="tel">
             </div>
 
-            <button type="submit" id="submitBtn" class="btn-main">EVALUAR MIS OPCIONES</button>
+            <div class="form-group">
+                <label for="objetivo">¿Cuál es tu meta principal?</label>
+                <select id="objetivo" name="objetivo" required style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; background:white;">
+                    <option value="" disabled selected>Selecciona tu objetivo...</option>
+                    <option value="Inversion">💸 Quiero invertir y generar rentabilidad</option>
+                    <option value="Vivienda">🏠 Busco mi Primer Hogar propio</option>
+                    <option value="Descanso">🏖️ Busco Segunda Vivienda / Descanso</option>
+                    <option value="Otro">🔍 Solo estoy explorando opciones</option>
+                </select>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn-main">ACTIVAR MI PLAN DE INVERSIÓN</button>
         </form>
         
         <div id="loading" style="display:none; text-align:center; margin-top:20px; color:var(--brand-accent); font-weight:bold;">
-            <div style="font-size:30px; animation:spin 1s linear infinite;">↻</div>
-            Procesando solicitud...
+            <div style="font-size:30px; animation:spin 1s linear infinite; display:inline-block; margin-bottom:10px;">↻</div>
+            <br>¡Excelente decisión! Iniciando tu carpeta...
         </div>
         
-        <p style="font-size: 0.85em; color: #888; margin-top: 25px;">
-            Al registrarte accedes a una sesión estratégica de diagnóstico.
-        </p>
+        <p style="font-size: 0.85em; color: #888; margin-top: 25px;">Estás a un paso de concretar tu meta.</p>
     </div>
-
-    <footer>
-        <p>© 2025 Oscar Hernández - Broker Inmobiliario.</p>
-    </footer>
+    <footer><p>&copy; <script>document.write(new Date().getFullYear())</script> Todos los derechos reservados.</p></footer>
 
     <script>
-        const URL_SCRIPT_LEAD = "https://script.google.com/macros/s/AKfycbwk8GMbobMSLlUEsDPRqzycp0JzoiNVueVE7ICN7yD27yHWbtfYVOuniUsydtydyRry/exec"; 
         const form = document.getElementById('leadForm');
         const btn = document.getElementById('submitBtn');
         const loading = document.getElementById('loading');
+        const phoneInput = document.getElementById('telefono');
+
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.startsWith('56')) value = value.substring(2);
+            if (value.startsWith('9')) value = value.substring(1);
+            if (value.length > 0) e.target.value = '+56 9 ' + value.substring(0, 8);
+        });
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault(); 
-            btn.style.display = 'none'; 
-            loading.style.display = 'block'; 
+            if (typeof CONFIG === 'undefined' || !CONFIG.API_URL) { alert("Error Config"); return; }
+            btn.style.display = 'none'; loading.style.display = 'block'; 
 
             const datos = { 
                 nombre: document.getElementById('nombre').value, 
                 email: document.getElementById('email').value, 
                 telefono: document.getElementById('telefono').value,
-                origen: document.getElementById('origen_lead').value 
+                origen: document.getElementById('origen_lead').value,
+                objetivo: document.getElementById('objetivo').value // Enviamos el dato clave
             };
             
             if(typeof fbq !== 'undefined') fbq('track', 'Lead'); 
             if(typeof gtag !== 'undefined') gtag('event', 'generate_lead');
 
             try {
-                await fetch(URL_SCRIPT_LEAD, { 
-                    method: 'POST', body: JSON.stringify(datos), mode: 'no-cors', headers: { 'Content-Type': 'application/json' } 
-                });
-                setTimeout(() => { window.location.href = "gracias.html"; }, 1500);
-            } catch (error) { 
-                console.error("Error:", error);
-                window.location.href = "gracias.html"; 
-            }
+                await fetch(CONFIG.API_URL, { method: 'POST', body: JSON.stringify(datos), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+                setTimeout(() => { window.location.href = "gracias.html"; }, 1000);
+            } catch (error) { window.location.href = "gracias.html"; }
         });
     </script>
     <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>

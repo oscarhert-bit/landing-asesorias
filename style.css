@@ -1,210 +1,107 @@
-/* ==========================================================================
-   GASAL HYBRID STYLE: Glassmorphism + Brand Identity
-   (Estructura Original + Identidad GASAL)
-   ========================================================================== */
-
-:root {
-    /* COLORES DE MARCA GASAL */
-    --brand-dark: #2B2E34;      /* Antracita (Texto principal y fondos oscuros) */
-    --brand-accent: #00B2A9;    /* Turquesa GASAL (Botones y realces) */
-    --brand-accent-hover: #008f87; /* Turquesa oscuro para hover */
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Inmobiliaria | Broker OS</title>
+    <link rel="icon" href="favicon.png" type="image/png">
     
-    /* EFECTOS DE VIDRIO (Glassmorphism Original) */
-    --glass-surface: rgba(255, 255, 255, 0.94); /* Blanco cristalino */
-    --glass-border: rgba(255, 255, 255, 0.8);
-    --shadow-float: 0 20px 60px rgba(43, 46, 52, 0.25);
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     
-    /* TIPOGRAFÍA */
-    --font-heading: 'Montserrat', sans-serif; /* Identidad GASAL */
-    --font-body: 'Lato', sans-serif;
-}
+    <script src="config.js"></script>
+</head>
+<body>
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-body);
-    color: var(--brand-dark);
-    line-height: 1.6;
-    min-height: 100vh;
-    /* FONDO: Imagen de ciudad con tinte elegante de marca */
-    background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed; 
-    background-size: cover;
-    position: relative;
-}
+    <div class="promo-bar">Asesoría Hipotecaria y Financiera</div>
 
-/* Capa de tinte para legibilidad */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(135deg, rgba(10, 37, 64, 0.85) 0%, rgba(43, 46, 52, 0.9) 100%);
-    z-index: -1;
-}
+    <div class="hero-container">
+        <img src="logo.jpg" alt="Logo Gasal" style="max-height: 80px; margin-bottom: 20px;">
+        
+        <h1>Invierte con <span class="highlight">Estrategia</span></h1>
+        <p>Evaluamos tu capacidad financiera real para que compres con seguridad.</p>
 
-/* BARRA SUPERIOR */
-.promo-bar {
-    background: rgba(43, 46, 52, 0.95);
-    color: #fff;
-    text-align: center;
-    padding: 12px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-family: var(--font-heading);
-    border-bottom: 3px solid var(--brand-accent);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
+        <form id="leadForm" style="margin-top: 30px; max-width: 400px; margin-left: auto; margin-right: auto;">
+            
+            <div class="form-group">
+                <label>Nombre Completo</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan Pérez">
+            </div>
 
-/* TARJETAS FLOTANTES (Glassmorphism) */
-.hero-container, .thank-you-card, .container-upload {
-    max-width: 600px;
-    margin: 60px auto;
-    padding: 50px;
-    background: var(--glass-surface);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 20px;
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-float);
-    position: relative;
-    z-index: 1;
-    text-align: center;
-}
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" name="email" required placeholder="tucorreo@ejemplo.com">
+            </div>
 
-.container-upload {
-    max-width: 800px;
-    padding: 40px;
-    text-align: left;
-}
+            <div class="form-group">
+                <label>Teléfono (WhatsApp)</label>
+                <input type="tel" id="telefono" name="telefono" required placeholder="+569...">
+            </div>
 
-/* LOGO DE MARCA (Ajustado para PNG) */
-.brand-logo {
-    display: block;
-    max-width: 220px;
-    height: auto;
-    margin: 0 auto 25px auto;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); /* Sutil sombra 3D */
-}
+            <div class="form-group">
+                <label>Objetivo</label>
+                <select id="objetivo" name="objetivo">
+                    <option value="Inversión">Quiero Invertir (Comprar para Arrendar)</option>
+                    <option value="Vivienda">Busco mi Casa Propia</option>
+                    <option value="Evaluación">Solo quiero saber mi capacidad</option>
+                </select>
+            </div>
+            
+            <input type="hidden" id="origen" value="Landing Page">
 
-/* TIPOGRAFÍA */
-h1, h2, h3 {
-    font-family: var(--font-heading);
-    color: var(--brand-dark);
-    margin-top: 0;
-}
+            <button type="submit" class="cta-button" style="width: 100%; margin-top: 10px;">
+                SOLICITAR EVALUACIÓN GRATUITA
+            </button>
+            
+            <p id="statusMsg" style="font-size: 12px; margin-top: 15px; color: #666;"></p>
+        </form>
+    </div>
 
-h1 { font-weight: 800; font-size: 2.2rem; line-height: 1.2; letter-spacing: -0.5px; }
-h2 { font-weight: 700; font-size: 1.5rem; color: var(--brand-accent); margin-bottom: 25px; }
-h3 { font-size: 1.1rem; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 30px; }
+    <footer>
+        <p>&copy; 2026 Gasal Inversiones. Todos los derechos reservados.</p>
+    </footer>
 
-p { font-size: 1.05rem; color: #555; margin-bottom: 25px; }
-.highlight { color: var(--brand-accent); font-weight: 700; }
+    <script>
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = this.querySelector('button');
+            const msg = document.getElementById('statusMsg');
+            
+            // UI de carga
+            btn.disabled = true;
+            btn.innerHTML = "Procesando...";
+            msg.textContent = "Conectando con el servidor...";
 
-/* FORMULARIOS */
-.form-group, .input-group { margin-bottom: 20px; text-align: left; }
+            const payload = {
+                action: "nuevo_lead", // <--- LA CLAVE PARA EL BACKEND
+                nombre: document.getElementById('nombre').value,
+                email: document.getElementById('email').value,
+                telefono: document.getElementById('telefono').value,
+                objetivo: document.getElementById('objetivo').value,
+                origen: "Web Principal"
+            };
 
-label {
-    display: block;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.8rem;
-    color: var(--brand-dark);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
+            try {
+                // Usamos la URL que está en config.js
+                await fetch(CONFIG.API_URL, {
+                    method: "POST",
+                    body: JSON.stringify(payload),
+                    headers: { "Content-Type": "text/plain" }
+                });
 
-input, select {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px !important;
-    background: #fff;
-    font-family: var(--font-body);
-    color: var(--brand-dark);
-    box-sizing: border-box;
-    transition: all 0.3s;
-}
+                // Éxito: Redirigir a gracias
+                window.location.href = "gracias.html";
 
-input:focus, select:focus {
-    outline: none;
-    border-color: var(--brand-accent);
-    box-shadow: 0 0 0 3px rgba(0, 178, 169, 0.15);
-}
+            } catch (error) {
+                console.error(error);
+                msg.textContent = "Hubo un error de conexión. Intenta de nuevo.";
+                msg.style.color = "red";
+                btn.disabled = false;
+                btn.innerHTML = "INTENTAR DE NUEVO";
+            }
+        });
+    </script>
 
-/* BOTONES (Turquesa GASAL) */
-.btn-main, #submitButton, .form-nav-btn {
-    background: linear-gradient(135deg, var(--brand-accent) 0%, var(--brand-accent-hover) 100%);
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 18px;
-    font-size: 1.1rem;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 8px 20px rgba(0, 178, 169, 0.3);
-    margin-top: 15px;
-}
-
-.btn-main:hover, #submitButton:hover, .form-nav-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(0, 178, 169, 0.4);
-}
-
-.form-navigation-buttons { display: flex; gap: 15px; margin-top: 30px; }
-.form-nav-btn.secondary { background: #f0f4f8; color: #666; box-shadow: none; }
-.form-nav-btn.secondary:hover { background: #e0e6ed; }
-
-/* ELEMENTOS ESPECÍFICOS */
-.tab-navigation { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-.tab-nav-button {
-    background: transparent; border: none; padding: 8px 15px;
-    color: #999; font-family: var(--font-heading); font-weight: 700; font-size: 0.8rem;
-    cursor: pointer; border-radius: 20px; transition: all 0.2s;
-}
-.tab-nav-button.active { background-color: var(--brand-dark); color: var(--brand-accent); }
-
-.profile-selector { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
-@media (min-width: 600px) { .profile-selector { flex-direction: row; } }
-
-.profile-selector label {
-    flex: 1; padding: 20px; background: #fff; border: 2px solid #eee; border-radius: 12px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center; text-align: center;
-    transition: all 0.2s; text-transform: none; font-weight: normal; color: #666;
-}
-.profile-selector input { width: auto; margin-right: 10px; }
-.profile-selector label:has(input:checked) {
-    border-color: var(--brand-accent);
-    background-color: rgba(0, 178, 169, 0.05);
-    color: var(--brand-dark);
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-.checklist { list-style: none; padding: 0; }
-.checklist li { padding: 12px; background: #fff; border: 1px solid #eee; margin-bottom: 8px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
-.checklist li::before { content: "✓"; color: var(--brand-accent); font-weight: bold; margin-right: 10px; }
-#fileInput { margin-top: 10px; padding: 40px; border: 2px dashed var(--brand-accent); background: rgba(0, 178, 169, 0.03); text-align: center; border-radius: 12px; cursor: pointer; }
-.doc-help { font-size: 0.75rem; background: var(--brand-dark); color: #fff; padding: 3px 8px; border-radius: 4px; text-decoration: none; }
-
-/* Botón WhatsApp (Gracias) */
-.btn-whatsapp { 
-    background: #25D366; color: white; text-decoration: none; padding: 12px 25px; 
-    border-radius: 50px; font-weight: bold; display: inline-block; 
-    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); transition: transform 0.2s;
-}
-.btn-whatsapp:hover { transform: scale(1.05); background-color: #1ebc57; }
-
-footer { text-align: center; color: rgba(255,255,255,0.6); padding: 40px 20px; font-size: 0.8rem; margin-top: auto; }
-
-/* Utilidades (NO TOCAR) */
-#paso-2-formulario, #paso-3-checklist, #paso-4-uploader, .codeudor-tab, .codeudor-sub-content, #perfil-codeudor-selector, #btn-finalizar-formulario, #loadingMessage, #successMessage, #errorMessage, #loading { display: none; }
-.form-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-@media(min-width: 600px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+</body>
+</html>

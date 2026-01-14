@@ -3,440 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluación Financiera | Gasal</title>
+    <title>Carpeta Digital | Gasal</title>
     <link rel="icon" href="favicon.jpg">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
     <script src="config.js"></script>
-
     <style>
-        /* ESTILOS WIZARD ESPECÍFICOS */
         .step-content { display: none; }
         .step-content.active { display: block; animation: slideIn 0.4s ease-out; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
         .progress-track { background: rgba(0,0,0,0.1); height: 8px; border-radius: 10px; margin: 30px 0; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--brand-accent); width: 0%; transition: width 0.4s ease; }
-        
-        /* Validaciones Visuales */
         input.invalid, select.invalid { border-color: #ef4444 !important; background-color: #fef2f2 !important; }
-        input.valid { border-color: #10b981 !important; }
-
-        /* Modal CMF */
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 50; align-items: center; justify-content: center; }
-        .modal-box { background: white; padding: 25px; border-radius: 12px; max-width: 500px; width: 90%; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .modal-box { background: white; padding: 25px; border-radius: 12px; max-width: 500px; width: 90%; }
     </style>
 </head>
 <body>
-
-    <div class="promo-bar">Sistema de Acreditación Bancaria - 2026</div>
-
+    <div class="promo-bar">Sistema de Acreditación 2026</div>
     <div class="container-glass text-left">
         <div class="text-center">
-            <img src="logo.jpg" alt="Gasal" style="max-height: 60px; margin: 0 auto 15px;">
+            <img src="logo.jpg" style="max-height: 60px; margin: 0 auto 15px;">
             <h2>Carpeta Digital</h2>
-            <p class="text-sm text-gray-600">Completa cada paso con información verídica.</p>
         </div>
-
         <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
 
         <form id="wizardForm" novalidate>
-            
             <div id="step1" class="step-content active">
                 <h3 class="mb-4">1. Situación Laboral</h3>
                 <div class="grid gap-4">
-                    <label class="file-row cursor-pointer hover:bg-teal-50 transition">
-                        <input type="radio" name="perfil" value="dependiente" checked onchange="updateReq()"> 
-                        <div class="ml-3">
-                            <span class="block font-bold text-gray-800">Dependiente</span>
-                            <span class="text-xs text-gray-500">Contrato Indefinido / Plazo Fijo</span>
-                        </div>
-                    </label>
-                    <label class="file-row cursor-pointer hover:bg-teal-50 transition">
-                        <input type="radio" name="perfil" value="independiente" onchange="updateReq()"> 
-                        <div class="ml-3">
-                            <span class="block font-bold text-gray-800">Independiente</span>
-                            <span class="text-xs text-gray-500">Boletas de Honorarios / Servicios</span>
-                        </div>
-                    </label>
-                    <label class="file-row cursor-pointer hover:bg-teal-50 transition">
-                        <input type="radio" name="perfil" value="socio" onchange="updateReq()"> 
-                        <div class="ml-3">
-                            <span class="block font-bold text-gray-800">Socio de Empresa</span>
-                            <span class="text-xs text-gray-500">Dueño con retiros o sueldo empresarial</span>
-                        </div>
-                    </label>
+                    <label class="file-row"><input type="radio" name="perfil" value="dependiente" checked onchange="updateReq()"> <span class="ml-2 font-bold">Dependiente</span> (Contrato)</label>
+                    <label class="file-row"><input type="radio" name="perfil" value="independiente" onchange="updateReq()"> <span class="ml-2 font-bold">Independiente</span> (Boletas)</label>
+                    <label class="file-row"><input type="radio" name="perfil" value="socio" onchange="updateReq()"> <span class="ml-2 font-bold">Socio Empresa</span> (Dueño)</label>
                 </div>
             </div>
 
             <div id="step2" class="step-content">
-                <h3 class="mb-4">2. Antecedentes Personales</h3>
+                <h3 class="mb-4">2. Datos Personales</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="form-group">
-                        <label>Nombre Completo</label>
-                        <input type="text" name="titular_nombre" required minlength="5">
-                    </div>
-                    <div class="form-group">
-                        <label>RUT (Con guión y dígito)</label>
-                        <input type="text" name="rut" id="rutInput" placeholder="12.345.678-9" required oninput="checkRut(this)">
-                        <span id="rutError" class="text-xs text-red-500 hidden">RUT Inválido</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" placeholder="ejemplo@correo.cl" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Teléfono (+569)</label>
-                        <input type="tel" name="telefono" placeholder="+56912345678" required pattern="^\+569\d{8}$" oninput="formatPhone(this)">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Región</label>
-                        <select id="regionSelect" name="region" required onchange="cargarComunas()">
-                            <option value="">Seleccione...</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Comuna</label>
-                        <select id="comunaSelect" name="comuna" required disabled>
-                            <option value="">Seleccione Región primero...</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group md:col-span-2">
-                        <label>Calle y Número</label>
-                        <input type="text" name="direccion_calle" required placeholder="Av. Providencia 1234, Depto 505">
-                    </div>
+                    <div class="form-group"><label>Nombre</label><input type="text" name="titular_nombre" required></div>
+                    <div class="form-group"><label>RUT</label><input type="text" name="rut" id="rutInput" placeholder="12.345.678-9" required oninput="checkRut(this)"></div>
+                    <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+                    <div class="form-group"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+569..." required></div>
+                    <div class="form-group"><label>Región</label><select id="regionSelect" name="region" required onchange="cargarComunas()"><option value="">Seleccione...</option></select></div>
+                    <div class="form-group"><label>Comuna</label><select id="comunaSelect" name="comuna" required disabled><option value="">Seleccione...</option></select></div>
+                    <div class="form-group md:col-span-2"><label>Calle y Número</label><input type="text" name="direccion_calle" required></div>
                 </div>
             </div>
 
             <div id="step3" class="step-content">
                 <h3 class="mb-4">3. Declaración Financiera</h3>
-                
-                <div class="bg-white p-4 rounded-lg border border-gray-200 mb-6">
-                    <h4 class="text-sm font-bold text-teal-700 uppercase mb-3 border-b pb-1">Tus Ingresos Líquidos Mensuales</h4>
+                <div class="bg-white p-4 rounded mb-4">
+                    <h4 class="font-bold text-teal-700 border-b mb-3">Ingresos Mensuales ($)</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div><label class="text-xs">Sueldo Fijo ($)</label><input type="number" name="ingreso_fijo" placeholder="0"></div>
-                        <div><label class="text-xs">Variable / Comisiones ($)</label><input type="number" name="ingreso_variable" placeholder="0"></div>
-                        <div><label class="text-xs">Honorarios ($)</label><input type="number" name="ingreso_honorarios" placeholder="0"></div>
-                        <div><label class="text-xs">Otros / Retiros ($)</label><input type="number" name="ingreso_retiros" placeholder="0"></div>
+                        <div><label class="text-xs">Sueldo Fijo</label><input type="number" name="ingreso_fijo"></div>
+                        <div><label class="text-xs">Variable</label><input type="number" name="ingreso_variable"></div>
+                        <div><label class="text-xs">Honorarios</label><input type="number" name="ingreso_honorarios"></div>
+                        <div><label class="text-xs">Retiros</label><input type="number" name="ingreso_retiros"></div>
                     </div>
                 </div>
-
-                <div class="bg-white p-4 rounded-lg border border-gray-200">
-                    <h4 class="text-sm font-bold text-red-600 uppercase mb-3 border-b pb-1">Tus Deudas (Carga Financiera)</h4>
-                    
-                    <div class="mb-3">
-                        <label class="text-xs font-bold block mb-1">1. Crédito Hipotecario</label>
-                        <div class="flex gap-2">
-                            <select name="banco_hipotecario" class="w-1/2 text-sm bank-selector"><option value="">Sin Deuda / Seleccionar Banco</option></select>
-                            <input type="number" name="pasivo_hipotecario" placeholder="Dividendo Mensual ($)" class="w-1/2 text-sm">
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="text-xs font-bold block mb-1">2. Crédito de Consumo</label>
-                        <div class="flex gap-2">
-                            <select name="banco_consumo" class="w-1/2 text-sm bank-selector"><option value="">Sin Deuda / Seleccionar Banco</option></select>
-                            <input type="number" name="pasivo_consumo" placeholder="Cuota Mensual ($)" class="w-1/2 text-sm">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="text-xs font-bold block mb-1">3. Tarjetas de Crédito</label>
-                        <div class="flex gap-2">
-                            <select name="banco_tarjetas" class="w-1/2 text-sm bank-selector"><option value="">Sin Deuda / Seleccionar Banco</option></select>
-                            <input type="number" name="pasivo_tarjetas" placeholder="Cupo Utilizado Total ($)" class="w-1/2 text-sm">
-                        </div>
+                <div class="bg-white p-4 rounded">
+                    <h4 class="font-bold text-red-600 border-b mb-3">Deudas (Carga Mensual)</h4>
+                    <div class="space-y-3">
+                        <div class="flex gap-2"><select name="banco_hipotecario" class="w-1/2 text-xs bank-sel"><option value="">Hipotecario (Banco)</option></select><input type="number" name="pasivo_hipotecario" placeholder="Dividendo $" class="w-1/2"></div>
+                        <div class="flex gap-2"><select name="banco_consumo" class="w-1/2 text-xs bank-sel"><option value="">Consumo (Banco)</option></select><input type="number" name="pasivo_consumo" placeholder="Cuota $" class="w-1/2"></div>
+                        <div class="flex gap-2"><select name="banco_tarjetas" class="w-1/2 text-xs bank-sel"><option value="">Tarjeta (Banco)</option></select><input type="number" name="pasivo_tarjetas" placeholder="Cupo Usado $" class="w-1/2"></div>
                     </div>
                 </div>
             </div>
 
             <div id="step4" class="step-content">
-                <h3 class="mb-2">4. Carga de Documentos</h3>
-                
-                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mb-6 rounded shadow-sm flex justify-between items-center">
-                    <div>
-                        <p class="font-bold text-blue-900 text-sm">Importante: Certificado CMF</p>
-                        <p class="text-xs text-blue-700 mt-1">Descarga gratuita con ClaveÚnica.</p>
-                    </div>
-                    <button type="button" onclick="toggleModal(true)" class="bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded hover:bg-blue-700 shadow">
-                        VER INSTRUCTIVO
-                    </button>
+                <h3 class="mb-2">4. Documentación</h3>
+                <div class="bg-blue-50 p-3 mb-4 flex justify-between items-center rounded border-l-4 border-blue-600">
+                    <div class="text-sm text-blue-900 font-bold">Certificado CMF</div>
+                    <button type="button" onclick="document.getElementById('cmfModal').style.display='flex'" class="bg-blue-600 text-white text-xs px-3 py-1 rounded">INSTRUCTIVO</button>
                 </div>
-
-                <p class="text-sm text-gray-500 mb-4 font-bold" id="req-title">Documentos para perfil DEPENDIENTE:</p>
-                <div id="dynamic-req" class="space-y-3">
-                    </div>
+                <div id="dynamic-req" class="space-y-2"></div>
             </div>
 
-            <div class="flex justify-between mt-8 pt-6 border-t border-gray-200">
+            <div class="flex justify-between mt-8 pt-4 border-t">
                 <button type="button" id="btnPrev" class="btn-secondary hidden" onclick="moveStep(-1)">Atrás</button>
-                <div class="flex-grow"></div>
                 <button type="button" id="btnNext" class="btn-main" onclick="moveStep(1)">Siguiente</button>
-                <button type="submit" id="btnSubmit" class="btn-main hidden bg-green-600 hover:bg-green-700">ENVIAR CARPETA</button>
+                <button type="submit" id="btnSubmit" class="btn-main hidden bg-green-600">ENVIAR</button>
             </div>
-            <p id="errorMsg" class="text-center text-xs text-red-500 mt-3 font-bold"></p>
-
+            <p id="errorMsg" class="text-center text-xs text-red-500 mt-2 font-bold"></p>
         </form>
     </div>
 
     <div id="cmfModal" class="modal-overlay">
-        <div class="modal-box text-left">
-            <h3 class="text-xl font-bold text-teal-700 mb-4">Cómo descargar Informe de Deudas</h3>
-            <ol class="list-decimal list-inside space-y-3 text-sm text-gray-700 mb-6">
-                <li>Ingresa a <a href="https://www.cmfchile.cl" target="_blank" class="text-blue-600 underline font-bold">www.cmfchile.cl</a>.</li>
-                <li>Haz clic en <strong>"CMF Sin Papel"</strong> o "Trámites en Línea".</li>
-                <li>Inicia sesión con tu <strong>ClaveÚnica</strong>.</li>
-                <li>En el buscador escribe: <strong>"Informe de Deudas"</strong>.</li>
-                <li>Descarga el PDF "Informe de deudas del sistema financiero".</li>
+        <div class="modal-box">
+            <h3 class="font-bold text-teal-700 mb-3">Descargar Informe Deudas</h3>
+            <ol class="list-decimal list-inside text-sm space-y-2 text-gray-700 mb-4">
+                <li>Ve a <a href="https://www.cmfchile.cl" target="_blank" class="text-blue-600 font-bold">www.cmfchile.cl</a></li>
+                <li>Entra con <strong>ClaveÚnica</strong>.</li>
+                <li>Busca: <strong>"Informe de Deudas"</strong>.</li>
+                <li>Descarga el PDF.</li>
             </ol>
-            <button onclick="toggleModal(false)" class="w-full bg-gray-800 text-white py-3 rounded-lg font-bold">ENTENDIDO</button>
+            <button onclick="document.getElementById('cmfModal').style.display='none'" class="w-full bg-gray-800 text-white py-2 rounded">Cerrar</button>
         </div>
     </div>
 
     <script>
-        // --- 1. DATOS ESTÁTICOS (Geografía y Bancos) ---
-        const bancosChile = ["Banco de Chile", "Banco Santander", "Banco Estado", "Scotiabank", "Bci", "Itaú", "Banco Bice", "Banco Security", "Banco Falabella", "Banco Ripley", "Banco Consorcio", "Banco Internacional", "Coopeuch"];
+        const banks = ["Banco de Chile", "Santander", "Banco Estado", "Scotiabank", "Bci", "Itaú", "Bice", "Security", "Falabella", "Ripley", "Consorcio", "Coopeuch"];
+        const geo = { "Metropolitana":["Santiago","Providencia","Las Condes","Ñuñoa","La Florida","Maipú"], "Valparaíso":["Viña del Mar","Valparaíso","Concón"], "Biobío":["Concepción"], "Otras":["Otras"] };
         
-        const geoChile = {
-            "Metropolitana": ["Santiago","Providencia","Las Condes","Ñuñoa","Vitacura","La Reina","Lo Barnechea","Macul","Peñalolén","La Florida","Maipú","Estación Central","San Miguel","San Joaquín","Puente Alto","San Bernardo","Colina","Lampa"],
-            "Valparaíso": ["Valparaíso","Viña del Mar","Concón","Quilpué","Villa Alemana","Reñaca","San Antonio"],
-            "Biobío": ["Concepción","Talcahuano","San Pedro de la Paz","Chiguayante","Los Ángeles"],
-            "Antofagasta": ["Antofagasta","Calama"],
-            "Coquimbo": ["La Serena","Coquimbo","Ovalle"],
-            "Araucanía": ["Temuco","Villarrica","Pucón"],
-            "Los Lagos": ["Puerto Montt","Puerto Varas","Osorno","Castro"],
-            "Maule": ["Talca","Curicó","Linares"],
-            "O'Higgins": ["Rancagua","Machalí","San Fernando"],
-            "Otras": ["Otras Comunas"]
-        };
-
-        // --- 2. INICIALIZACIÓN ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Cargar Bancos
-            document.querySelectorAll('.bank-selector').forEach(sel => {
-                bancosChile.forEach(b => {
-                    const opt = document.createElement('option');
-                    opt.value = b; opt.textContent = b;
-                    sel.appendChild(opt);
-                });
-            });
-
-            // Cargar Regiones
-            const regSel = document.getElementById('regionSelect');
-            Object.keys(geoChile).forEach(r => {
-                const opt = document.createElement('option');
-                opt.value = r; opt.textContent = r;
-                regSel.appendChild(opt);
-            });
-
-            updateReq(); // Inicializar requisitos
+            document.querySelectorAll('.bank-sel').forEach(s => banks.forEach(b => s.add(new Option(b, b))));
+            const r = document.getElementById('regionSelect'); Object.keys(geo).forEach(k => r.add(new Option(k, k)));
+            updateReq();
         });
 
-        // --- 3. LÓGICA DE NAVEGACIÓN Y VALIDACIÓN ---
-        let currentStep = 1;
-        const totalSteps = 4;
-
-        function moveStep(n) {
-            const errorMsg = document.getElementById('errorMsg');
-            errorMsg.innerText = "";
-
-            // SI AVANZAMOS (n=1), VALIDAR PASO ACTUAL
-            if (n === 1) {
-                if (!validateCurrentStep()) {
-                    errorMsg.innerText = "⚠️ Por favor completa todos los campos obligatorios y corrige los errores.";
-                    return;
-                }
-            }
-
-            // Transición
-            document.getElementById(`step${currentStep}`).classList.remove('active');
-            currentStep += n;
-            document.getElementById(`step${currentStep}`).classList.add('active');
-
-            // Actualizar Botones
-            document.getElementById('btnPrev').classList.toggle('hidden', currentStep === 1);
-            if (currentStep === totalSteps) {
-                document.getElementById('btnNext').classList.add('hidden');
-                document.getElementById('btnSubmit').classList.remove('hidden');
-            } else {
-                document.getElementById('btnNext').classList.remove('hidden');
-                document.getElementById('btnSubmit').classList.add('hidden');
-            }
-
-            // Actualizar Barra
-            document.getElementById('progressBar').style.width = `${((currentStep-1)/(totalSteps-1))*100}%`;
-        }
-
-        function validateCurrentStep() {
-            const container = document.getElementById(`step${currentStep}`);
-            const inputs = container.querySelectorAll('input[required], select[required]');
-            let isValid = true;
-
-            inputs.forEach(input => {
-                if (!input.value.trim()) {
-                    input.classList.add('invalid');
-                    isValid = false;
-                } else {
-                    input.classList.remove('invalid');
-                    input.classList.add('valid');
-                }
-            });
-
-            // Validaciones Específicas Paso 2
-            if (currentStep === 2) {
-                const rutInput = document.getElementById('rutInput');
-                if (!Fn.validaRut(rutInput.value)) {
-                    rutInput.classList.add('invalid');
-                    document.getElementById('rutError').classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    document.getElementById('rutError').classList.add('hidden');
-                }
-            }
-
-            return isValid;
-        }
-
-        // --- 4. FUNCIONES DE FORMATO Y DATOS ---
-
         function cargarComunas() {
-            const reg = document.getElementById('regionSelect').value;
-            const comSel = document.getElementById('comunaSelect');
-            comSel.innerHTML = '<option value="">Seleccione...</option>';
-            
-            if (reg && geoChile[reg]) {
-                comSel.disabled = false;
-                geoChile[reg].forEach(c => {
-                    const opt = document.createElement('option');
-                    opt.value = c; opt.textContent = c;
-                    comSel.appendChild(opt);
-                });
-            } else {
-                comSel.disabled = true;
-            }
+            const r = document.getElementById('regionSelect').value, c = document.getElementById('comunaSelect');
+            c.innerHTML='<option value="">Seleccione...</option>'; c.disabled = !r;
+            if(r) geo[r].forEach(x => c.add(new Option(x, x)));
         }
 
-        function formatPhone(input) {
-            // Fuerza formato +569XXXXXXXX
-            let val = input.value.replace(/\D/g, '');
-            if (!val.startsWith('569')) val = '569' + val;
-            if (val.length > 11) val = val.substring(0, 11); // Max largo
-            input.value = '+' + val;
+        // Validación RUT Módulo 11
+        const Fn = { validaRut: r => { if(!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(r)) return false; let t=r.split('-'), d=t[1].toLowerCase(), n=t[0], m=0, s=1; for(;n;n=Math.floor(n/10)) s=(s+n%10*(9-m++%6))%11; return (s?s-1:'k')==d; } };
+        function checkRut(i) { 
+            let v = i.value.replace(/[^0-9kK]/g,''); 
+            if(v.length>1) i.value = v.slice(0,-1).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "-" + v.slice(-1);
+            i.classList.toggle('invalid', !Fn.validaRut(i.value)); 
         }
 
-        // Validador de RUT (Módulo 11)
-        var Fn = {
-            validaRut: function (rutCompleto) {
-                if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(rutCompleto)) return false;
-                var tmp = rutCompleto.split('-');
-                var digv = tmp[1]; var rut = tmp[0];
-                if (digv == 'K') digv = 'k';
-                return (Fn.dv(rut) == digv);
-            },
-            dv: function (T) {
-                var M = 0, S = 1;
-                for (; T; T = Math.floor(T / 10))
-                    S = (S + T % 10 * (9 - M++ % 6)) % 11;
-                return S ? S - 1 : 'k';
-            }
+        // Navegación Wizard
+        let step = 1;
+        function moveStep(n) {
+            if(n===1 && !validarPaso()) { document.getElementById('errorMsg').innerText = "Completa los campos obligatorios"; return; }
+            document.getElementById('errorMsg').innerText = "";
+            document.getElementById(`step${step}`).classList.remove('active');
+            step += n;
+            document.getElementById(`step${step}`).classList.add('active');
+            document.getElementById('btnPrev').classList.toggle('hidden', step===1);
+            document.getElementById('btnNext').classList.toggle('hidden', step===4);
+            document.getElementById('btnSubmit').classList.toggle('hidden', step!==4);
+            document.getElementById('progressBar').style.width = `${((step-1)/3)*100}%`;
         }
 
-        function checkRut(input) {
-            let val = input.value.replace(/[^0-9kK]/g, ''); // Limpiar
-            if (val.length > 1) {
-                // Formatear visualmente: 12345678k -> 12.345.678-k
-                var cuerpo = val.slice(0, -1);
-                var dv = val.slice(-1).toUpperCase();
-                input.value = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "-" + dv;
-                
-                // Validar
-                if(Fn.validaRut(input.value)) {
-                    input.classList.remove('invalid');
-                    input.classList.add('valid');
-                    document.getElementById('rutError').classList.add('hidden');
-                } else {
-                    input.classList.remove('valid');
-                }
-            }
-        }
-
-        // Requisitos Dinámicos
-        const reqs = {
-            dependiente: ["Cédula de Identidad (Ambos Lados)", "3 Últimas Liquidaciones (Renta Fija)", "6 Últimas Liquidaciones (Variable)", "Certificado Cotizaciones AFP (12 Meses con RUT Empleador)", "Certificado de Deuda CMF (Obligatorio)"],
-            independiente: ["Cédula de Identidad (Vigente)", "6 Últimas Boletas de Honorarios", "Informe Anual de Boletas (2 Años)", "Formulario 22 (DAI) 2024 y 2025", "Carpeta Tributaria Crédito Personal", "Certificado de Deuda CMF"],
-            socio: ["Cédula de Identidad Socio", "Carpeta Tributaria Empresa", "Formulario 22 (Empresa y Socio)", "2 Últimos Balances", "Malla Societaria / Escritura", "Certificado de Deuda CMF Socio"]
-        };
-
-        function updateReq() {
-            const perfil = document.querySelector('input[name="perfil"]:checked').value;
-            const container = document.getElementById('dynamic-req');
-            document.getElementById('req-title').innerText = `Documentos para perfil ${perfil.toUpperCase()}:`;
-            
-            container.innerHTML = '';
-            reqs[perfil].forEach((r, i) => {
-                container.innerHTML += `
-                    <div class="file-row bg-gray-50 p-3 border rounded flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="text-teal-600">📄</span>
-                            <span class="text-sm font-bold text-gray-700">${r}</span>
-                        </div>
-                        <input type="file" id="f${i}" class="text-xs w-1/3">
-                    </div>`;
+        function validarPaso() {
+            let ok = true;
+            document.getElementById(`step${step}`).querySelectorAll('[required]').forEach(i => {
+                if(!i.value || i.classList.contains('invalid')) { i.classList.add('invalid'); ok=false; }
+                else i.classList.remove('invalid');
             });
+            return ok;
         }
 
-        function toggleModal(show) {
-            document.getElementById('cmfModal').style.display = show ? 'flex' : 'none';
+        const reqs = { 
+            dependiente: ["Cédula", "3 Liquidaciones", "Cotizaciones AFP", "Certificado CMF"],
+            independiente: ["Cédula", "Boletas (6m)", "Carpeta Tributaria", "Certificado CMF"],
+            socio: ["Cédula", "Carpeta Tributaria", "Balances", "Certificado CMF"]
+        };
+        function updateReq() {
+            const p = document.querySelector('input[name="perfil"]:checked').value;
+            const c = document.getElementById('dynamic-req'); c.innerHTML='';
+            reqs[p].forEach((r,i) => c.innerHTML += `<div class="file-row"><span class="text-sm font-bold">📄 ${r}</span><input type="file" id="f${i}" class="text-xs"></div>`);
         }
 
-        // --- 5. ENVÍO ---
         document.getElementById('wizardForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('btnSubmit');
-            const msg = document.getElementById('errorMsg');
+            const btn = document.getElementById('btnSubmit'); btn.innerText="Enviando..."; btn.disabled=true;
             
-            btn.innerHTML = "Encriptando y Enviando..."; btn.disabled = true;
-
-            // Recopilar Datos Texto
-            const formData = new FormData(e.target);
-            const dataObj = Object.fromEntries(formData.entries());
-
-            // Recopilar Archivos
-            const inputs = document.querySelectorAll('input[type="file"]');
+            const fd = new FormData(e.target); const data = Object.fromEntries(fd.entries());
             const files = [];
+            const inputs = document.querySelectorAll('input[type="file"]');
             
-            for (let input of inputs) {
-                if (input.files.length > 0) {
-                    const file = input.files[0];
-                    const reader = new FileReader();
-                    const p = new Promise(resolve => {
-                        reader.onload = evt => resolve({
-                            fileName: file.name,
-                            mimeType: file.type,
-                            data: evt.target.result.split(',')[1]
-                        });
-                        reader.readAsDataURL(file);
-                    });
-                    files.push(await p);
+            for(let inp of inputs) {
+                if(inp.files[0]) {
+                    const f = inp.files[0];
+                    files.push({ fileName: f.name, mimeType: f.type, data: (await toBase64(f)).split(',')[1] });
                 }
             }
 
             try {
-                await fetch(CONFIG.API_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({ action: "subir_carpeta", formData: dataObj, files: files })
-                });
+                await fetch(CONFIG.API_URL, { method:'POST', body:JSON.stringify({action:"subir_carpeta", formData:data, files:files}) });
                 window.location.href = "gracias.html";
-            } catch(err) {
-                alert("Error de conexión. Intenta nuevamente.");
-                btn.innerHTML = "REINTENTAR"; btn.disabled = false;
-            }
+            } catch(e) { alert("Error"); btn.disabled=false; }
         });
+        const toBase64 = file => new Promise((r,j) => { const tr = new FileReader(); tr.readAsDataURL(file); tr.onload=()=>r(tr.result); tr.onerror=j; });
     </script>
 </body>
 </html>

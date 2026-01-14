@@ -3,60 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Registro Exitoso!</title>
-    
+    <title>¡Gracias! | Broker OS</title>
     <link rel="icon" href="favicon.png" type="image/png">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RKEMBN9NK"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3RKEMBN9NK');
-    </script>
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '707966595166662');
-    fbq('track', 'PageView'); 
-    fbq('track', 'CompleteRegistration'); 
-    </script>
+    
+    <script src="config.js"></script>
 </head>
 <body>
 
-    <div class="thank-you-card">
-        <img src="logo.png" alt="GASAL Logo" class="brand-logo">
+    <div class="promo-bar">Solicitud Recibida Correctamente</div>
 
-        <div style="font-size: 50px; color: var(--brand-accent); margin-bottom: 20px;">✅</div>
-        <h1>¡Primer Paso Completado!</h1>
+    <div class="hero-container" style="max-width: 600px;">
+        <div style="background: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <span style="font-size: 40px; color: var(--brand-accent);">✓</span>
+        </div>
         
-        <p>Tus datos han ingresado correctamente a mi sistema. Acabas de dar el primer paso hacia una estrategia inmobiliaria inteligente.</p>
-
-        <div style="background-color: #f0f8ff; border-left: 4px solid var(--brand-accent); padding: 15px; text-align: left; margin-bottom: 30px; font-size: 0.95rem; color: #444;">
-            <strong>📩 ¿Qué sigue ahora?</strong><br>
-            En unos minutos recibirás un correo mío con el asunto <em>"Vamos por ese departamento"</em>.
+        <h1 style="color: var(--brand-accent);">¡Todo Listo!</h1>
+        <p>Hemos recibido tus datos correctamente.</p>
+        
+        <div style="background: rgba(255,255,255,0.6); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: left;">
+            <p><strong>¿Qué sigue ahora?</strong></p>
+            <ul style="color: #444; padding-left: 20px;">
+                <li>Te enviamos un correo con los detalles (revisa SPAM por si acaso).</li>
+                <li>Agendaremos una reunión breve para revisar tu caso.</li>
+            </ul>
         </div>
 
-        <p style="font-size: 0.9em; margin-bottom: 10px;">¿Tienes una duda urgente?</p>
-        <a href="https://wa.me/56944504962?text=Hola%20Oscar,%20ya%20me%20registr%C3%A9%20y%20tengo%20una%20duda%20r%C3%A1pida." class="btn-whatsapp" style="background: #25D366; color:white; text-decoration:none; padding:12px 25px; border-radius:50px; font-weight:bold; display:inline-block; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);">
-            Hablar por WhatsApp
+        <p style="font-size: 0.9rem;">¿Tienes prisa o quieres adelantar?</p>
+        
+        <a id="btnWsp" href="#" class="cta-button" style="background-color: #25D366; display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <span style="font-size: 1.2rem;">💬</span> Hablar con un Asesor Ahora
         </a>
+
+        <div style="margin-top: 20px;">
+            <a href="index.html" style="color: #666; font-size: 0.8rem; text-decoration: none;">Volver al inicio</a>
+        </div>
     </div>
 
     <footer>
-        <p>© 2025 Oscar Hernández - Broker Inmobiliario.</p>
+        <p>&copy; 2026 Gasal Inversiones.</p>
     </footer>
+
+    <script>
+        // Configurar el botón de WhatsApp dinámicamente al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('btnWsp');
+            if(CONFIG && CONFIG.WHATSAPP_PHONE) {
+                const text = encodeURIComponent(CONFIG.WHATSAPP_MESSAGE || "Hola, acabo de registrarme.");
+                btn.href = `https://wa.me/${CONFIG.WHATSAPP_PHONE}?text=${text}`;
+            }
+        });
+    </script>
 
 </body>
 </html>

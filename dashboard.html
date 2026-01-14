@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consola Broker OS</title>
+    <link rel="icon" href="favicon.jpg" type="image/jpeg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="config.js"></script>
+
+    <style>
+        /* Ajustes específicos del Tablero Kanban */
+        body { overflow: hidden; background: #f3f4f6; } /* Fondo gris claro profesional */
+        .board-container { 
+            display: flex; 
+            gap: 20px; 
+            padding: 20px; 
+            height: calc(100vh - 80px); 
+            overflow-x: auto; 
+            align-items: flex-start;
+        }
+        .column { 
+            background: #e2e8f0; 
+            min-width: 300px; 
+            width: 300px;
+            border-radius: 12px; 
+            display: flex; 
+            flex-direction: column; 
+            max-height: 100%;
+        }
+        .column-header { 
+            padding: 15px; 
+            font-weight: 800; 
+            font-family: 'Montserrat', sans-serif;
+            color: var(--brand-dark);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .column-body { 
+            padding: 10px; 
+            flex-grow: 1; 
+            overflow-y: auto; 
+            min-height: 100px; /* Para facilitar el drop */
+        }
+        /* Tarjetas de Clientes */
+        .lead-card { 
+            background: white; 
+            padding: 15px; 
+            margin-bottom: 10px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+            cursor: grab; 
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid transparent;
+        }
+        .lead-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .lead-card:active { cursor: grabbing; }
+        
+        /* Colores de estado (Bordes) */
+        .status-new { border-left-color: #3b82f6; } /* Azul */
+        .status-contact { border-left-color: #f59e0b; } /* Naranja */
+        .status-docs { border-left-color: #ef4444; } /* Rojo (Acción) */
+        .status-eval { border-left-color: #8b5cf6; } /* Violeta */
+        .status-won { border-left-color: #10b981; } /* Verde */
+
+        /* Barra Superior */
+        .top-bar {
+            background: white;
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .refresh-btn {
+            background: var(--brand-accent);
+            color: white;
+            border: none;
+            width: 35px; height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.5s;
+        }
+        .refresh-btn:hover { transform: rotate(180deg); }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="flex items-center gap-3">
+            <img src="logo.jpg" alt="Logo" style="height: 30px;">
+            <span class="font-bold text-gray-700">Broker OS</span>
+        </div>
+        <button onclick="cargarLeads()" class="refresh-btn" title="Actualizar Tablero">↻</button>
+    </div>
+
+    <div class="board-container">
+        
+        <div class="column">
+            <div class="column-header">
+                <span>🆕 Nuevos</span>
+                <span id="count-nuevo" class="text-xs bg-gray-300 px-2 py-1 rounded-full">0</span>
+            </div>
+            <div class="column-body" id="col-Nuevo Lead" ondrop="drop(event, 'Nuevo Lead')" ondragover="allowDrop(event)">
+                </div>
+        </div>
+
+        <div class="column">
+            <div class="column-header">
+                <span>💬 Conversando</span>
+                <span id="count-conversacion" class="text-xs bg-gray-300 px-2 py-1 rounded-full">0</span>
+            </div>
+            <div class="column-body" id="col-En Conversación" ondrop="drop(event, 'En Conversación')" ondragover="allowDrop(event)"></div>
+        </div>
+
+        <div class="column" style="background-color: #fff1f2;"> <div class="column-header" style="color: #9f1239;">
+                <span>📂 Solicitar Docs</span>
+                <span id="count-docs" class="text-xs bg-rose-200 px-2 py-1 rounded-full">0</span>
+            </div>
+            <div class="column-body" id="col-Solicitar Documentos" ondrop="drop(event, 'Solicitar Documentos')" ondragover="allowDrop(event)"></div>
+        </div>
+
+        <div class="column">
+            <div class="column-header">
+                <span>📊 En Evaluación</span>
+                <span id="count-eval" class="text-xs bg-gray-300 px-2 py-1 rounded-full">0</span>
+            </div>
+            <div class="column-body" id="col-En Evaluación" ondrop="drop(event, 'En Evaluación')" ondragover="allowDrop(event)"></div>
+        </div>
+
+        <div class="column">
+            <div class="column-header">
+                <span>✅ Aprobados</span>
+                <span id="count-won" class="text-xs bg-gray-300 px-2 py-1 rounded-full">0</span>
+            </div>
+            <div class="column-body" id="col-Aprobado" ondrop="drop(event, 'Aprobado')" ondragover="allowDrop(event)"></div>
+        </div>
+
+    </div>
+
+    <div id="loading" class="fixed inset-0 bg-white bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
+    </div>
+
+    <script>
+        // --- 1. CARGA INICIAL ---
+        document.addEventListener('DOMContentLoaded', cargarLeads);
+
+        async function cargarLeads() {
+            mostrarLoading(true);
+            limpiarColumnas();
+
+            try {
+                // Pide los datos al Backend
+                const response = await fetch(CONFIG.API_URL + "?action=getLeads");
+                const leads = await response.json();
+
+                leads.forEach(lead => {
+                    crearTarjeta(lead);
+                });
+                actualizarContadores();
+
+            } catch (error) {
+                console.error(error);
+                alert("Error cargando leads. Revisa tu conexión.");
+            }
+            mostrarLoading(false);
+        }
+
+        function crearTarjeta(lead) {
+            // Determinar columna destino
+            let estado = lead.Estado || "Nuevo Lead";
+            
+            // Normalizar nombres de columnas para que coincidan con los IDs
+            // Si el estado en el Excel no coincide exacto, lo mandamos a 'Nuevo Lead' por seguridad
+            let colId = "col-" + estado;
+            let columna = document.getElementById(colId);
+            
+            if (!columna) {
+                columna = document.getElementById("col-Nuevo Lead"); // Fallback
+            }
+
+            // Crear HTML de la tarjeta
+            const card = document.createElement('div');
+            card.className = "lead-card";
+            card.draggable = true;
+            card.id = lead.id; // Guardamos el ID de la fila
+            card.ondragstart = drag;
+            
+            // Color lateral según estado
+            if(estado.includes("Nuevo")) card.classList.add("status-new");
+            if(estado.includes("Solicitar")) card.classList.add("status-docs");
+            if(estado.includes("Aprobado")) card.classList.add("status-won");
+
+            card.innerHTML = `
+                <div class="font-bold text-gray-800">${lead.Nombre}</div>
+                <div class="text-xs text-gray-500 mt-1">📧 ${lead.Email}</div>
+                <div class="text-xs text-gray-500">📞 ${lead.Telefono}</div>
+                <div class="text-[10px] text-gray-400 mt-2 text-right">ID: ${lead.id.substring(0,4)}...</div>
+            `;
+
+            columna.appendChild(card);
+        }
+
+        // --- 2. LÓGICA ARRASTRAR Y SOLTAR (DRAG & DROP) ---
+        
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        async function drop(ev, nuevoEstado) {
+            ev.preventDefault();
+            const idLead = ev.dataTransfer.getData("text");
+            const tarjeta = document.getElementById(idLead);
+            
+            // Mover visualmente de inmediato (UI optimista)
+            const columnaDestino = document.getElementById("col-" + nuevoEstado);
+            columnaDestino.appendChild(tarjeta);
+
+            // Notificar al Backend
+            mostrarLoading(true);
+            try {
+                await fetch(CONFIG.API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: "updateState",
+                        rowId: idLead,
+                        newState: nuevoEstado
+                    }),
+                    headers: { 'Content-Type': 'text/plain' }
+                });
+                
+                // Si movimos a Solicitar Documentos, avisar al usuario
+                if(nuevoEstado.includes("Solicitar")) {
+                    alert(`✅ Correo de solicitud enviado a este cliente.`);
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert("Hubo un error guardando el cambio.");
+                cargarLeads(); // Revertir si falló
+            }
+            mostrarLoading(false);
+            actualizarContadores();
+        }
+
+        // --- 3. UTILIDADES ---
+        function limpiarColumnas() {
+            document.querySelectorAll('.column-body').forEach(col => col.innerHTML = '');
+        }
+
+        function mostrarLoading(show) {
+            document.getElementById('loading').style.display = show ? 'flex' : 'none';
+        }
+
+        function actualizarContadores() {
+            // Cuenta cuántas tarjetas hay en cada columna
+            const ids = ["Nuevo Lead", "En Conversación", "Solicitar Documentos", "En Evaluación", "Aprobado"];
+            const mapIds = {"Nuevo Lead":"nuevo", "En Conversación":"conversacion", "Solicitar Documentos":"docs", "En Evaluación":"eval", "Aprobado":"won"};
+            
+            ids.forEach(id => {
+                const count = document.getElementById("col-" + id).children.length;
+                const badge = document.getElementById("count-" + mapIds[id]);
+                if(badge) badge.innerText = count;
+            });
+        }
+    </script>
+</body>
+</html>

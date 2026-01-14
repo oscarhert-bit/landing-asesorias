@@ -7,7 +7,7 @@
     <link rel="icon" href="favicon.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=final">
     <script src="config.js"></script>
     <style>
         .step-content { display: none; }
@@ -120,7 +120,6 @@
             if(r) geo[r].forEach(x => c.add(new Option(x, x)));
         }
 
-        // Validación RUT Módulo 11
         const Fn = { validaRut: r => { if(!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(r)) return false; let t=r.split('-'), d=t[1].toLowerCase(), n=t[0], m=0, s=1; for(;n;n=Math.floor(n/10)) s=(s+n%10*(9-m++%6))%11; return (s?s-1:'k')==d; } };
         function checkRut(i) { 
             let v = i.value.replace(/[^0-9kK]/g,''); 
@@ -128,7 +127,6 @@
             i.classList.toggle('invalid', !Fn.validaRut(i.value)); 
         }
 
-        // Navegación Wizard
         let step = 1;
         function moveStep(n) {
             if(n===1 && !validarPaso()) { document.getElementById('errorMsg').innerText = "Completa los campos obligatorios"; return; }
@@ -165,22 +163,10 @@
         document.getElementById('wizardForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btnSubmit'); btn.innerText="Enviando..."; btn.disabled=true;
-            
             const fd = new FormData(e.target); const data = Object.fromEntries(fd.entries());
-            const files = [];
-            const inputs = document.querySelectorAll('input[type="file"]');
-            
-            for(let inp of inputs) {
-                if(inp.files[0]) {
-                    const f = inp.files[0];
-                    files.push({ fileName: f.name, mimeType: f.type, data: (await toBase64(f)).split(',')[1] });
-                }
-            }
-
-            try {
-                await fetch(CONFIG.API_URL, { method:'POST', body:JSON.stringify({action:"subir_carpeta", formData:data, files:files}) });
-                window.location.href = "gracias.html";
-            } catch(e) { alert("Error"); btn.disabled=false; }
+            const files = []; const inputs = document.querySelectorAll('input[type="file"]');
+            for(let inp of inputs) { if(inp.files[0]) { const f = inp.files[0]; files.push({ fileName: f.name, mimeType: f.type, data: (await toBase64(f)).split(',')[1] }); } }
+            try { await fetch(CONFIG.API_URL, { method:'POST', body:JSON.stringify({action:"subir_carpeta", formData:data, files:files}) }); window.location.href = "gracias.html"; } catch(e) { alert("Error"); btn.disabled=false; }
         });
         const toBase64 = file => new Promise((r,j) => { const tr = new FileReader(); tr.readAsDataURL(file); tr.onload=()=>r(tr.result); tr.onerror=j; });
     </script>

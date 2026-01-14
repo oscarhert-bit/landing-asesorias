@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consola Broker OS | Gasal</title>
     <link rel="icon" href="favicon.jpg">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=final">
     <script src="config.js"></script>
 
     <style>
-        /* AJUSTES ESPECÍFICOS PARA EL TABLERO */
-        body { overflow: hidden; } /* Evita doble scroll */
-        
+        body { overflow: hidden; }
         .top-bar {
             background: rgba(43, 46, 52, 0.95);
             backdrop-filter: blur(10px);
@@ -23,7 +20,6 @@
             padding: 0 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
         .board-wrapper {
             height: calc(100vh - 60px);
             padding: 20px;
@@ -33,9 +29,8 @@
             gap: 20px;
             align-items: flex-start;
         }
-
         .column {
-            background: rgba(255, 255, 255, 0.85); /* Vidrio más opaco para lectura */
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             min-width: 300px; width: 300px;
             border-radius: 12px;
@@ -44,7 +39,6 @@
             border: 1px solid rgba(255,255,255,0.5);
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
         .column-header {
             padding: 15px;
             font-family: 'Montserrat', sans-serif;
@@ -53,15 +47,12 @@
             border-bottom: 1px solid rgba(0,0,0,0.05);
             display: flex; justify-content: space-between; align-items: center;
         }
-
         .column-body {
             padding: 10px;
             flex-grow: 1;
             overflow-y: auto;
             min-height: 100px;
         }
-
-        /* TARJETAS */
         .lead-card {
             background: white;
             padding: 15px;
@@ -71,33 +62,26 @@
             cursor: grab;
             transition: all 0.2s;
             border-left: 4px solid var(--brand-accent);
-            white-space: normal; /* Texto se ajusta */
+            white-space: normal;
         }
         .lead-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         .lead-card:active { cursor: grabbing; }
-
-        /* Colores de Estado */
-        .status-new { border-left-color: #3b82f6; } /* Azul */
-        .status-chat { border-left-color: #f59e0b; } /* Naranja */
-        .status-docs { border-left-color: #ef4444; } /* Rojo (Acción) */
-        .status-eval { border-left-color: #8b5cf6; } /* Violeta */
-        .status-won { border-left-color: #10b981; } /* Verde */
-
-        /* Botón Refrescar */
+        .status-new { border-left-color: #3b82f6; }
+        .status-chat { border-left-color: #f59e0b; }
+        .status-docs { border-left-color: #ef4444; }
+        .status-eval { border-left-color: #8b5cf6; }
+        .status-won { border-left-color: #10b981; }
         .btn-refresh {
             background: var(--brand-accent); color: white;
             border: none; width: 36px; height: 36px; border-radius: 50%;
             cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;
         }
         .btn-refresh:hover { background: var(--brand-accent-hover); transform: rotate(180deg); }
-
-        /* Scrollbars bonitas */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 3px; }
     </style>
 </head>
 <body>
-
     <div class="top-bar">
         <div class="flex items-center gap-3">
             <img src="logo.jpg" alt="Logo" style="height: 35px; border-radius: 4px; background: white; padding: 2px;">
@@ -107,47 +91,26 @@
     </div>
 
     <div class="board-wrapper">
-        
         <div class="column">
-            <div class="column-header">
-                <span>🆕 Nuevos</span>
-                <span id="c-new" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span>
-            </div>
+            <div class="column-header"><span>🆕 Nuevos</span><span id="c-new" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span></div>
             <div class="column-body" id="col-Nuevo Lead" ondrop="drop(event, 'Nuevo Lead')" ondragover="allowDrop(event)"></div>
         </div>
-
         <div class="column">
-            <div class="column-header">
-                <span>💬 Conversando</span>
-                <span id="c-chat" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span>
-            </div>
+            <div class="column-header"><span>💬 Conversando</span><span id="c-chat" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span></div>
             <div class="column-body" id="col-En Conversación" ondrop="drop(event, 'En Conversación')" ondragover="allowDrop(event)"></div>
         </div>
-
         <div class="column" style="background: rgba(254, 242, 242, 0.9);">
-            <div class="column-header" style="color: #9f1239;">
-                <span>📂 Solicitar Docs</span>
-                <span id="c-docs" class="text-xs bg-red-100 px-2 py-1 rounded-full">0</span>
-            </div>
+            <div class="column-header" style="color: #9f1239;"><span>📂 Solicitar Docs</span><span id="c-docs" class="text-xs bg-red-100 px-2 py-1 rounded-full">0</span></div>
             <div class="column-body" id="col-Solicitar Documentos" ondrop="drop(event, 'Solicitar Documentos')" ondragover="allowDrop(event)"></div>
         </div>
-
         <div class="column">
-            <div class="column-header">
-                <span>📊 En Evaluación</span>
-                <span id="c-eval" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span>
-            </div>
+            <div class="column-header"><span>📊 En Evaluación</span><span id="c-eval" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span></div>
             <div class="column-body" id="col-En Evaluación" ondrop="drop(event, 'En Evaluación')" ondragover="allowDrop(event)"></div>
         </div>
-
         <div class="column">
-            <div class="column-header">
-                <span>✅ Aprobados</span>
-                <span id="c-won" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span>
-            </div>
+            <div class="column-header"><span>✅ Aprobados</span><span id="c-won" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span></div>
             <div class="column-body" id="col-Aprobado" ondrop="drop(event, 'Aprobado')" ondragover="allowDrop(event)"></div>
         </div>
-
     </div>
 
     <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex flex-col items-center justify-center hidden backdrop-blur-sm">
@@ -156,94 +119,42 @@
     </div>
 
     <script>
-        // --- 1. INICIALIZACIÓN ---
         document.addEventListener('DOMContentLoaded', cargarLeads);
-
         async function cargarLeads() {
-            mostrarLoad(true);
-            limpiar();
+            mostrarLoad(true); limpiar();
             try {
-                // LLAMADA AL BACKEND
                 const res = await fetch(CONFIG.API_URL + "?action=getLeads");
                 const leads = await res.json();
-                
-                leads.forEach(l => renderCard(l));
-                contar();
-            } catch (e) {
-                console.error(e);
-                alert("Error de conexión. Revisa tu internet.");
-            }
+                leads.forEach(l => renderCard(l)); contar();
+            } catch (e) { console.error(e); alert("Error de conexión."); }
             mostrarLoad(false);
         }
-
         function renderCard(lead) {
-            // Mapeo seguro de estados
             let st = lead.Estado || "Nuevo Lead";
-            let col = document.getElementById("col-" + st);
-            
-            // Si el estado no existe en el tablero, lo mandamos a 'Nuevo Lead' por seguridad
-            if (!col) col = document.getElementById("col-Nuevo Lead");
-
-            const card = document.createElement('div');
-            card.className = "lead-card";
-            card.draggable = true;
-            card.id = lead.id; // ID único de la fila
-            card.ondragstart = drag;
-
-            // Colores borde
+            let col = document.getElementById("col-" + st) || document.getElementById("col-Nuevo Lead");
+            const card = document.createElement('div'); card.className = "lead-card"; card.draggable = true; card.id = lead.id; card.ondragstart = drag;
             if(st.includes("Nuevo")) card.classList.add("status-new");
             else if(st.includes("Conversación")) card.classList.add("status-chat");
             else if(st.includes("Solicitar")) card.classList.add("status-docs");
             else if(st.includes("Evaluación")) card.classList.add("status-eval");
             else if(st.includes("Aprobado")) card.classList.add("status-won");
-
-            card.innerHTML = `
-                <div class="font-bold text-gray-800 text-sm">${lead.Nombre}</div>
-                <div class="text-xs text-gray-500 mt-1 truncate">📧 ${lead.Email}</div>
-                <div class="text-xs text-gray-500 truncate">📞 ${lead.Telefono}</div>
-            `;
+            card.innerHTML = `<div class="font-bold text-gray-800 text-sm">${lead.Nombre}</div><div class="text-xs text-gray-500 mt-1 truncate">📧 ${lead.Email}</div><div class="text-xs text-gray-500 truncate">📞 ${lead.Telefono}</div>`;
             col.appendChild(card);
         }
-
-        // --- 2. LOGICA DRAG & DROP ---
         function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
         function allowDrop(ev) { ev.preventDefault(); }
-
         async function drop(ev, nuevoEstado) {
-            ev.preventDefault();
-            const id = ev.dataTransfer.getData("text");
-            const card = document.getElementById(id);
-            
-            // Movimiento visual inmediato (Optimista)
-            document.getElementById("col-" + nuevoEstado).appendChild(card);
-            contar();
-
-            // Guardar en Backend
+            ev.preventDefault(); const id = ev.dataTransfer.getData("text"); const card = document.getElementById(id);
+            document.getElementById("col-" + nuevoEstado).appendChild(card); contar();
             mostrarLoad(true);
             try {
-                await fetch(CONFIG.API_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({ action: "updateState", rowId: id, newState: nuevoEstado }),
-                    headers: { 'Content-Type': 'text/plain' }
-                });
-                
-                if(nuevoEstado.includes("Solicitar")) {
-                    alert("✅ Correo de solicitud enviado al cliente.");
-                }
-            } catch (e) {
-                alert("Error al guardar. Recargando...");
-                cargarLeads();
-            }
+                await fetch(CONFIG.API_URL, { method: 'POST', body: JSON.stringify({ action: "updateState", rowId: id, newState: nuevoEstado }), headers: { 'Content-Type': 'text/plain' } });
+                if(nuevoEstado.includes("Solicitar")) alert("✅ Correo de solicitud enviado.");
+            } catch (e) { alert("Error al guardar."); cargarLeads(); }
             mostrarLoad(false);
         }
-
-        // --- 3. UTILIDADES ---
-        function limpiar() {
-            document.querySelectorAll('.column-body').forEach(c => c.innerHTML = '');
-        }
-        function mostrarLoad(show) {
-            document.getElementById('loading').style.display = show ? 'flex' : 'none';
-        }
+        function limpiar() { document.querySelectorAll('.column-body').forEach(c => c.innerHTML = ''); }
+        function mostrarLoad(show) { document.getElementById('loading').style.display = show ? 'flex' : 'none'; }
         function contar() {
             document.getElementById('c-new').innerText = document.getElementById('col-Nuevo Lead').childElementCount;
             document.getElementById('c-chat').innerText = document.getElementById('col-En Conversación').childElementCount;

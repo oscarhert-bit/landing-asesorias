@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estrategia Inmobiliaria | Inicia tu Éxito</title>
-    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="icon" href="favicon.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=final">
     <script src="config.js"></script>
     <script>
         if (typeof CONFIG !== 'undefined') {
@@ -24,12 +24,12 @@
 </head>
 <body>
     <div class="promo-bar">Tu Futuro Inmobiliario Comienza Hoy</div>
-    <div class="hero-container">
-        <img src="logo.png" alt="Logo Marca" class="brand-logo">
+    <div class="container-glass"> <img src="logo.jpg" alt="Logo Marca" style="max-width: 150px; margin: 0 auto 20px auto; display: block;">
+        
         <h1>Tu Estrategia <span class="highlight">Definitiva</span></h1>
         <p>No es "si puedes invertir". Es <strong>cómo vamos a lograrlo</strong> juntos.</p>
         
-        <form id="leadForm">
+        <form id="leadForm" style="text-align: left; max-width: 400px; margin: 0 auto;">
             <input type="hidden" id="origen_lead" name="origen_lead" value="web_organico">
 
             <div class="form-group">
@@ -49,7 +49,7 @@
 
             <div class="form-group">
                 <label for="objetivo">¿Cuál es tu meta principal?</label>
-                <select id="objetivo" name="objetivo" required style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; background:white;">
+                <select id="objetivo" name="objetivo" required>
                     <option value="" disabled selected>Selecciona tu objetivo...</option>
                     <option value="Inversion">💸 Quiero invertir y generar rentabilidad</option>
                     <option value="Vivienda">🏠 Busco mi Primer Hogar propio</option>
@@ -58,7 +58,7 @@
                 </select>
             </div>
 
-            <button type="submit" id="submitBtn" class="btn-main">ACTIVAR MI PLAN DE INVERSIÓN</button>
+            <button type="submit" id="submitBtn" class="btn-main" style="width: 100%;">ACTIVAR MI PLAN DE INVERSIÓN</button>
         </form>
         
         <div id="loading" style="display:none; text-align:center; margin-top:20px; color:var(--brand-accent); font-weight:bold;">
@@ -89,16 +89,14 @@
             btn.style.display = 'none'; loading.style.display = 'block'; 
 
             const datos = { 
+                action: "nuevo_lead", // Aseguramos la acción correcta
                 nombre: document.getElementById('nombre').value, 
                 email: document.getElementById('email').value, 
                 telefono: document.getElementById('telefono').value,
                 origen: document.getElementById('origen_lead').value,
-                objetivo: document.getElementById('objetivo').value // Enviamos el dato clave
+                objetivo: document.getElementById('objetivo').value
             };
             
-            if(typeof fbq !== 'undefined') fbq('track', 'Lead'); 
-            if(typeof gtag !== 'undefined') gtag('event', 'generate_lead');
-
             try {
                 await fetch(CONFIG.API_URL, { method: 'POST', body: JSON.stringify(datos), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
                 setTimeout(() => { window.location.href = "gracias.html"; }, 1000);

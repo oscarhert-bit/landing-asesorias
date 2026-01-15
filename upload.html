@@ -7,7 +7,7 @@
     <link rel="icon" href="favicon.jpg?v=3">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=final_boxy">
+    <link rel="stylesheet" href="style.css?v=final_clean">
     <script src="config.js"></script>
 </head>
 <body>
@@ -24,25 +24,37 @@
             
             <div id="step1" class="step-content active">
                 <h3>1. Perfil del Solicitante</h3>
+                
                 <div class="radio-group-horizontal">
                     <label class="radio-card selected" onclick="selectCard(this)">
                         <input type="radio" name="perfil" value="dependiente" checked onchange="updateReq()">
-                        <span class="radio-icon">💼</span><span class="radio-title">Dependiente</span><span class="radio-desc">Contrato</span>
+                        <span class="radio-title">Dependiente</span>
+                        <span class="radio-desc">Con Contrato</span>
                     </label>
                     <label class="radio-card" onclick="selectCard(this)">
                         <input type="radio" name="perfil" value="independiente" onchange="updateReq()">
-                        <span class="radio-icon">🚀</span><span class="radio-title">Independiente</span><span class="radio-desc">Boletas</span>
+                        <span class="radio-title">Independiente</span>
+                        <span class="radio-desc">Boletas</span>
                     </label>
                     <label class="radio-card" onclick="selectCard(this)">
                         <input type="radio" name="perfil" value="socio" onchange="updateReq()">
-                        <span class="radio-icon">🏢</span><span class="radio-title">Empresario</span><span class="radio-desc">Dueño</span>
+                        <span class="radio-title">Empresario</span>
+                        <span class="radio-desc">Dueño / Socio</span>
                     </label>
                 </div>
-                <div class="bg-teal-50 p-5 rounded-lg border border-teal-100 mt-6 flex items-center justify-between">
-                    <h4 class="font-bold text-teal-800 text-sm m-0">¿Complementas Renta?</h4>
-                    <div class="flex gap-4">
-                        <label class="flex items-center cursor-pointer"><input type="radio" name="codeudor_check" value="no" checked onchange="toggleCodeudor(false)" class="mr-2">No</label>
-                        <label class="flex items-center cursor-pointer"><input type="radio" name="codeudor_check" value="si" onchange="toggleCodeudor(true)" class="mr-2">Sí</label>
+
+                <div class="mt-8">
+                    <h3 style="border:none; margin-bottom:15px; font-size:1rem; color:#444;">¿Complementas Renta?</h3>
+                    <div class="radio-group-horizontal grid-2"> <label class="radio-card selected" onclick="selectCodeudorCard(this, false)">
+                            <input type="radio" name="codeudor_check" value="no" checked>
+                            <span class="radio-title">No</span>
+                            <span class="radio-desc">Voy solo</span>
+                        </label>
+                        <label class="radio-card" onclick="selectCodeudorCard(this, true)">
+                            <input type="radio" name="codeudor_check" value="si">
+                            <span class="radio-title">Sí</span>
+                            <span class="radio-desc">Con Codeudor</span>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -92,7 +104,10 @@
                 <div class="checklist-container">
                     <h4 class="font-bold text-sm mb-4">Documentación Requerida:</h4>
                     <div id="checklist-display"></div>
-                    <div class="mt-4 pt-4 border-t"><span class="check-icon">ℹ️</span> CMF: <a href="https://www.cmfchile.cl" target="_blank" class="tutorial-link">Descargar aquí</a></div>
+                    <div class="mt-4 pt-4 border-t" style="display: flex; align-items: center;">
+                        <span class="check-icon">➝</span> 
+                        <span style="font-size: 0.9rem;">CMF: <a href="https://www.cmfchile.cl" target="_blank" class="tutorial-link">Descargar Informe de Deudas</a></span>
+                    </div>
                 </div>
                 <div class="p-6 bg-blue-50 border border-blue-200 rounded text-center">
                     <input type="file" id="fileInput" multiple onchange="updateFileList()" class="hidden">
@@ -118,71 +133,61 @@
             "Valparaíso":["Valparaíso","Viña del Mar","Concón","Quilpué","Villa Alemana"], "Biobío":["Concepción","Talcahuano","San Pedro","Los Ángeles"], "Antofagasta":["Antofagasta","Calama"], "Coquimbo":["La Serena","Coquimbo"], "Araucanía":["Temuco","Villarrica","Pucón"], "Los Lagos":["Puerto Montt","Puerto Varas","Osorno"], "Otras":["Otra Comuna"]
         };
 
-        // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.bank-sel').forEach(s => banks.forEach(b => s.add(new Option(b, b))));
-            const r = document.getElementById('reg_titular'); 
-            for(let k in geo) r.add(new Option(k, k));
+            const r = document.getElementById('reg_titular'); for(let k in geo) r.add(new Option(k, k));
             updateReq();
         });
 
-        // --- LOGIC ---
+        // --- UI LOGIC ---
         function loadComunas(idReg, idCom) {
             const regVal = document.getElementById(idReg).value;
             const comSelect = document.getElementById(idCom);
             comSelect.innerHTML = '<option value="">Selecciona...</option>';
-            
             if(regVal && geo[regVal]) {
                 comSelect.disabled = false;
                 geo[regVal].sort().forEach(c => comSelect.add(new Option(c, c)));
-            } else {
-                comSelect.disabled = true;
-            }
+            } else { comSelect.disabled = true; }
         }
 
-        // --- VALIDACION RUT (CORREGIDA PARA ACEPTAR 18.913.968-3) ---
+        // Validación RUT Tolerante (18.xxx y 18xxx)
         const Fn = {
             validaRut: function (rutCompleto) {
-                // Elimina puntos y guiones para trabajar con "189139683" o "18913968K"
                 let cleanRut = rutCompleto.replace(/[^0-9kK]/g, "");
                 if (cleanRut.length < 2) return false;
-                
-                // Separa cuerpo y dígito
                 let cuerpo = cleanRut.slice(0, -1);
                 let dv = cleanRut.slice(-1).toUpperCase();
-                
-                // Valida cuerpo numérico
                 if (!/^[0-9]+$/.test(cuerpo)) return false;
-
-                // Calcula dígito esperado
-                let T = parseInt(cuerpo);
-                let M = 0, S = 1;
+                let T = parseInt(cuerpo); let M = 0, S = 1;
                 for (; T; T = Math.floor(T / 10)) S = (S + T % 10 * (9 - M++ % 6)) % 11;
                 let dvCalc = S ? S - 1 : 'K';
-                
                 return dvCalc.toString() === dv;
             }
         }
-
         function checkRut(input) {
-            let valor = input.value;
-            
-            // Validamos sobre el valor limpio, pero permitimos al usuario escribir puntos
-            if (Fn.validaRut(valor)) {
-                input.classList.remove('invalid'); 
-                input.classList.add('valid');
-                // Opcional: Formatear visualmente si quieres
-                // input.value = formatearRutVisual(valor); 
-            } else {
-                input.classList.remove('valid'); 
-                input.classList.add('invalid');
-            }
+            if (Fn.validaRut(input.value)) { input.classList.remove('invalid'); input.classList.add('valid'); } 
+            else { input.classList.remove('valid'); input.classList.add('invalid'); }
         }
 
-        // --- NAVEGACIÓN ---
+        // --- NAVEGACION ---
         let step = 1; let hasCodeudor = false;
-        function selectCard(l){ document.querySelectorAll('.radio-card').forEach(c=>c.classList.remove('selected')); l.classList.add('selected'); updateReq(); }
-        function toggleCodeudor(v){ hasCodeudor = v; updateReq(); }
+        
+        // Selección de Perfil (Arriba)
+        function selectCard(l){ 
+            l.parentElement.querySelectorAll('.radio-card').forEach(c=>c.classList.remove('selected')); 
+            l.classList.add('selected'); 
+            l.querySelector('input').checked = true;
+            updateReq(); 
+        }
+
+        // Selección de Codeudor (Abajo)
+        function selectCodeudorCard(l, val){
+            l.parentElement.querySelectorAll('.radio-card').forEach(c=>c.classList.remove('selected')); 
+            l.classList.add('selected'); 
+            l.querySelector('input').checked = true;
+            hasCodeudor = val; 
+            updateReq(); 
+        }
 
         function move(n) {
             document.getElementById('errorMsg').innerText = "";
@@ -206,25 +211,22 @@
             const inputs = document.getElementById(`step${step}`).querySelectorAll('input[required], select[required]');
             inputs.forEach(i => {
                 if (step === 3 && !hasCodeudor) return;
-                
-                // Validar si está vacío O si ya está marcado como inválido (ej: RUT malo)
-                if (!i.value.trim() || i.classList.contains('invalid')) { 
-                    i.classList.add('invalid'); ok = false; 
-                } else { 
-                    i.classList.remove('invalid'); 
-                }
+                if (!i.value.trim() || i.classList.contains('invalid')) { i.classList.add('invalid'); ok = false; }
+                else { i.classList.remove('invalid'); }
             });
             return ok;
         }
 
-        // --- UPLOAD ---
         function updateReq() {
             const p = document.querySelector('input[name="perfil"]:checked').value;
             const list = document.getElementById('checklist-display'); list.innerHTML = '';
             const docs = { dependiente:["Cédula","3 Liquidaciones","AFP 12m"], independiente:["Cédula","Boletas 6m","Carpeta Trib."], socio:["Cédula","Carpeta Trib.","Balances"] };
+            
+            // Render sin emojis
             docs[p].forEach(d => list.innerHTML += `<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`);
             if(hasCodeudor) list.innerHTML += `<div class="mt-4 font-bold text-sm text-teal-600 mb-2">CODEUDOR:</div>` + docs['dependiente'].map(d=>`<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`).join('');
         }
+
         function updateFileList() {
             const f = document.getElementById('fileInput').files;
             document.getElementById('fileListDisplay').innerText = f.length ? `${f.length} archivos seleccionados` : '';

@@ -25,7 +25,7 @@
         <form id="wizardForm" novalidate>
             
             <div id="step1" class="step-content active">
-                <h3>1. Perfil del Solicitante</h3>
+                <h3>1. Perfil del Solicitante (Tú)</h3>
                 
                 <div class="radio-group-horizontal">
                     <label class="radio-card selected" onclick="selectCard(this)">
@@ -78,28 +78,70 @@
             </div>
 
             <div id="step3" class="step-content">
-                <h3>3. Datos del Codeudor</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="form-group"><label>Nombre</label><input type="text" name="codeudor_nombre" class="input-cod"></div>
-                    <div class="form-group"><label>RUT</label><input type="text" name="codeudor_rut" class="input-cod" oninput="checkRut(this)"></div>
-                    <div class="form-group"><label>Email</label><input type="email" name="codeudor_email" class="input-cod"></div>
-                    <div class="form-group"><label>Teléfono</label><input type="tel" name="codeudor_telefono" class="input-cod"></div>
+                <h3>3. Perfil del Codeudor</h3>
+                
+                <label style="margin-bottom:10px; display:block;">Situación Laboral del Codeudor:</label>
+                <div class="radio-group-horizontal">
+                    <label class="radio-card selected" onclick="selectCard(this)">
+                        <input type="radio" name="perfil_codeudor" value="dependiente" checked onchange="updateReq()">
+                        <span class="radio-title">Dependiente</span>
+                        <span class="radio-desc">Contrato</span>
+                    </label>
+                    <label class="radio-card" onclick="selectCard(this)">
+                        <input type="radio" name="perfil_codeudor" value="independiente" onchange="updateReq()">
+                        <span class="radio-title">Independiente</span>
+                        <span class="radio-desc">Boletas</span>
+                    </label>
+                    <label class="radio-card" onclick="selectCard(this)">
+                        <input type="radio" name="perfil_codeudor" value="socio" onchange="updateReq()">
+                        <span class="radio-title">Empresario</span>
+                        <span class="radio-desc">Socio</span>
+                    </label>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="form-group"><label>Nombre Codeudor</label><input type="text" name="codeudor_nombre" class="input-cod"></div>
+                    <div class="form-group"><label>RUT Codeudor</label><input type="text" name="codeudor_rut" class="input-cod" oninput="checkRut(this)"></div>
+                    <div class="form-group"><label>Email Codeudor</label><input type="email" name="codeudor_email" class="input-cod"></div>
+                    <div class="form-group"><label>Teléfono Codeudor</label><input type="tel" name="codeudor_telefono" class="input-cod"></div>
+                    
+                    <div class="form-group"><label>Región</label><select id="reg_cod" class="input-cod" onchange="loadComunas('reg_cod','com_cod')"><option value="">Seleccione Región...</option></select></div>
+                    <div class="form-group"><label>Comuna</label><select id="com_cod" name="codeudor_comuna" class="input-cod" disabled><option value="">← Elija Región</option></select></div>
+                    <div class="form-group md:col-span-2"><label>Dirección Codeudor</label><input type="text" name="codeudor_direccion" class="input-cod"></div>
                 </div>
             </div>
 
             <div id="step4" class="step-content">
                 <h3>4. Declaración Financiera</h3>
-                <div class="grid grid-cols-2 gap-6 mb-6">
-                    <div><label>Sueldo Fijo</label><input type="number" name="ingreso_fijo" placeholder="$"></div>
-                    <div><label>Variable</label><input type="number" name="ingreso_variable" placeholder="$"></div>
-                    <div><label>Honorarios</label><input type="number" name="ingreso_honorarios" placeholder="$"></div>
-                    <div><label>Retiros</label><input type="number" name="ingreso_retiros" placeholder="$"></div>
-                </div>
                 
-                <h3 style="font-size: 1rem; border:none; margin-top:30px; margin-bottom:15px; color:#64748b;">Deudas Vigentes (Cuota Mensual)</h3>
-                <div class="space-y-4">
-                    <div class="flex gap-4"><select name="banco_hipotecario" class="w-1/2"><option value="">Hipotecario</option></select><input type="number" name="pasivo_hipotecario" placeholder="$" class="w-1/2"></div>
-                    <div class="flex gap-4"><select name="banco_consumo" class="w-1/2"><option value="">Consumo</option></select><input type="number" name="pasivo_consumo" placeholder="$" class="w-1/2"></div>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 mb-8 shadow-sm">
+                    <h4 class="font-bold text-teal-700 text-sm mb-4 border-b pb-2 tracking-wide">A. TITULAR: INGRESOS & DEUDAS</h4>
+                    <div class="grid grid-cols-2 gap-6 mb-4">
+                        <div><label>Sueldo Fijo</label><input type="number" name="ingreso_fijo" placeholder="$"></div>
+                        <div><label>Variable</label><input type="number" name="ingreso_variable" placeholder="$"></div>
+                        <div><label>Honorarios</label><input type="number" name="ingreso_honorarios" placeholder="$"></div>
+                        <div><label>Retiros</label><input type="number" name="ingreso_retiros" placeholder="$"></div>
+                    </div>
+                    <label class="mt-4 mb-2 text-xs text-gray-500 font-bold uppercase">Deudas Vigentes (Cuota)</label>
+                    <div class="space-y-4">
+                        <div class="flex gap-4"><select name="banco_hipotecario" class="w-1/2"><option value="">Hipotecario</option></select><input type="number" name="pasivo_hipotecario" placeholder="$" class="w-1/2"></div>
+                        <div class="flex gap-4"><select name="banco_consumo" class="w-1/2"><option value="">Consumo</option></select><input type="number" name="pasivo_consumo" placeholder="$" class="w-1/2"></div>
+                    </div>
+                </div>
+
+                <div id="finance-codeudor-block" class="hidden bg-gray-50 p-6 rounded-lg border border-gray-300 shadow-sm">
+                    <h4 class="font-bold text-blue-700 text-sm mb-4 border-b border-gray-300 pb-2 tracking-wide">B. CODEUDOR: INGRESOS & DEUDAS</h4>
+                    <div class="grid grid-cols-2 gap-6 mb-4">
+                        <div><label>Sueldo Fijo</label><input type="number" name="cod_ingreso_fijo" placeholder="$"></div>
+                        <div><label>Variable</label><input type="number" name="cod_ingreso_variable" placeholder="$"></div>
+                        <div><label>Honorarios</label><input type="number" name="cod_ingreso_honorarios" placeholder="$"></div>
+                        <div><label>Retiros</label><input type="number" name="cod_ingreso_retiros" placeholder="$"></div>
+                    </div>
+                    <label class="mt-4 mb-2 text-xs text-gray-500 font-bold uppercase">Deudas Vigentes (Cuota)</label>
+                    <div class="space-y-4">
+                        <div class="flex gap-4"><select name="cod_banco_hipotecario" class="w-1/2"><option value="">Hipotecario</option></select><input type="number" name="cod_pasivo_hipotecario" placeholder="$" class="w-1/2"></div>
+                        <div class="flex gap-4"><select name="cod_banco_consumo" class="w-1/2"><option value="">Consumo</option></select><input type="number" name="cod_pasivo_consumo" placeholder="$" class="w-1/2"></div>
+                    </div>
                 </div>
             </div>
 
@@ -151,26 +193,29 @@
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('select[name^="banco"]').forEach(s => banks.forEach(b => s.add(new Option(b, b))));
+            // Llenar Bancos en todos los selects
+            document.querySelectorAll('select[name*="banco"]').forEach(s => banks.forEach(b => s.add(new Option(b, b))));
             
-            // Cargar Regiones
-            const r = document.getElementById('reg_titular'); 
-            for(let k in geo) r.add(new Option(k, k));
+            // Llenar Regiones (Titular y Codeudor)
+            const r1 = document.getElementById('reg_titular'); 
+            const r2 = document.getElementById('reg_cod');
+            for(let k in geo) {
+                r1.add(new Option(k, k));
+                r2.add(new Option(k, k));
+            }
             
             updateReq();
             
-            // OCULTAR BOTONES INICIALMENTE CON FUERZA
+            // Botones Iniciales
             document.getElementById('btnPrev').style.display = 'none';
             document.getElementById('btnSubmit').style.display = 'none';
             document.getElementById('btnNext').style.display = 'inline-block';
         });
 
-        // Carga de Comunas (Arreglada)
         function loadComunas(idReg, idCom) {
             const regVal = document.getElementById(idReg).value;
             const comSelect = document.getElementById(idCom);
-            comSelect.innerHTML = '<option value="">Selecciona Comuna...</option>'; // Reiniciar
-            
+            comSelect.innerHTML = '<option value="">Selecciona Comuna...</option>'; 
             if(regVal && geo[regVal]) {
                 comSelect.disabled = false;
                 geo[regVal].sort().forEach(c => comSelect.add(new Option(c, c)));
@@ -180,7 +225,6 @@
             }
         }
 
-        // Validación RUT Tolerante
         const Fn = { validaRut: function (rut) {
             let clean = rut.replace(/[^0-9kK]/g, "");
             if (clean.length < 2) return false;
@@ -196,7 +240,7 @@
             else { input.classList.remove('valid'); input.classList.add('invalid'); }
         }
 
-        // Navegación
+        // --- NAVEGACION ---
         let step = 1; const totalSteps = 5; let hasCodeudor = false;
 
         function selectCard(l){ 
@@ -205,7 +249,15 @@
         }
         function selectCodeudorCard(l, val){
             l.parentElement.querySelectorAll('.radio-card').forEach(c=>c.classList.remove('selected')); 
-            l.classList.add('selected'); l.querySelector('input').checked = true; hasCodeudor = val; updateReq(); 
+            l.classList.add('selected'); l.querySelector('input').checked = true; 
+            hasCodeudor = val; 
+            
+            // Mostrar/Ocultar bloque financiero codeudor
+            const finBlock = document.getElementById('finance-codeudor-block');
+            if(hasCodeudor) finBlock.classList.remove('hidden');
+            else finBlock.classList.add('hidden');
+            
+            updateReq(); 
         }
 
         function move(n) {
@@ -213,13 +265,12 @@
             if (n === 1 && !validarPaso()) { document.getElementById('errorMsg').innerText = "⚠️ Completa los campos obligatorios."; return; }
             
             let next = step + n;
-            if (next === 3 && !hasCodeudor) next = (n > 0) ? 4 : 2;
+            if (next === 3 && !hasCodeudor) next = (n > 0) ? 4 : 2; 
 
             document.getElementById(`step${step}`).classList.remove('active');
             step = next;
             document.getElementById(`step${step}`).classList.add('active');
             
-            // Actualizar botones (Estilos inline para evitar conflictos CSS)
             const btnPrev = document.getElementById('btnPrev');
             const btnNext = document.getElementById('btnNext');
             const btnSubmit = document.getElementById('btnSubmit');
@@ -243,27 +294,41 @@
             const inputs = document.getElementById(`step${step}`).querySelectorAll('input[required], select[required]');
             inputs.forEach(i => {
                 if (step === 3 && !hasCodeudor) return;
+                // Si es un campo del codeudor y no hay codeudor, se ignora
+                if (i.classList.contains('input-cod') && !hasCodeudor) return;
+
                 if (!i.value.trim() || i.classList.contains('invalid')) { i.classList.add('invalid'); ok = false; }
                 else { i.classList.remove('invalid'); }
             });
             return ok;
         }
 
+        // --- CHECKLIST INTELIGENTE ---
         function updateReq() {
+            // Perfil Titular
             const p = document.querySelector('input[name="perfil"]:checked').value;
-            const list = document.getElementById('checklist-display'); list.innerHTML = '';
+            const list = document.getElementById('checklist-display'); 
+            list.innerHTML = '';
             
+            // Documentos Base
             const docs = { 
                 dependiente:["Cédula Identidad (Ambos Lados)", "3 Últimas Liquidaciones", "Certificado AFP (12 meses)", "Certificado Antigüedad Laboral"], 
                 independiente:["Cédula Identidad", "Boletas de Honorarios (6 meses)", "Carpeta Tributaria", "DAI (Formulario 22)"], 
                 socio:["Cédula Identidad", "Carpeta Tributaria Empresa", "Balances (2 años)", "Escritura Sociedad"] 
             };
             
+            list.innerHTML += `<div class="font-bold text-xs text-gray-500 mb-1">TITULAR (${p.toUpperCase()}):</div>`;
             docs[p].forEach(d => list.innerHTML += `<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`);
             
+            // Perfil Codeudor (Si aplica)
             if(hasCodeudor) {
-                list.innerHTML += `<div class="mt-4 font-bold text-sm text-teal-600 mb-2 border-b pb-1">CODEUDOR:</div>` + 
-                ["Cédula Identidad", "Acreditación Ingresos (Liq/Boletas)", "Informe Deudas CMF"].map(d=>`<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`).join('');
+                // Obtenemos perfil codeudor (por defecto dependiente si no se ha cargado paso 3, o el seleccionado)
+                let pCodInput = document.querySelector('input[name="perfil_codeudor"]:checked');
+                let pCod = pCodInput ? pCodInput.value : 'dependiente'; // Fallback seguro
+
+                list.innerHTML += `<div class="mt-4 font-bold text-xs text-teal-600 mb-1 border-t pt-2">CODEUDOR (${pCod.toUpperCase()}):</div>`;
+                docs[pCod].forEach(d => list.innerHTML += `<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`);
+                list.innerHTML += `<div class="checklist-item"><span class="check-icon">✓</span> Informe de Deudas CMF</div>`;
             }
         }
 

@@ -7,7 +7,7 @@
     <link rel="icon" href="favicon.jpg?v=3">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=final_fusion">
+    <link rel="stylesheet" href="style.css?v=final_boxy">
     <script src="config.js"></script>
 </head>
 <body>
@@ -24,258 +24,225 @@
             
             <div id="step1" class="step-content active">
                 <h3>1. Perfil del Solicitante</h3>
-                
-                <label>Selecciona tu situación laboral:</label>
-                <div class="radio-card-group">
+                <div class="radio-group-horizontal">
                     <label class="radio-card selected" onclick="selectCard(this)">
                         <input type="radio" name="perfil" value="dependiente" checked onchange="updateReq()">
-                        <span class="radio-icon">💼</span>
-                        <span class="radio-title">Dependiente</span>
-                        <span class="radio-desc">Contrato Indefinido</span>
+                        <span class="radio-icon">💼</span><span class="radio-title">Dependiente</span><span class="radio-desc">Contrato</span>
                     </label>
                     <label class="radio-card" onclick="selectCard(this)">
                         <input type="radio" name="perfil" value="independiente" onchange="updateReq()">
-                        <span class="radio-icon">🚀</span>
-                        <span class="radio-title">Independiente</span>
-                        <span class="radio-desc">Boletas Honorarios</span>
+                        <span class="radio-icon">🚀</span><span class="radio-title">Independiente</span><span class="radio-desc">Boletas</span>
                     </label>
                     <label class="radio-card" onclick="selectCard(this)">
                         <input type="radio" name="perfil" value="socio" onchange="updateReq()">
-                        <span class="radio-icon">🏢</span>
-                        <span class="radio-title">Empresario</span>
-                        <span class="radio-desc">Socio / Dueño</span>
+                        <span class="radio-icon">🏢</span><span class="radio-title">Empresario</span><span class="radio-desc">Dueño</span>
                     </label>
                 </div>
-
-                <div class="bg-teal-50 p-5 rounded-xl border border-teal-100 mt-6">
-                    <h4 class="font-bold text-teal-800 text-sm mb-3 uppercase tracking-wide">¿Complementas Renta?</h4>
-                    <div class="flex gap-8">
-                        <label class="flex items-center cursor-pointer">
-                            <input type="radio" name="codeudor_check" value="no" checked onchange="toggleCodeudor(false)" class="w-5 h-5 text-teal-600 accent-teal-600">
-                            <span class="ml-3 font-bold text-gray-700">No, voy solo</span>
-                        </label>
-                        <label class="flex items-center cursor-pointer">
-                            <input type="radio" name="codeudor_check" value="si" onchange="toggleCodeudor(true)" class="w-5 h-5 text-teal-600 accent-teal-600">
-                            <span class="ml-3 font-bold text-gray-700">Sí, tengo Codeudor</span>
-                        </label>
+                <div class="bg-teal-50 p-5 rounded-lg border border-teal-100 mt-6 flex items-center justify-between">
+                    <h4 class="font-bold text-teal-800 text-sm m-0">¿Complementas Renta?</h4>
+                    <div class="flex gap-4">
+                        <label class="flex items-center cursor-pointer"><input type="radio" name="codeudor_check" value="no" checked onchange="toggleCodeudor(false)" class="mr-2">No</label>
+                        <label class="flex items-center cursor-pointer"><input type="radio" name="codeudor_check" value="si" onchange="toggleCodeudor(true)" class="mr-2">Sí</label>
                     </div>
                 </div>
             </div>
 
             <div id="step2" class="step-content">
                 <h3>2. Datos del Titular</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="form-group"><label>Nombre Completo</label><input type="text" name="titular_nombre" required></div>
-                    <div class="form-group"><label>RUT</label><input type="text" name="rut" placeholder="12345678-9" required oninput="checkRut(this)"></div>
+                    <div class="form-group"><label>RUT</label><input type="text" name="rut" id="rutInput" placeholder="12345678-9" required oninput="checkRut(this)"></div>
                     <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
                     <div class="form-group"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+569..." required></div>
                     
                     <div class="form-group"><label>Región</label><select id="reg_titular" required onchange="loadComunas('reg_titular','com_titular')"></select></div>
-                    <div class="form-group"><label>Comuna</label><select id="com_titular" name="comuna" required disabled></select></div>
+                    <div class="form-group"><label>Comuna</label><select id="com_titular" name="comuna" required disabled><option value="">Selecciona...</option></select></div>
                     
-                    <div class="form-group md:col-span-2"><label>Dirección Actual</label><input type="text" name="direccion_calle" required></div>
+                    <div class="form-group md:col-span-2"><label>Dirección</label><input type="text" name="direccion_calle" required></div>
                 </div>
             </div>
 
             <div id="step3" class="step-content">
                 <h3>3. Datos del Codeudor</h3>
-                <div class="bg-gray-50 p-4 rounded-lg mb-4 border border-gray-200 text-sm text-gray-600">
-                    <p>💡 Ingresa los datos de la persona con quien complementarás renta.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div class="form-group"><label>Nombre Codeudor</label><input type="text" name="codeudor_nombre" class="input-cod"></div>
-                    <div class="form-group"><label>RUT Codeudor</label><input type="text" name="codeudor_rut" class="input-cod" oninput="checkRut(this)"></div>
-                    <div class="form-group"><label>Email Codeudor</label><input type="email" name="codeudor_email" class="input-cod"></div>
-                    <div class="form-group"><label>Teléfono Codeudor</label><input type="tel" name="codeudor_telefono" class="input-cod"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="form-group"><label>Nombre</label><input type="text" name="codeudor_nombre" class="input-cod"></div>
+                    <div class="form-group"><label>RUT</label><input type="text" name="codeudor_rut" class="input-cod" oninput="checkRut(this)"></div>
+                    <div class="form-group"><label>Email</label><input type="email" name="codeudor_email" class="input-cod"></div>
+                    <div class="form-group"><label>Teléfono</label><input type="tel" name="codeudor_telefono" class="input-cod"></div>
                 </div>
             </div>
 
             <div id="step4" class="step-content">
-                <h3>4. Situación Financiera</h3>
-                <div class="bg-white p-5 rounded-lg border border-gray-200 mb-6 shadow-sm">
-                    <h4 class="font-bold text-gray-700 text-sm mb-3 border-b pb-2">INGRESOS LÍQUIDOS MENSUALES ($)</h4>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div><label class="text-xs">Sueldo Fijo</label><input type="number" name="ingreso_fijo" placeholder="$"></div>
-                        <div><label class="text-xs">Variable / Bonos</label><input type="number" name="ingreso_variable" placeholder="$"></div>
-                        <div><label class="text-xs">Honorarios</label><input type="number" name="ingreso_honorarios" placeholder="$"></div>
-                        <div><label class="text-xs">Retiros</label><input type="number" name="ingreso_retiros" placeholder="$"></div>
-                    </div>
+                <h3>4. Declaración Financiera</h3>
+                <div class="grid grid-cols-2 gap-6 mb-6">
+                    <div><label>Sueldo Fijo</label><input type="number" name="ingreso_fijo" placeholder="$"></div>
+                    <div><label>Variable</label><input type="number" name="ingreso_variable" placeholder="$"></div>
+                    <div><label>Honorarios</label><input type="number" name="ingreso_honorarios" placeholder="$"></div>
+                    <div><label>Retiros</label><input type="number" name="ingreso_retiros" placeholder="$"></div>
                 </div>
-                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                    <h4 class="font-bold text-red-600 text-sm mb-3 border-b pb-2">DEUDAS VIGENTES (CUOTA MENSUAL)</h4>
-                    <div class="space-y-3">
-                        <div class="flex gap-2"><select name="banco_hipotecario" class="w-1/2 text-xs bank-sel"><option value="">Banco Hipotecario</option></select><input type="number" name="pasivo_hipotecario" placeholder="$ Dividendo" class="w-1/2"></div>
-                        <div class="flex gap-2"><select name="banco_consumo" class="w-1/2 text-xs bank-sel"><option value="">Banco Consumo</option></select><input type="number" name="pasivo_consumo" placeholder="$ Cuota" class="w-1/2"></div>
-                        <div class="flex gap-2"><select name="banco_tarjetas" class="w-1/2 text-xs bank-sel"><option value="">Banco Tarjeta</option></select><input type="number" name="pasivo_tarjetas" placeholder="$ Cupo Usado" class="w-1/2"></div>
-                    </div>
+                <h4 class="font-bold text-red-600 text-sm mt-6 border-b pb-2 mb-4">DEUDAS VIGENTES (CUOTA MENSUAL)</h4>
+                <div class="space-y-4">
+                    <div class="flex gap-4"><select name="banco_hipotecario" class="w-1/2 text-xs bank-sel"><option value="">Hipotecario</option></select><input type="number" name="pasivo_hipotecario" placeholder="$" class="w-1/2"></div>
+                    <div class="flex gap-4"><select name="banco_consumo" class="w-1/2 text-xs bank-sel"><option value="">Consumo</option></select><input type="number" name="pasivo_consumo" placeholder="$" class="w-1/2"></div>
                 </div>
             </div>
 
             <div id="step5" class="step-content">
                 <h3>5. Carga de Documentos</h3>
-                
                 <div class="checklist-container">
-                    <h4 class="font-bold text-sm mb-3 text-gray-700">📋 Documentación Requerida:</h4>
+                    <h4 class="font-bold text-sm mb-4">Documentación Requerida:</h4>
                     <div id="checklist-display"></div>
-                    
-                    <div class="mt-4 pt-3 border-t border-gray-300">
-                        <div class="checklist-item">
-                            <span class="check-icon">ℹ️</span> 
-                            <span>Certificado de Deuda CMF <a href="https://www.cmfchile.cl" target="_blank" class="tutorial-link">[Ir a Web CMF]</a></span>
-                        </div>
-                        <p class="text-xs text-gray-500 ml-6 mt-1">Recuerda: Es gratuito y se saca con ClaveÚnica.</p>
-                    </div>
+                    <div class="mt-4 pt-4 border-t"><span class="check-icon">ℹ️</span> CMF: <a href="https://www.cmfchile.cl" target="_blank" class="tutorial-link">Descargar aquí</a></div>
                 </div>
-
-                <div class="p-6 rounded-lg border-2 border-dashed border-blue-300 bg-blue-50 text-center hover:bg-blue-100 transition">
-                    <p class="text-blue-800 font-bold mb-3">Arrastra tus archivos aquí o haz clic</p>
+                <div class="p-6 bg-blue-50 border border-blue-200 rounded text-center">
                     <input type="file" id="fileInput" multiple onchange="updateFileList()" class="hidden">
-                    <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold text-sm shadow-md hover:bg-blue-700 transition">SUBIR ARCHIVOS</button>
-                    <div id="fileListDisplay" class="mt-4 text-xs text-gray-600 text-left"></div>
+                    <button type="button" onclick="document.getElementById('fileInput').click()" class="btn-main" style="background:#2563eb;font-size:0.9rem;">SELECCIONAR ARCHIVOS</button>
+                    <div id="fileListDisplay" class="mt-3 text-sm text-gray-600"></div>
                 </div>
             </div>
 
             <div class="btn-row">
                 <button type="button" id="btnPrev" class="btn-secondary hidden" onclick="move(-1)">Atrás</button>
                 <button type="button" id="btnNext" class="btn-main" onclick="move(1)">Siguiente</button>
-                <button type="submit" id="btnSubmit" class="btn-main hidden bg-green-600">ENVIAR CARPETA</button>
+                <button type="submit" id="btnSubmit" class="btn-main hidden bg-green-600">ENVIAR</button>
             </div>
-            <span id="errorMsg" class="text-red"></span>
-
+            <p id="errorMsg" class="text-center text-xs text-red-600 font-bold mt-2 h-4"></p>
         </form>
     </div>
 
     <script>
-        // --- 1. CONFIGURACIÓN ---
-        const banks = ["Sin Deuda","Banco de Chile","Santander","Banco Estado","Scotiabank","Bci","Itaú","Bice","Security","Falabella","Ripley","Consorcio","Coopeuch","Internacional"];
+        // --- DATA ---
+        const banks = ["Sin Deuda","Banco de Chile","Santander","Banco Estado","Scotiabank","Bci","Itaú","Security","Falabella","Consorcio","Coopeuch"];
         const geo = {
-            "Metropolitana":["Santiago","Cerrillos","Cerro Navia","Conchalí","El Bosque","Estación Central","Huechuraba","Independencia","La Cisterna","La Florida","La Granja","La Pintana","La Reina","Las Condes","Lo Barnechea","Lo Espejo","Lo Prado","Macul","Maipú","Ñuñoa","Pedro Aguirre Cerda","Peñalolén","Providencia","Pudahuel","Quilicura","Quinta Normal","Recoleta","Renca","San Joaquín","San Miguel","San Ramón","Vitacura","Puente Alto","Pirque","San José de Maipo","Colina","Lampa","Tiltil","San Bernardo","Buin","Calera de Tango","Paine","Melipilla","Alhué","Curacaví","María Pinto","San Pedro","Talagante","El Monte","Isla de Maipo","Padre Hurtado","Peñaflor"],
-            "Valparaíso":["Valparaíso","Viña del Mar","Concón","Quilpué","Villa Alemana","San Antonio"], "Biobío":["Concepción","Talcahuano","San Pedro de la Paz","Chiguayante","Los Ángeles"], "Antofagasta":["Antofagasta","Calama"], "Coquimbo":["La Serena","Coquimbo","Ovalle"], "Araucanía":["Temuco","Villarrica","Pucón"], "Los Lagos":["Puerto Montt","Puerto Varas","Osorno"], "Otras":["Otra Comuna"]
+            "Metropolitana":["Santiago","Cerrillos","Cerro Navia","Conchalí","El Bosque","Estación Central","Huechuraba","Independencia","La Cisterna","La Florida","La Granja","La Pintana","La Reina","Las Condes","Lo Barnechea","Lo Espejo","Lo Prado","Macul","Maipú","Ñuñoa","Pedro Aguirre Cerda","Peñalolén","Providencia","Pudahuel","Quilicura","Quinta Normal","Recoleta","Renca","San Joaquín","San Miguel","San Ramón","Vitacura","Puente Alto","San Bernardo"],
+            "Valparaíso":["Valparaíso","Viña del Mar","Concón","Quilpué","Villa Alemana"], "Biobío":["Concepción","Talcahuano","San Pedro","Los Ángeles"], "Antofagasta":["Antofagasta","Calama"], "Coquimbo":["La Serena","Coquimbo"], "Araucanía":["Temuco","Villarrica","Pucón"], "Los Lagos":["Puerto Montt","Puerto Varas","Osorno"], "Otras":["Otra Comuna"]
         };
 
-        // --- 2. INICIALIZACIÓN ---
+        // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.bank-sel').forEach(s => banks.forEach(b => s.add(new Option(b, b))));
-            const r = document.getElementById('reg_titular'); Object.keys(geo).forEach(k => r.add(new Option(k, k)));
-            updateReq(); // Cargar checklist inicial
+            const r = document.getElementById('reg_titular'); 
+            for(let k in geo) r.add(new Option(k, k));
+            updateReq();
         });
 
+        // --- LOGIC ---
         function loadComunas(idReg, idCom) {
-            const r = document.getElementById(idReg).value;
-            const c = document.getElementById(idCom);
-            c.innerHTML = '<option value="">Selecciona...</option>'; c.disabled = !r;
-            if(r && geo[r]) geo[r].sort().forEach(x => c.add(new Option(x, x)));
+            const regVal = document.getElementById(idReg).value;
+            const comSelect = document.getElementById(idCom);
+            comSelect.innerHTML = '<option value="">Selecciona...</option>';
+            
+            if(regVal && geo[regVal]) {
+                comSelect.disabled = false;
+                geo[regVal].sort().forEach(c => comSelect.add(new Option(c, c)));
+            } else {
+                comSelect.disabled = true;
+            }
         }
 
-        // --- 3. LÓGICA DE NEGOCIO (PERFIL & CODEUDOR) ---
-        let hasCodeudor = false;
+        // --- VALIDACION RUT (CORREGIDA PARA ACEPTAR 18.913.968-3) ---
+        const Fn = {
+            validaRut: function (rutCompleto) {
+                // Elimina puntos y guiones para trabajar con "189139683" o "18913968K"
+                let cleanRut = rutCompleto.replace(/[^0-9kK]/g, "");
+                if (cleanRut.length < 2) return false;
+                
+                // Separa cuerpo y dígito
+                let cuerpo = cleanRut.slice(0, -1);
+                let dv = cleanRut.slice(-1).toUpperCase();
+                
+                // Valida cuerpo numérico
+                if (!/^[0-9]+$/.test(cuerpo)) return false;
 
-        function selectCard(lbl) {
-            document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
-            lbl.classList.add('selected');
-            updateReq();
+                // Calcula dígito esperado
+                let T = parseInt(cuerpo);
+                let M = 0, S = 1;
+                for (; T; T = Math.floor(T / 10)) S = (S + T % 10 * (9 - M++ % 6)) % 11;
+                let dvCalc = S ? S - 1 : 'K';
+                
+                return dvCalc.toString() === dv;
+            }
         }
 
-        function toggleCodeudor(val) {
-            hasCodeudor = val;
-            updateReq(); // Actualizar checklist
+        function checkRut(input) {
+            let valor = input.value;
+            
+            // Validamos sobre el valor limpio, pero permitimos al usuario escribir puntos
+            if (Fn.validaRut(valor)) {
+                input.classList.remove('invalid'); 
+                input.classList.add('valid');
+                // Opcional: Formatear visualmente si quieres
+                // input.value = formatearRutVisual(valor); 
+            } else {
+                input.classList.remove('valid'); 
+                input.classList.add('invalid');
+            }
         }
 
-        // --- 4. NAVEGACIÓN INTELIGENTE ---
-        let step = 1;
-        const totalSteps = 5;
+        // --- NAVEGACIÓN ---
+        let step = 1; let hasCodeudor = false;
+        function selectCard(l){ document.querySelectorAll('.radio-card').forEach(c=>c.classList.remove('selected')); l.classList.add('selected'); updateReq(); }
+        function toggleCodeudor(v){ hasCodeudor = v; updateReq(); }
 
         function move(n) {
-            const err = document.getElementById('errorMsg'); err.innerText = "";
-            if (n === 1 && !validarPaso()) { err.innerText = "⚠️ Completa los campos obligatorios marcados en rojo."; return; }
+            document.getElementById('errorMsg').innerText = "";
+            if (n === 1 && !validarPaso()) { document.getElementById('errorMsg').innerText = "⚠️ Revisa los campos en rojo."; return; }
             
-            // INTELIGENCIA: Saltar paso 3 si no hay codeudor
-            let nextStep = step + n;
-            if (nextStep === 3 && !hasCodeudor) {
-                nextStep = (n > 0) ? 4 : 2; // Si avanzo voy al 4, si retrocedo voy al 2
-            }
+            let next = step + n;
+            if (next === 3 && !hasCodeudor) next = (n > 0) ? 4 : 2;
 
             document.getElementById(`step${step}`).classList.remove('active');
-            step = nextStep;
+            step = next;
             document.getElementById(`step${step}`).classList.add('active');
 
-            // Actualizar UI Botones
             document.getElementById('btnPrev').classList.toggle('hidden', step === 1);
-            if (step === totalSteps) {
-                document.getElementById('btnNext').classList.add('hidden');
-                document.getElementById('btnSubmit').classList.remove('hidden');
-            } else {
-                document.getElementById('btnNext').classList.remove('hidden');
-                document.getElementById('btnSubmit').classList.add('hidden');
-            }
-            document.getElementById('progressBar').style.width = `${((step-1)/(totalSteps-1))*100}%`;
+            document.getElementById('btnNext').classList.toggle('hidden', step === 5);
+            document.getElementById('btnSubmit').classList.toggle('hidden', step !== 5);
+            document.getElementById('progressBar').style.width = `${((step-1)/4)*100}%`;
         }
 
         function validarPaso() {
             let ok = true;
             const inputs = document.getElementById(`step${step}`).querySelectorAll('input[required], select[required]');
             inputs.forEach(i => {
-                if (!i.value.trim() || i.classList.contains('invalid')) { i.classList.add('invalid'); ok = false; }
-                else { i.classList.remove('invalid'); }
+                if (step === 3 && !hasCodeudor) return;
+                
+                // Validar si está vacío O si ya está marcado como inválido (ej: RUT malo)
+                if (!i.value.trim() || i.classList.contains('invalid')) { 
+                    i.classList.add('invalid'); ok = false; 
+                } else { 
+                    i.classList.remove('invalid'); 
+                }
             });
             return ok;
         }
 
-        // --- 5. CHECKLIST DINÁMICO ---
-        const docsBase = {
-            dependiente: ["Cédula Identidad (Ambos Lados)", "3 Últimas Liquidaciones", "Certificado Cotizaciones AFP (12 meses)", "Certificado Antigüedad"],
-            independiente: ["Cédula Identidad", "Boletas Honorarios (6 meses)", "Carpeta Tributaria", "DAI (Formulario 22)"],
-            socio: ["Cédula Identidad", "Carpeta Tributaria Empresa", "Balances (2 años)", "Escritura Sociedad"]
-        };
-
+        // --- UPLOAD ---
         function updateReq() {
             const p = document.querySelector('input[name="perfil"]:checked').value;
-            const list = document.getElementById('checklist-display');
-            list.innerHTML = '';
-
-            // Docs Titular
-            docsBase[p].forEach(d => list.innerHTML += `<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`);
-
-            // Docs Codeudor (Si aplica)
-            if (hasCodeudor) {
-                list.innerHTML += `<div class="mt-4 font-bold text-sm text-teal-700 border-b border-teal-100 pb-1 mb-2">DOCUMENTOS CODEUDOR:</div>`;
-                // Asumimos dependiente para codeudor por defecto, o pedimos genéricos
-                ["Cédula Identidad", "Acreditación de Ingresos (Liq/Boletas)", "Certificado AFP / Carpeta Trib."].forEach(d => {
-                    list.innerHTML += `<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`;
-                });
-            }
+            const list = document.getElementById('checklist-display'); list.innerHTML = '';
+            const docs = { dependiente:["Cédula","3 Liquidaciones","AFP 12m"], independiente:["Cédula","Boletas 6m","Carpeta Trib."], socio:["Cédula","Carpeta Trib.","Balances"] };
+            docs[p].forEach(d => list.innerHTML += `<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`);
+            if(hasCodeudor) list.innerHTML += `<div class="mt-4 font-bold text-sm text-teal-600 mb-2">CODEUDOR:</div>` + docs['dependiente'].map(d=>`<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`).join('');
         }
-
         function updateFileList() {
-            const files = document.getElementById('fileInput').files;
-            const d = document.getElementById('fileListDisplay');
-            d.innerHTML = files.length ? `<strong>${files.length} archivos listos:</strong>` : '';
-            for(let f of files) d.innerHTML += `<div class="truncate text-teal-600">📎 ${f.name}</div>`;
+            const f = document.getElementById('fileInput').files;
+            document.getElementById('fileListDisplay').innerText = f.length ? `${f.length} archivos seleccionados` : '';
         }
 
-        // --- 6. ENVÍO ---
         document.getElementById('wizardForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const files = document.getElementById('fileInput').files;
-            if(files.length === 0) { document.getElementById('errorMsg').innerText = "⚠️ Debes subir al menos un documento."; return; }
-
-            const btn = document.getElementById('btnSubmit'); btn.innerText = "ENVIANDO..."; btn.disabled = true;
+            if(document.getElementById('fileInput').files.length === 0) { alert("Sube archivos"); return; }
+            const btn = document.getElementById('btnSubmit'); btn.innerText="ENVIANDO..."; btn.disabled=true;
+            
             const fd = new FormData(e.target); const data = Object.fromEntries(fd.entries());
-            const filesArray = [];
+            const files = []; const inputs = document.getElementById('fileInput').files;
+            for(let f of inputs) files.push({ fileName: f.name, mimeType: f.type, data: (await toBase64(f)).split(',')[1] });
 
-            for(let f of files) filesArray.push({ fileName: f.name, mimeType: f.type, data: (await toBase64(f)).split(',')[1] });
-
-            try {
-                await fetch(CONFIG.API_URL, { method: 'POST', body: JSON.stringify({ action: "subir_carpeta", formData: data, files: filesArray }) });
-                window.location.href = "gracias.html";
-            } catch(e) { alert("Error al subir. Intenta de nuevo."); btn.innerText = "REINTENTAR"; btn.disabled = false; }
+            try { await fetch(CONFIG.API_URL, { method:'POST', body:JSON.stringify({action:"subir_carpeta", formData:data, files:files}) }); window.location.href="gracias.html"; }
+            catch(e) { alert("Error"); btn.disabled=false; }
         });
-
-        // --- HELPERS ---
-        const Fn={validaRut:r=>{if(!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(r))return!1;let t=r.split("-"),a=t[1].toLowerCase(),e=t[0],n=0,l=1;for(;e;e=Math.floor(e/10))l=(l+e%10*(9-n++%6))%11;return(l?l-1:"k")==a}};
-        function checkRut(i){let v=i.value.replace(/[^0-9kK]/g,"");if(v.length>1)i.value=v.slice(0,-1).replace(/\B(?=(\d{3})+(?!\d))/g,".")+"-"+v.slice(-1);i.classList.toggle("invalid",!Fn.validaRut(i.value))}
         const toBase64=f=>new Promise((r,j)=>{const t=new FileReader;t.readAsDataURL(f),t.onload=()=>r(t.result),t.onerror=j});
-
     </script>
 </body>
 </html>

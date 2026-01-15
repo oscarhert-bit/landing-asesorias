@@ -127,13 +127,13 @@
             </div>
 
             <div class="btn-row">
-                <button type="button" id="btnPrev" class="btn-secondary hidden" onclick="move(-1)">Atrás</button>
+                <button type="button" id="btnPrev" class="btn-secondary" style="display:none;" onclick="move(-1)">Atrás</button>
                 
                 <div style="flex-grow:1;"></div>
 
                 <button type="button" id="btnNext" class="btn-main" onclick="move(1)">Siguiente</button>
                 
-                <button type="submit" id="btnSubmit" class="btn-main hidden" style="background-color:#10b981;">ENVIAR CARPETA</button>
+                <button type="submit" id="btnSubmit" class="btn-main" style="background-color:#10b981; display:none;">ENVIAR CARPETA</button>
             </div>
             
             <p id="errorMsg" class="text-center text-xs text-red-600 font-bold mt-2 h-4"></p>
@@ -141,7 +141,7 @@
     </div>
 
     <script>
-        // --- DATA ---
+        // --- 1. CONFIG DATA ---
         const banks = ["Sin Deuda","Banco de Chile","Santander","Banco Estado","Scotiabank","Bci","Itaú","Security","Falabella","Consorcio","Coopeuch"];
         const geo = {
             "Metropolitana":["Santiago","Cerrillos","Cerro Navia","Conchalí","El Bosque","Estación Central","Huechuraba","Independencia","La Cisterna","La Florida","La Granja","La Pintana","La Reina","Las Condes","Lo Barnechea","Lo Espejo","Lo Prado","Macul","Maipú","Ñuñoa","Pedro Aguirre Cerda","Peñalolén","Providencia","Pudahuel","Quilicura","Quinta Normal","Recoleta","Renca","San Joaquín","San Miguel","San Ramón","Vitacura","Puente Alto","San Bernardo","Colina","Lampa"],
@@ -152,10 +152,14 @@
             document.querySelectorAll('select[name^="banco"]').forEach(s => banks.forEach(b => s.add(new Option(b, b))));
             const r = document.getElementById('reg_titular'); for(let k in geo) r.add(new Option(k, k));
             updateReq();
-            updateButtons(); // Asegurar estado inicial correcto
+            
+            // FORZAR ESTADO INICIAL DE BOTONES
+            document.getElementById('btnPrev').style.display = 'none'; // No hay atrás en paso 1
+            document.getElementById('btnSubmit').style.display = 'none'; // Jamás enviar en paso 1
+            document.getElementById('btnNext').style.display = 'inline-block';
         });
 
-        // --- LOGIC ---
+        // --- 2. LÓGICA ---
         function loadComunas(idReg, idCom) {
             const regVal = document.getElementById(idReg).value;
             const comSelect = document.getElementById(idCom);
@@ -181,7 +185,7 @@
             else { input.classList.remove('valid'); input.classList.add('invalid'); }
         }
 
-        // --- NAVEGACION ---
+        // --- 3. NAVEGACION ---
         let step = 1; const totalSteps = 5; let hasCodeudor = false;
 
         function selectCard(l){ 
@@ -195,36 +199,34 @@
 
         function move(n) {
             document.getElementById('errorMsg').innerText = "";
-            if (n === 1 && !validarPaso()) { document.getElementById('errorMsg').innerText = "⚠️ Revisa los campos requeridos."; return; }
+            if (n === 1 && !validarPaso()) { document.getElementById('errorMsg').innerText = "⚠️ Completa los campos obligatorios."; return; }
             
             let next = step + n;
-            if (next === 3 && !hasCodeudor) next = (n > 0) ? 4 : 2; // Salto inteligente
+            if (next === 3 && !hasCodeudor) next = (n > 0) ? 4 : 2;
 
             document.getElementById(`step${step}`).classList.remove('active');
             step = next;
             document.getElementById(`step${step}`).classList.add('active');
             
-            updateButtons();
-            document.getElementById('progressBar').style.width = `${((step-1)/(totalSteps-1))*100}%`;
-        }
-
-        function updateButtons() {
+            // ACTUALIZACIÓN DE BOTONES CON ESTILOS EN LÍNEA (NO FALLA)
             const btnPrev = document.getElementById('btnPrev');
             const btnNext = document.getElementById('btnNext');
             const btnSubmit = document.getElementById('btnSubmit');
 
-            // 1. Botón Atrás
-            if (step === 1) btnPrev.classList.add('hidden');
-            else btnPrev.classList.remove('hidden');
+            // Botón Atrás
+            if (step === 1) btnPrev.style.display = 'none';
+            else btnPrev.style.display = 'inline-block';
 
-            // 2. Botón Siguiente vs Enviar
+            // Botón Enviar vs Siguiente
             if (step === totalSteps) {
-                btnNext.classList.add('hidden');
-                btnSubmit.classList.remove('hidden'); // Solo aparece en el paso 5
+                btnNext.style.display = 'none';
+                btnSubmit.style.display = 'inline-block';
             } else {
-                btnNext.classList.remove('hidden');
-                btnSubmit.classList.add('hidden');
+                btnNext.style.display = 'inline-block';
+                btnSubmit.style.display = 'none';
             }
+
+            document.getElementById('progressBar').style.width = `${((step-1)/(totalSteps-1))*100}%`;
         }
 
         function validarPaso() {
@@ -238,16 +240,19 @@
             return ok;
         }
 
-        // --- UPLOAD ---
+        // --- 4. UPLOAD ---
         function updateReq() {
             const p = document.querySelector('input[name="perfil"]:checked').value;
             const list = document.getElementById('checklist-display'); list.innerHTML = '';
+            
             const docs = { 
                 dependiente:["Cédula Identidad (Ambos Lados)", "3 Últimas Liquidaciones", "Certificado AFP (12 meses)", "Certificado Antigüedad Laboral"], 
                 independiente:["Cédula Identidad", "Boletas de Honorarios (6 meses)", "Carpeta Tributaria", "DAI (Formulario 22)"], 
                 socio:["Cédula Identidad", "Carpeta Tributaria Empresa", "Balances (2 años)", "Escritura Sociedad"] 
             };
+            
             docs[p].forEach(d => list.innerHTML += `<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`);
+            
             if(hasCodeudor) {
                 list.innerHTML += `<div class="mt-4 font-bold text-sm text-teal-600 mb-2 border-b pb-1">CODEUDOR:</div>` + 
                 ["Cédula Identidad", "Acreditación Ingresos (Liq/Boletas)", "Informe Deudas CMF"].map(d=>`<div class="checklist-item"><span class="check-icon">✓</span> ${d}</div>`).join('');

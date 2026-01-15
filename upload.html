@@ -70,8 +70,8 @@
                     <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
                     <div class="form-group"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+569..." required></div>
                     
-                    <div class="form-group"><label>Región</label><select id="reg_titular" required onchange="loadComunas('reg_titular','com_titular')"></select></div>
-                    <div class="form-group"><label>Comuna</label><select id="com_titular" name="comuna" required disabled><option value="">Selecciona...</option></select></div>
+                    <div class="form-group"><label>Región</label><select id="reg_titular" required onchange="loadComunas('reg_titular','com_titular')"><option value="">Seleccione Región...</option></select></div>
+                    <div class="form-group"><label>Comuna</label><select id="com_titular" name="comuna" required disabled><option value="">← Elija Región primero</option></select></div>
                     
                     <div class="form-group md:col-span-2"><label>Dirección</label><input type="text" name="direccion_calle" required></div>
                 </div>
@@ -127,13 +127,10 @@
             </div>
 
             <div class="btn-row">
-                <button type="button" id="btnPrev" class="btn-secondary" style="display:none;" onclick="move(-1)">Atrás</button>
-                
+                <button type="button" id="btnPrev" class="btn-secondary hidden" onclick="move(-1)">Atrás</button>
                 <div style="flex-grow:1;"></div>
-
                 <button type="button" id="btnNext" class="btn-main" onclick="move(1)">Siguiente</button>
-                
-                <button type="submit" id="btnSubmit" class="btn-main" style="background-color:#10b981; display:none;">ENVIAR CARPETA</button>
+                <button type="submit" id="btnSubmit" class="btn-main hidden" style="background-color:#10b981;">ENVIAR CARPETA</button>
             </div>
             
             <p id="errorMsg" class="text-center text-xs text-red-600 font-bold mt-2 h-4"></p>
@@ -141,35 +138,49 @@
     </div>
 
     <script>
-        // --- 1. CONFIG DATA ---
         const banks = ["Sin Deuda","Banco de Chile","Santander","Banco Estado","Scotiabank","Bci","Itaú","Security","Falabella","Consorcio","Coopeuch"];
         const geo = {
-            "Metropolitana":["Santiago","Cerrillos","Cerro Navia","Conchalí","El Bosque","Estación Central","Huechuraba","Independencia","La Cisterna","La Florida","La Granja","La Pintana","La Reina","Las Condes","Lo Barnechea","Lo Espejo","Lo Prado","Macul","Maipú","Ñuñoa","Pedro Aguirre Cerda","Peñalolén","Providencia","Pudahuel","Quilicura","Quinta Normal","Recoleta","Renca","San Joaquín","San Miguel","San Ramón","Vitacura","Puente Alto","San Bernardo","Colina","Lampa"],
-            "Valparaíso":["Valparaíso","Viña del Mar","Concón","Quilpué","Villa Alemana"], "Biobío":["Concepción","Talcahuano","San Pedro","Los Ángeles"], "Antofagasta":["Antofagasta","Calama"], "Coquimbo":["La Serena","Coquimbo"], "Araucanía":["Temuco","Villarrica","Pucón"], "Los Lagos":["Puerto Montt","Puerto Varas","Osorno"], "Otras":["Otra Comuna"]
+            "Metropolitana":["Santiago","Cerrillos","Cerro Navia","Conchalí","El Bosque","Estación Central","Huechuraba","Independencia","La Cisterna","La Florida","La Granja","La Pintana","La Reina","Las Condes","Lo Barnechea","Lo Espejo","Lo Prado","Macul","Maipú","Ñuñoa","Pedro Aguirre Cerda","Peñalolén","Providencia","Pudahuel","Quilicura","Quinta Normal","Recoleta","Renca","San Joaquín","San Miguel","San Ramón","Vitacura","Puente Alto","San Bernardo","Colina","Lampa","Buin","Melipilla","Peñaflor","Talagante"],
+            "Valparaíso":["Valparaíso","Viña del Mar","Concón","Quilpué","Villa Alemana","San Antonio"], 
+            "Biobío":["Concepción","Talcahuano","San Pedro","Los Ángeles"], 
+            "Antofagasta":["Antofagasta","Calama"], 
+            "Coquimbo":["La Serena","Coquimbo"], 
+            "Araucanía":["Temuco","Villarrica","Pucón"], 
+            "Los Lagos":["Puerto Montt","Puerto Varas","Osorno"], 
+            "Otras":["Otra Comuna"]
         };
 
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('select[name^="banco"]').forEach(s => banks.forEach(b => s.add(new Option(b, b))));
-            const r = document.getElementById('reg_titular'); for(let k in geo) r.add(new Option(k, k));
+            
+            // Cargar Regiones
+            const r = document.getElementById('reg_titular'); 
+            for(let k in geo) r.add(new Option(k, k));
+            
             updateReq();
             
-            // FORZAR ESTADO INICIAL DE BOTONES
-            document.getElementById('btnPrev').style.display = 'none'; // No hay atrás en paso 1
-            document.getElementById('btnSubmit').style.display = 'none'; // Jamás enviar en paso 1
+            // OCULTAR BOTONES INICIALMENTE CON FUERZA
+            document.getElementById('btnPrev').style.display = 'none';
+            document.getElementById('btnSubmit').style.display = 'none';
             document.getElementById('btnNext').style.display = 'inline-block';
         });
 
-        // --- 2. LÓGICA ---
+        // Carga de Comunas (Arreglada)
         function loadComunas(idReg, idCom) {
             const regVal = document.getElementById(idReg).value;
             const comSelect = document.getElementById(idCom);
-            comSelect.innerHTML = '<option value="">Selecciona...</option>';
+            comSelect.innerHTML = '<option value="">Selecciona Comuna...</option>'; // Reiniciar
+            
             if(regVal && geo[regVal]) {
                 comSelect.disabled = false;
                 geo[regVal].sort().forEach(c => comSelect.add(new Option(c, c)));
-            } else { comSelect.disabled = true; }
+            } else {
+                comSelect.disabled = true;
+                comSelect.innerHTML = '<option value="">← Elija Región primero</option>';
+            }
         }
 
+        // Validación RUT Tolerante
         const Fn = { validaRut: function (rut) {
             let clean = rut.replace(/[^0-9kK]/g, "");
             if (clean.length < 2) return false;
@@ -185,7 +196,7 @@
             else { input.classList.remove('valid'); input.classList.add('invalid'); }
         }
 
-        // --- 3. NAVEGACION ---
+        // Navegación
         let step = 1; const totalSteps = 5; let hasCodeudor = false;
 
         function selectCard(l){ 
@@ -208,16 +219,14 @@
             step = next;
             document.getElementById(`step${step}`).classList.add('active');
             
-            // ACTUALIZACIÓN DE BOTONES CON ESTILOS EN LÍNEA (NO FALLA)
+            // Actualizar botones (Estilos inline para evitar conflictos CSS)
             const btnPrev = document.getElementById('btnPrev');
             const btnNext = document.getElementById('btnNext');
             const btnSubmit = document.getElementById('btnSubmit');
 
-            // Botón Atrás
             if (step === 1) btnPrev.style.display = 'none';
             else btnPrev.style.display = 'inline-block';
 
-            // Botón Enviar vs Siguiente
             if (step === totalSteps) {
                 btnNext.style.display = 'none';
                 btnSubmit.style.display = 'inline-block';
@@ -240,7 +249,6 @@
             return ok;
         }
 
-        // --- 4. UPLOAD ---
         function updateReq() {
             const p = document.querySelector('input[name="perfil"]:checked').value;
             const list = document.getElementById('checklist-display'); list.innerHTML = '';

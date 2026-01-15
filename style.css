@@ -1,19 +1,14 @@
 /* ==========================================================================
-   GASAL HYBRID STYLE: Glassmorphism + Wizard System + Safety
+   GASAL HYBRID STYLE: FUSION FINAL (Glassmorphism + Logic)
    ========================================================================== */
 
 :root {
-    /* COLORES DE MARCA GASAL */
     --brand-dark: #2B2E34;      /* Antracita */
     --brand-accent: #00B2A9;    /* Turquesa Gasal */
     --brand-accent-hover: #008f87;
-    
-    /* EFECTOS DE VIDRIO */
-    --glass-surface: rgba(255, 255, 255, 0.94); 
+    --glass-surface: rgba(255, 255, 255, 0.96);
     --glass-border: rgba(255, 255, 255, 0.8);
     --shadow-float: 0 20px 60px rgba(43, 46, 52, 0.25);
-    
-    /* TIPOGRAFÍA */
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Lato', sans-serif;
 }
@@ -25,179 +20,90 @@ body {
     color: var(--brand-dark);
     line-height: 1.6;
     background-color: #f3f4f6;
-    /* Fondo Ciudad Elegante */
     background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
     min-height: 100vh;
 }
+body::before { content: ''; position: fixed; inset: 0; background: linear-gradient(135deg, rgba(43, 46, 52, 0.85) 0%, rgba(10, 30, 50, 0.9) 100%); z-index: -1; }
 
-/* Capa oscura para mejorar lectura del texto */
-body::before {
-    content: ''; position: fixed; inset: 0;
-    background: linear-gradient(135deg, rgba(43, 46, 52, 0.85) 0%, rgba(10, 30, 50, 0.9) 100%);
-    z-index: -1;
-}
-
-/* --- SEGURIDAD DE IMÁGENES (Para evitar Logos Gigantes) --- */
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* --- CONTENEDORES GLASS --- */
+/* --- CONTENEDOR --- */
 .container-glass {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 40px;
+    max-width: 900px; /* Más ancho para que quepan las tarjetas */
+    margin: 40px auto; padding: 40px;
     background: var(--glass-surface);
-    backdrop-filter: blur(12px); /* Efecto borroso detrás */
-    border-radius: 16px;
-    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    border-radius: 16px; border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-float);
-    text-align: center;
     position: relative;
 }
 
-.promo-bar {
-    background: rgba(43, 46, 52, 0.95);
-    color: #fff;
-    text-align: center;
-    padding: 12px;
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 700;
-}
-
 /* --- TIPOGRAFÍA --- */
-h1, h2, h3 { 
-    font-family: var(--font-heading); 
-    color: var(--brand-dark); 
-    margin-top: 0; 
-    font-weight: 800;
-}
-h1 { font-size: 2.2rem; letter-spacing: -1px; margin-bottom: 10px; }
-h2 { font-size: 1.8rem; margin-bottom: 10px; }
-.highlight { color: var(--brand-accent); }
-p { color: #555; margin-bottom: 20px; }
-
-/* --- FORMULARIOS --- */
-.form-group { margin-bottom: 15px; text-align: left; }
+h2 { font-family: var(--font-heading); color: var(--brand-dark); font-weight: 800; margin-top: 0; font-size: 1.8rem; text-align: center; }
+h3 { font-family: var(--font-heading); font-size: 1.2rem; color: var(--brand-accent); border-bottom: 2px solid #eee; padding-bottom: 10px; margin: 0 0 25px 0; text-transform: uppercase; letter-spacing: 1px; }
 label { display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; color: #444; }
 
+/* --- INPUTS & FORMS --- */
 input, select {
-    width: 100%; 
-    padding: 12px;
-    border: 1px solid #ddd; 
-    border-radius: 8px;
-    font-size: 1rem; 
-    background: rgba(255,255,255,0.8);
-    box-sizing: border-box; /* Vital para que no se salgan del marco */
-    transition: all 0.3s;
+    width: 100%; padding: 12px;
+    border: 1px solid #ccc; border-radius: 8px;
+    font-size: 1rem; background: #fff;
+    box-sizing: border-box; transition: all 0.3s;
 }
+input:focus, select:focus { border-color: var(--brand-accent); outline: none; box-shadow: 0 0 0 3px rgba(0, 178, 169, 0.15); }
+input.invalid, select.invalid { border-color: #ef4444 !important; background-color: #fff5f5 !important; }
+input.valid { border-color: #10b981 !important; background-color: #f0fdf4 !important; }
 
-input:focus, select:focus {
-    border-color: var(--brand-accent);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 178, 169, 0.15);
-    background: #fff;
+/* --- TARJETAS DE SELECCIÓN (NUEVO) --- */
+.radio-card-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+.radio-card {
+    background: #fff; border: 2px solid #e5e7eb; border-radius: 12px;
+    padding: 20px 10px; text-align: center; cursor: pointer; transition: 0.2s;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 120px;
 }
+.radio-card:hover { border-color: #b2dfdb; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.radio-card.selected { border-color: var(--brand-accent); background-color: #e0f2f1; color: var(--brand-accent); box-shadow: 0 4px 10px rgba(0, 178, 169, 0.2); }
+.radio-card input { display: none; }
+.radio-icon { font-size: 2.2rem; margin-bottom: 10px; }
+.radio-title { font-weight: 800; font-size: 1rem; line-height: 1.2; }
+.radio-desc { font-size: 0.75rem; color: #666; margin-top: 5px; font-weight: normal; }
 
-/* Validaciones (Rojo/Verde) */
-input.invalid, select.invalid { 
-    border-color: #ef4444 !important; 
-    background-color: #fef2f2 !important; 
-}
-input.valid {
-    border-color: #10b981 !important;
-}
+/* --- CHECKLIST VISUAL (Rescatado de tu idea) --- */
+.checklist-container { background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 20px; }
+.checklist-item { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 0.95rem; color: #334155; }
+.check-icon { color: var(--brand-accent); margin-right: 10px; font-weight: bold; font-size: 1.1rem; }
+.tutorial-link { color: #2563eb; text-decoration: underline; font-weight: bold; cursor: pointer; font-size: 0.85rem; margin-left: 5px; }
+
+/* --- WIZARD NAVEGACIÓN --- */
+.step-content { display: none; }
+.step-content.active { display: block; animation: slideIn 0.4s ease-out; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.progress-track { background: #e5e7eb; height: 8px; border-radius: 10px; margin: 20px 0 40px 0; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--brand-accent); width: 0%; transition: width 0.4s ease; }
 
 /* --- BOTONES --- */
-.btn-main, button[type="submit"], .cta-button {
-    background: var(--brand-accent);
-    color: white; 
-    border: none;
-    padding: 14px 35px; 
-    border-radius: 50px;
-    font-family: var(--font-heading);
-    font-weight: 700; 
-    text-transform: uppercase;
-    cursor: pointer; 
-    transition: transform 0.2s, background 0.2s;
-    display: inline-block; 
-    text-decoration: none;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
+.btn-row { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+.btn-main, button[type="submit"] {
+    background: var(--brand-accent); color: white; border: none;
+    padding: 14px 40px; border-radius: 50px;
+    font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+    cursor: pointer; transition: 0.3s;
 }
+.btn-main:hover { background: var(--brand-accent-hover); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 178, 169, 0.3); }
+.btn-secondary { background: #e2e8f0; color: #475569; border: none; padding: 14px 30px; border-radius: 50px; font-weight: 700; cursor: pointer; }
 
-.btn-main:hover, button[type="submit"]:hover, .cta-button:hover { 
-    background: var(--brand-accent-hover); 
-    transform: translateY(-2px); 
-    box-shadow: 0 5px 15px rgba(0, 178, 169, 0.3);
-}
+/* UTILS */
+.hidden { display: none !important; }
+.text-xs { font-size: 0.75rem; }
+.text-red { color: #ef4444; font-weight: bold; font-size: 0.8rem; margin-top: 10px; display: block; }
 
-.btn-secondary {
-    background: #e2e8f0; 
-    color: #475569;
-    padding: 12px 24px; 
-    border-radius: 50px;
-    font-weight: 700; 
-    cursor: pointer; 
-    border: none;
-    transition: background 0.2s;
-}
-.btn-secondary:hover { background: #cbd5e1; }
-
-/* --- WIZARD SYSTEM (El motor del Upload) --- */
-.step-content { 
-    display: none; /* Oculta pasos por defecto */
-}
-.step-content.active { 
-    display: block; /* Muestra el paso actual */
-    animation: fadeIn 0.4s ease-out; 
-}
-
-@keyframes fadeIn { 
-    from { opacity: 0; transform: translateY(10px); } 
-    to { opacity: 1; transform: translateY(0); } 
-}
-
-/* Barra de Progreso */
-.progress-track { 
-    background: rgba(0,0,0,0.1); 
-    height: 8px; 
-    border-radius: 10px; 
-    margin: 20px 0 40px 0; 
-    overflow: hidden; 
-}
-.progress-fill { 
-    height: 100%; 
-    background: var(--brand-accent); 
-    width: 20%; /* Inicial */
-    transition: width 0.4s ease; 
-}
-
-/* Items de Archivo */
-.file-row { 
-    background: #fff; 
-    padding: 12px; 
-    border: 1px solid #eee; 
-    border-radius: 8px; 
-    margin-bottom: 8px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-    transition: border 0.2s;
-}
-.file-row:hover { border-color: var(--brand-accent); }
-
-/* --- RESPONSIVE --- */
+/* MOBILE */
 @media (max-width: 600px) {
-    .container-glass { margin: 20px 10px; padding: 25px; }
-    h1 { font-size: 1.8rem; }
-    .file-row { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .file-row input { width: 100%; }
+    .container-glass { margin: 15px; padding: 25px; }
+    .radio-card-group { grid-template-columns: 1fr; }
+    .btn-row { flex-direction: column-reverse; gap: 15px; }
+    .btn-main, .btn-secondary { width: 100%; }
 }

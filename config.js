@@ -3,13 +3,17 @@
    ============================================================ */
 
 const CONFIG = {
-    // 1. CONEXIÓN CON EL BACKEND (Tu URL Oficial Actualizada)
+    // ⚠️ RECUERDA: Pega aquí la URL nueva que te dé Apps Script al "Implementar"
     API_URL: "https://script.google.com/macros/s/AKfycbwk8GMbobMSLlUEsDPRqzycp0JzoiNVueVE7ICN7yD27yHWbtfYVOuniUsydtydyRry/exec",
 
-    // 2. CONTACTO (Para el botón de ayuda y footer)
+    // Datos de Contacto
     WHATSAPP_PHONE: "56944504962", 
-    WHATSAPP_MESSAGE: "Hola Oscar, tengo una duda con mi evaluación.",
+    WHATSAPP_MESSAGE: "Hola Oscar, quiero activar mi plan de inversión.",
 
-    // 3. REDIRECCIÓN
-    URL_EXITO: "gracias.html" 
+    // Redirección
+    URL_EXITO: "gracias.html",
+    
+    // IDs de Tracking (Opcionales, déjalos vacíos si no usas aún)
+    GOOGLE_ANALYTICS_ID: "", 
+    META_PIXEL_ID: ""
 };

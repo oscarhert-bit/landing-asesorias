@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Todo Listo! | Broker OS</title>
+    <title>¡Gracias! | Broker OS</title>
     <link rel="icon" href="favicon.jpg?v=final">
     
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=master_fix">
+    <link rel="stylesheet" href="style.css?v=final_fix_v3">
     <script src="config.js"></script>
 </head>
 <body>
 
-    <div class="promo-bar">Solicitud Recibida Exitosamente</div>
+    <div class="promo-bar">Solicitud Recibida Correctamente</div>
 
     <div class="container-glass" style="max-width: 600px; text-align: center; margin-top: 60px;">
         
@@ -20,21 +20,21 @@
             <span style="font-size: 45px; color: var(--brand-accent);">✓</span>
         </div>
         
-        <h1 style="font-size: 2.2rem; color: var(--brand-dark); margin-bottom: 10px;">¡Excelente Decisión!</h1>
+        <h1 style="font-size: 2.2rem; margin-bottom: 10px;">¡Todo Listo!</h1>
         <p style="font-size: 1.1rem; color: #64748b;">Hemos recibido tus datos correctamente.</p>
         
         <div style="background: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 30px 0; text-align: left;">
-            <p style="margin: 0 0 10px 0; font-weight: 700; color: #334155; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;">Próximos Pasos:</p>
+            <p style="margin: 0 0 15px 0; font-weight: 700; color: #334155; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;">Lo que viene ahora:</p>
             <ul style="color: #475569; padding-left: 20px; margin: 0; line-height: 1.6;">
-                <li style="margin-bottom: 8px;">Revisa tu correo (te enviamos un detalle importante).</li>
-                <li>Agendaremos una reunión breve para perfilar tu estrategia.</li>
+                <li style="margin-bottom: 8px;">Revisa tu correo (tienes un mensaje importante).</li>
+                <li>Coordinaremos una breve reunión para ver tu estrategia.</li>
             </ul>
         </div>
 
-        <p style="font-size: 0.95rem; margin-bottom: 20px;">¿Quieres agilizar el proceso?</p>
+        <p style="font-size: 0.95rem; margin-bottom: 20px; color: #64748b;">¿Quieres agilizar el proceso?</p>
         
-        <a id="btnWsp" href="#" class="btn-main" style="background-color: #25D366; width: 100%; text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);">
-            <span style="font-size: 1.3rem;">💬</span> Hablar con un Asesor Ahora
+        <a id="btnWsp" href="#" class="btn-main" style="background-color: #25D366; width: 100%; display: block;">
+            HABLAR CON UN ASESOR AHORA
         </a>
 
         <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
@@ -42,13 +42,17 @@
         </div>
     </div>
 
+    <footer>
+        <p style="text-align: center; margin-top: 40px; color: #cbd5e1; font-size: 0.8rem;">&copy; 2026 Gasal Inversiones.</p>
+    </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const btn = document.getElementById('btnWsp');
             if(CONFIG && CONFIG.WHATSAPP_PHONE) {
-                // Formato limpio del número
+                // Limpieza de número para el enlace
                 const cleanPhone = CONFIG.WHATSAPP_PHONE.replace(/\D/g, '');
-                const text = encodeURIComponent(CONFIG.WHATSAPP_MESSAGE || "Hola, vengo de la web.");
+                const text = encodeURIComponent(CONFIG.WHATSAPP_MESSAGE || "Hola, acabo de registrarme.");
                 btn.href = `https://wa.me/${cleanPhone}?text=${text}`;
             }
         });

@@ -1,19 +1,16 @@
 /* ============================================================
-   ARCHIVO DE CONFIGURACIÓN GLOBAL (Broker OS)
+   ARCHIVO DE CONFIGURACIÓN GLOBAL (Broker OS vFinal)
    ============================================================ */
 
 const CONFIG = {
-    // ⚠️ RECUERDA: Pega aquí la URL nueva que te dé Apps Script al "Implementar"
+    // URL DEL BACKEND (Tu script de Google Apps Script)
+    // Asegúrate de que esta sea la URL que obtuviste al "Implementar"
     API_URL: "https://script.google.com/macros/s/AKfycbwk8GMbobMSLlUEsDPRqzycp0JzoiNVueVE7ICN7yD27yHWbtfYVOuniUsydtydyRry/exec",
 
-    // Datos de Contacto
+    // ✅ CONTACTO ACTUALIZADO
     WHATSAPP_PHONE: "56944504962", 
-    WHATSAPP_MESSAGE: "Hola Oscar, quiero activar mi plan de inversión.",
+    WHATSAPP_MESSAGE: "Hola Oscar, acabo de completar mi registro y quiero coordinar.",
 
-    // Redirección
-    URL_EXITO: "gracias.html",
-    
-    // IDs de Tracking (Opcionales, déjalos vacíos si no usas aún)
-    GOOGLE_ANALYTICS_ID: "", 
-    META_PIXEL_ID: ""
+    // REDIRECCIÓN
+    URL_EXITO: "gracias.html"
 };

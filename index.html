@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estrategia Inmobiliaria | Inicia tu Éxito</title>
     <link rel="icon" href="favicon.jpg?v=final">
+    
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css?v=master_fix">
+    
     <script src="config.js"></script>
 </head>
 <body>
     <div class="promo-bar">Tu Futuro Inmobiliario Comienza Hoy</div>
     
-    <div class="container-glass" style="max-width: 600px; text-align: center;"> <img src="logo.jpg" alt="Logo Marca" style="max-width: 150px; margin: 0 auto 30px auto; display: block;">
+    <div class="container-glass" style="max-width: 600px; text-align: center;">
+        <img src="logo.jpg" alt="Logo Marca" style="max-width: 150px; margin: 0 auto 30px auto; display: block;">
         
         <h1>Tu Estrategia <span class="highlight">Definitiva</span></h1>
         <p>No es "si puedes invertir". Es <strong>cómo vamos a lograrlo</strong> juntos.</p>
@@ -32,7 +36,7 @@
             
             <div class="form-group">
                 <label for="telefono">WhatsApp</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="+56 9..." required>
+                <input type="tel" id="telefono" name="telefono" placeholder="+56 9..." required inputmode="numeric">
             </div>
 
             <div class="form-group">
@@ -65,32 +69,76 @@
         const loading = document.getElementById('loading');
         const phoneInput = document.getElementById('telefono');
 
-        // Formato Teléfono
+        // --- LÓGICA DE FORMATEO DE TELÉFONO (+56 9) ---
         phoneInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.startsWith('56')) value = value.substring(2);
-            if (value.startsWith('9')) value = value.substring(1);
-            if (value.length > 0) e.target.value = '+56 9 ' + value.substring(0, 8);
+            // 1. Limpiar todo lo que no sea número
+            let raw = e.target.value.replace(/\D/g, '');
+            
+            // 2. Si está vacío, salir
+            if (raw.length === 0) {
+                e.target.value = "";
+                return;
+            }
+
+            // 3. Normalizar a 569
+            // Si empieza con 9, agregamos 56
+            if (raw.startsWith('9')) {
+                raw = '56' + raw;
+            }
+            // Si empieza con 56 pero no tiene el 9 (ej: 562...), forzamos el 9 para móviles
+            if (raw.startsWith('56') && !raw.startsWith('569')) {
+                raw = '569' + raw.substring(2);
+            }
+            // Si no empieza con 56 (y no era un 9), forzamos el 569 al inicio
+            if (!raw.startsWith('56')) {
+                raw = '569' + raw;
+            }
+
+            // 4. Recortar a longitud máxima (56 9 1234 5678 = 11 dígitos)
+            raw = raw.substring(0, 11);
+
+            // 5. Formatear visualmente para el usuario: +56 9 1234 5678
+            let formatted = '';
+            if (raw.length > 0) formatted += '+' + raw.substring(0, 2); // +56
+            if (raw.length > 2) formatted += ' ' + raw.substring(2, 3); // +56 9
+            if (raw.length > 3) formatted += ' ' + raw.substring(3, 7); // +56 9 1234
+            if (raw.length > 7) formatted += ' ' + raw.substring(7, 11); // +56 9 1234 5678
+
+            e.target.value = formatted;
         });
 
+        // --- ENVÍO DEL FORMULARIO ---
         form.addEventListener('submit', async (e) => {
             e.preventDefault(); 
-            if (typeof CONFIG === 'undefined' || !CONFIG.API_URL) { alert("Error de Configuración"); return; }
-            btn.style.display = 'none'; loading.style.display = 'block'; 
+            
+            if (typeof CONFIG === 'undefined' || !CONFIG.API_URL) { 
+                alert("Error de Configuración: No se encuentra config.js"); 
+                return; 
+            }
+            
+            btn.style.display = 'none'; 
+            loading.style.display = 'block'; 
 
             const datos = { 
                 action: "nuevo_lead",
                 nombre: document.getElementById('nombre').value, 
                 email: document.getElementById('email').value, 
                 telefono: document.getElementById('telefono').value,
-                origen: "web_organico",
+                origen: document.getElementById('origen_lead').value,
                 objetivo: document.getElementById('objetivo').value
             };
             
             try {
-                await fetch(CONFIG.API_URL, { method: 'POST', body: JSON.stringify(datos) });
+                await fetch(CONFIG.API_URL, { 
+                    method: 'POST', 
+                    body: JSON.stringify(datos) 
+                });
                 setTimeout(() => { window.location.href = "gracias.html"; }, 500);
-            } catch (error) { window.location.href = "gracias.html"; }
+            } catch (error) { 
+                console.error(error);
+                // En caso de error de red, redirigimos igual para no trabar al usuario
+                window.location.href = "gracias.html"; 
+            }
         });
     </script>
     <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>

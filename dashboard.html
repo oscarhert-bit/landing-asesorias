@@ -13,7 +13,6 @@
     <style>
         body { overflow: hidden; background-color: #f3f4f6; }
         
-        /* Top Bar estilo Glass */
         .top-bar {
             background: #2B2E34;
             height: 60px;
@@ -32,11 +31,10 @@
             align-items: flex-start;
         }
         
-        /* Columnas */
         .column {
             background: #e2e8f0;
             min-width: 320px; width: 320px;
-            border-radius: 8px; /* Boxy Style */
+            border-radius: 8px;
             display: flex; flex-direction: column;
             max-height: 90%;
             border: 1px solid #cbd5e1;
@@ -60,12 +58,11 @@
             min-height: 150px;
         }
         
-        /* Tarjetas de Lead */
         .lead-card {
             background: white;
             padding: 15px;
             margin-bottom: 10px;
-            border-radius: 6px; /* Boxy */
+            border-radius: 6px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             cursor: grab;
             transition: all 0.2s;
@@ -77,12 +74,12 @@
         .lead-card:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         .lead-card:active { cursor: grabbing; }
         
-        /* Colores de Estado */
-        .status-new { border-left-color: #3b82f6; } /* Azul */
-        .status-chat { border-left-color: #f59e0b; } /* Naranja */
-        .status-docs { border-left-color: #ef4444; } /* Rojo */
-        .status-eval { border-left-color: #8b5cf6; } /* Morado */
-        .status-won { border-left-color: #10b981; } /* Verde */
+        /* Estados */
+        .status-new { border-left-color: #3b82f6; }
+        .status-chat { border-left-color: #f59e0b; }
+        .status-docs { border-left-color: #ef4444; }
+        .status-eval { border-left-color: #8b5cf6; }
+        .status-won { border-left-color: #10b981; }
         
         .btn-refresh {
             background: var(--brand-accent); color: white;
@@ -90,10 +87,6 @@
             cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;
         }
         .btn-refresh:hover { background: var(--brand-accent-hover); transform: rotate(180deg); }
-        
-        /* Scrollbar fina */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
     </style>
 </head>
 <body>
@@ -103,131 +96,86 @@
             <span style="color: white; font-family: 'Montserrat'; font-weight: 700; letter-spacing: 1px;">BROKER OS</span>
         </div>
         <div class="flex gap-4 items-center">
-            <span class="text-gray-400 text-xs uppercase font-bold">Admin: Oscar Hernández</span>
-            <button onclick="cargarLeads()" class="btn-refresh" title="Actualizar Datos">↻</button>
+            <button onclick="cargarLeads()" class="btn-refresh" title="Actualizar">↻</button>
         </div>
     </div>
 
     <div class="board-wrapper">
-        <div class="column">
-            <div class="column-header"><span>🆕 Nuevos</span><span id="c-new" class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded font-bold">0</span></div>
-            <div class="column-body" id="col-Nuevo Lead" ondrop="drop(event, 'Nuevo Lead')" ondragover="allowDrop(event)"></div>
-        </div>
-        
-        <div class="column">
-            <div class="column-header"><span>💬 Conversando</span><span id="c-chat" class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded font-bold">0</span></div>
-            <div class="column-body" id="col-En Conversación" ondrop="drop(event, 'En Conversación')" ondragover="allowDrop(event)"></div>
-        </div>
-        
-        <div class="column" style="background: #fef2f2; border-color: #fecaca;">
-            <div class="column-header" style="color: #991b1b;"><span>📂 Solicitar Docs</span><span id="c-docs" class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded font-bold">0</span></div>
-            <div class="column-body" id="col-Solicitar Documentos" ondrop="drop(event, 'Solicitar Documentos')" ondragover="allowDrop(event)"></div>
-        </div>
-        
-        <div class="column">
-            <div class="column-header"><span>📊 En Evaluación</span><span id="c-eval" class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded font-bold">0</span></div>
-            <div class="column-body" id="col-En Evaluación" ondrop="drop(event, 'En Evaluación')" ondragover="allowDrop(event)"></div>
-        </div>
-        
-        <div class="column">
-            <div class="column-header"><span>✅ Aprobados</span><span id="c-won" class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded font-bold">0</span></div>
-            <div class="column-body" id="col-Aprobado" ondrop="drop(event, 'Aprobado')" ondragover="allowDrop(event)"></div>
-        </div>
+        <div class="column"><div class="column-header"><span>🆕 Nuevos</span><span id="c-new" class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded font-bold">0</span></div><div class="column-body" id="col-Nuevo Lead" ondrop="drop(event, 'Nuevo Lead')" ondragover="allowDrop(event)"></div></div>
+        <div class="column"><div class="column-header"><span>💬 Conversando</span><span id="c-chat" class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded font-bold">0</span></div><div class="column-body" id="col-En Conversación" ondrop="drop(event, 'En Conversación')" ondragover="allowDrop(event)"></div></div>
+        <div class="column" style="background: #fef2f2; border-color: #fecaca;"><div class="column-header" style="color: #991b1b;"><span>📂 Solicitar Docs</span><span id="c-docs" class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded font-bold">0</span></div><div class="column-body" id="col-Solicitar Documentos" ondrop="drop(event, 'Solicitar Documentos')" ondragover="allowDrop(event)"></div></div>
+        <div class="column"><div class="column-header"><span>📊 En Evaluación</span><span id="c-eval" class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded font-bold">0</span></div><div class="column-body" id="col-En Evaluación" ondrop="drop(event, 'En Evaluación')" ondragover="allowDrop(event)"></div></div>
+        <div class="column"><div class="column-header"><span>✅ Aprobados</span><span id="c-won" class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded font-bold">0</span></div><div class="column-body" id="col-Aprobado" ondrop="drop(event, 'Aprobado')" ondragover="allowDrop(event)"></div></div>
     </div>
 
     <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex flex-col items-center justify-center hidden backdrop-blur-sm">
         <div class="animate-spin rounded-full h-12 w-12 border-4 border-teal-500 border-t-transparent mb-3"></div>
-        <p class="text-white font-bold">Sincronizando Leads...</p>
+        <p class="text-white font-bold">Sincronizando...</p>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', cargarLeads);
 
         async function cargarLeads() {
-            mostrarLoad(true); 
-            limpiar();
-            
+            mostrarLoad(true); limpiar();
             try {
-                // LLAMADA CLAVE A LA API
-                console.log("Conectando a: " + CONFIG.API_URL + "?action=getLeads");
+                // Fetch Seguro
                 const res = await fetch(CONFIG.API_URL + "?action=getLeads");
                 const leads = await res.json();
                 
                 if(Array.isArray(leads)) {
-                    leads.forEach(l => renderCard(l)); 
+                    leads.forEach(l => renderCard(l));
                     contar();
-                } else {
-                    console.error("Respuesta no es array:", leads);
                 }
-            } catch (e) { 
-                console.error(e); 
-                // No alertamos al usuario final a menos que sea crítico
-            }
+            } catch (e) { console.error("Error Leads:", e); }
             mostrarLoad(false);
         }
 
         function renderCard(lead) {
             let st = lead.Estado || "Nuevo Lead";
-            // Si el estado no existe en columnas, mandar a Nuevo por defecto
             let col = document.getElementById("col-" + st);
             if (!col) col = document.getElementById("col-Nuevo Lead");
 
-            const card = document.createElement('div'); 
-            card.className = "lead-card"; 
-            card.draggable = true; 
-            card.id = lead.id; // ID único del Google Sheet
+            const card = document.createElement('div');
+            card.className = "lead-card";
+            card.draggable = true;
+            card.id = lead.id;
             card.ondragstart = drag;
 
-            // Colores por estado
             if(st.includes("Nuevo")) card.classList.add("status-new");
             else if(st.includes("Conversación")) card.classList.add("status-chat");
             else if(st.includes("Solicitar")) card.classList.add("status-docs");
             else if(st.includes("Evaluación")) card.classList.add("status-eval");
             else if(st.includes("Aprobado")) card.classList.add("status-won");
 
-            card.innerHTML = `
-                <div class="font-bold text-gray-800 text-sm mb-1">${lead.Nombre}</div>
-                <div class="text-xs text-gray-500 truncate">📧 ${lead.Email}</div>
-                <div class="text-xs text-gray-500 truncate">📞 ${lead.Telefono}</div>
-            `;
+            card.innerHTML = `<div class="font-bold text-gray-800 text-sm mb-1">${lead.Nombre}</div><div class="text-xs text-gray-500 truncate">📧 ${lead.Email}</div><div class="text-xs text-gray-500 truncate">📞 ${lead.Telefono}</div>`;
             col.appendChild(card);
         }
 
-        // --- DRAG & DROP LOGIC ---
         function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
         function allowDrop(ev) { ev.preventDefault(); }
         
         async function drop(ev, nuevoEstado) {
-            ev.preventDefault(); 
-            const id = ev.dataTransfer.getData("text"); 
+            ev.preventDefault();
+            const id = ev.dataTransfer.getData("text");
             const card = document.getElementById(id);
-            
-            // Mover visualmente primero (UX rápido)
-            document.getElementById("col-" + nuevoEstado).appendChild(card); 
+            document.getElementById("col-" + nuevoEstado).appendChild(card);
             contar();
             mostrarLoad(true);
 
             try {
-                // Guardar en Backend
                 await fetch(CONFIG.API_URL, { 
                     method: 'POST', 
                     body: JSON.stringify({ action: "updateState", rowId: id, newState: nuevoEstado }), 
                     headers: { 'Content-Type': 'text/plain' } 
                 });
-                
-                if(nuevoEstado.includes("Solicitar")) {
-                    alert("✅ Se ha enviado el correo de solicitud de documentos al cliente.");
-                }
-            } catch (e) { 
-                alert("Error al guardar en la nube. Recarga la página."); 
-                cargarLeads(); // Revertir si falla
-            }
+                if(nuevoEstado.includes("Solicitar")) alert("✅ Solicitud enviada al cliente.");
+            } catch (e) { alert("Error al guardar."); cargarLeads(); }
             mostrarLoad(false);
         }
 
         function limpiar() { document.querySelectorAll('.column-body').forEach(c => c.innerHTML = ''); }
         function mostrarLoad(show) { document.getElementById('loading').style.display = show ? 'flex' : 'none'; }
-        
         function contar() {
             document.getElementById('c-new').innerText = document.getElementById('col-Nuevo Lead').childElementCount;
             document.getElementById('c-chat').innerText = document.getElementById('col-En Conversación').childElementCount;

@@ -4,22 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consola Broker OS | Gasal</title>
-    <link rel="icon" href="favicon.jpg?v=3" type="image/jpeg">
+    <link rel="icon" href="favicon.jpg?v=final">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=final">
+    <link rel="stylesheet" href="style.css?v=master_fix">
     <script src="config.js"></script>
 
     <style>
-        body { overflow: hidden; }
+        body { overflow: hidden; background-color: #f3f4f6; }
+        
+        /* Top Bar estilo Glass */
         .top-bar {
-            background: rgba(43, 46, 52, 0.95);
-            backdrop-filter: blur(10px);
+            background: #2B2E34;
             height: 60px;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+        
         .board-wrapper {
             height: calc(100vh - 60px);
             padding: 20px;
@@ -29,132 +31,203 @@
             gap: 20px;
             align-items: flex-start;
         }
+        
+        /* Columnas */
         .column {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            min-width: 300px; width: 300px;
-            border-radius: 12px;
+            background: #e2e8f0;
+            min-width: 320px; width: 320px;
+            border-radius: 8px; /* Boxy Style */
             display: flex; flex-direction: column;
             max-height: 90%;
-            border: 1px solid rgba(255,255,255,0.5);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #cbd5e1;
         }
+        
         .column-header {
             padding: 15px;
             font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            color: var(--brand-dark);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-weight: 700;
+            color: #334155;
             display: flex; justify-content: space-between; align-items: center;
+            background: #fff;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 1px solid #cbd5e1;
         }
+        
         .column-body {
             padding: 10px;
             flex-grow: 1;
             overflow-y: auto;
-            min-height: 100px;
+            min-height: 150px;
         }
+        
+        /* Tarjetas de Lead */
         .lead-card {
             background: white;
             padding: 15px;
             margin-bottom: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-radius: 6px; /* Boxy */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             cursor: grab;
             transition: all 0.2s;
             border-left: 4px solid var(--brand-accent);
             white-space: normal;
+            border: 1px solid #e2e8f0;
+            border-left-width: 4px;
         }
-        .lead-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .lead-card:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         .lead-card:active { cursor: grabbing; }
-        .status-new { border-left-color: #3b82f6; }
-        .status-chat { border-left-color: #f59e0b; }
-        .status-docs { border-left-color: #ef4444; }
-        .status-eval { border-left-color: #8b5cf6; }
-        .status-won { border-left-color: #10b981; }
+        
+        /* Colores de Estado */
+        .status-new { border-left-color: #3b82f6; } /* Azul */
+        .status-chat { border-left-color: #f59e0b; } /* Naranja */
+        .status-docs { border-left-color: #ef4444; } /* Rojo */
+        .status-eval { border-left-color: #8b5cf6; } /* Morado */
+        .status-won { border-left-color: #10b981; } /* Verde */
+        
         .btn-refresh {
             background: var(--brand-accent); color: white;
-            border: none; width: 36px; height: 36px; border-radius: 50%;
+            border: none; width: 32px; height: 32px; border-radius: 4px;
             cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;
         }
         .btn-refresh:hover { background: var(--brand-accent-hover); transform: rotate(180deg); }
+        
+        /* Scrollbar fina */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
     </style>
 </head>
 <body>
     <div class="top-bar">
         <div class="flex items-center gap-3">
-            <img src="logo.jpg" alt="Logo" style="height: 35px; border-radius: 4px; background: white; padding: 2px;">
-            <span style="color: white; font-family: 'Montserrat'; font-weight: 700;">BROKER OS</span>
+            <img src="logo.jpg" alt="Logo" style="height: 30px; border-radius: 2px; background: white; padding: 2px;">
+            <span style="color: white; font-family: 'Montserrat'; font-weight: 700; letter-spacing: 1px;">BROKER OS</span>
         </div>
-        <button onclick="cargarLeads()" class="btn-refresh" title="Actualizar">↻</button>
+        <div class="flex gap-4 items-center">
+            <span class="text-gray-400 text-xs uppercase font-bold">Admin: Oscar Hernández</span>
+            <button onclick="cargarLeads()" class="btn-refresh" title="Actualizar Datos">↻</button>
+        </div>
     </div>
 
     <div class="board-wrapper">
         <div class="column">
-            <div class="column-header"><span>🆕 Nuevos</span><span id="c-new" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span></div>
+            <div class="column-header"><span>🆕 Nuevos</span><span id="c-new" class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded font-bold">0</span></div>
             <div class="column-body" id="col-Nuevo Lead" ondrop="drop(event, 'Nuevo Lead')" ondragover="allowDrop(event)"></div>
         </div>
+        
         <div class="column">
-            <div class="column-header"><span>💬 Conversando</span><span id="c-chat" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span></div>
+            <div class="column-header"><span>💬 Conversando</span><span id="c-chat" class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded font-bold">0</span></div>
             <div class="column-body" id="col-En Conversación" ondrop="drop(event, 'En Conversación')" ondragover="allowDrop(event)"></div>
         </div>
-        <div class="column" style="background: rgba(254, 242, 242, 0.9);">
-            <div class="column-header" style="color: #9f1239;"><span>📂 Solicitar Docs</span><span id="c-docs" class="text-xs bg-red-100 px-2 py-1 rounded-full">0</span></div>
+        
+        <div class="column" style="background: #fef2f2; border-color: #fecaca;">
+            <div class="column-header" style="color: #991b1b;"><span>📂 Solicitar Docs</span><span id="c-docs" class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded font-bold">0</span></div>
             <div class="column-body" id="col-Solicitar Documentos" ondrop="drop(event, 'Solicitar Documentos')" ondragover="allowDrop(event)"></div>
         </div>
+        
         <div class="column">
-            <div class="column-header"><span>📊 En Evaluación</span><span id="c-eval" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span></div>
+            <div class="column-header"><span>📊 En Evaluación</span><span id="c-eval" class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded font-bold">0</span></div>
             <div class="column-body" id="col-En Evaluación" ondrop="drop(event, 'En Evaluación')" ondragover="allowDrop(event)"></div>
         </div>
+        
         <div class="column">
-            <div class="column-header"><span>✅ Aprobados</span><span id="c-won" class="text-xs bg-gray-200 px-2 py-1 rounded-full">0</span></div>
+            <div class="column-header"><span>✅ Aprobados</span><span id="c-won" class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded font-bold">0</span></div>
             <div class="column-body" id="col-Aprobado" ondrop="drop(event, 'Aprobado')" ondragover="allowDrop(event)"></div>
         </div>
     </div>
 
     <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex flex-col items-center justify-center hidden backdrop-blur-sm">
         <div class="animate-spin rounded-full h-12 w-12 border-4 border-teal-500 border-t-transparent mb-3"></div>
-        <p class="text-white font-bold">Sincronizando...</p>
+        <p class="text-white font-bold">Sincronizando Leads...</p>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', cargarLeads);
+
         async function cargarLeads() {
-            mostrarLoad(true); limpiar();
+            mostrarLoad(true); 
+            limpiar();
+            
             try {
+                // LLAMADA CLAVE A LA API
+                console.log("Conectando a: " + CONFIG.API_URL + "?action=getLeads");
                 const res = await fetch(CONFIG.API_URL + "?action=getLeads");
                 const leads = await res.json();
-                leads.forEach(l => renderCard(l)); contar();
-            } catch (e) { console.error(e); alert("Error de conexión."); }
+                
+                if(Array.isArray(leads)) {
+                    leads.forEach(l => renderCard(l)); 
+                    contar();
+                } else {
+                    console.error("Respuesta no es array:", leads);
+                }
+            } catch (e) { 
+                console.error(e); 
+                // No alertamos al usuario final a menos que sea crítico
+            }
             mostrarLoad(false);
         }
+
         function renderCard(lead) {
             let st = lead.Estado || "Nuevo Lead";
-            let col = document.getElementById("col-" + st) || document.getElementById("col-Nuevo Lead");
-            const card = document.createElement('div'); card.className = "lead-card"; card.draggable = true; card.id = lead.id; card.ondragstart = drag;
+            // Si el estado no existe en columnas, mandar a Nuevo por defecto
+            let col = document.getElementById("col-" + st);
+            if (!col) col = document.getElementById("col-Nuevo Lead");
+
+            const card = document.createElement('div'); 
+            card.className = "lead-card"; 
+            card.draggable = true; 
+            card.id = lead.id; // ID único del Google Sheet
+            card.ondragstart = drag;
+
+            // Colores por estado
             if(st.includes("Nuevo")) card.classList.add("status-new");
             else if(st.includes("Conversación")) card.classList.add("status-chat");
             else if(st.includes("Solicitar")) card.classList.add("status-docs");
             else if(st.includes("Evaluación")) card.classList.add("status-eval");
             else if(st.includes("Aprobado")) card.classList.add("status-won");
-            card.innerHTML = `<div class="font-bold text-gray-800 text-sm">${lead.Nombre}</div><div class="text-xs text-gray-500 mt-1 truncate">📧 ${lead.Email}</div><div class="text-xs text-gray-500 truncate">📞 ${lead.Telefono}</div>`;
+
+            card.innerHTML = `
+                <div class="font-bold text-gray-800 text-sm mb-1">${lead.Nombre}</div>
+                <div class="text-xs text-gray-500 truncate">📧 ${lead.Email}</div>
+                <div class="text-xs text-gray-500 truncate">📞 ${lead.Telefono}</div>
+            `;
             col.appendChild(card);
         }
+
+        // --- DRAG & DROP LOGIC ---
         function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
         function allowDrop(ev) { ev.preventDefault(); }
+        
         async function drop(ev, nuevoEstado) {
-            ev.preventDefault(); const id = ev.dataTransfer.getData("text"); const card = document.getElementById(id);
-            document.getElementById("col-" + nuevoEstado).appendChild(card); contar();
+            ev.preventDefault(); 
+            const id = ev.dataTransfer.getData("text"); 
+            const card = document.getElementById(id);
+            
+            // Mover visualmente primero (UX rápido)
+            document.getElementById("col-" + nuevoEstado).appendChild(card); 
+            contar();
             mostrarLoad(true);
+
             try {
-                await fetch(CONFIG.API_URL, { method: 'POST', body: JSON.stringify({ action: "updateState", rowId: id, newState: nuevoEstado }), headers: { 'Content-Type': 'text/plain' } });
-                if(nuevoEstado.includes("Solicitar")) alert("✅ Correo de solicitud enviado.");
-            } catch (e) { alert("Error al guardar."); cargarLeads(); }
+                // Guardar en Backend
+                await fetch(CONFIG.API_URL, { 
+                    method: 'POST', 
+                    body: JSON.stringify({ action: "updateState", rowId: id, newState: nuevoEstado }), 
+                    headers: { 'Content-Type': 'text/plain' } 
+                });
+                
+                if(nuevoEstado.includes("Solicitar")) {
+                    alert("✅ Se ha enviado el correo de solicitud de documentos al cliente.");
+                }
+            } catch (e) { 
+                alert("Error al guardar en la nube. Recarga la página."); 
+                cargarLeads(); // Revertir si falla
+            }
             mostrarLoad(false);
         }
+
         function limpiar() { document.querySelectorAll('.column-body').forEach(c => c.innerHTML = ''); }
         function mostrarLoad(show) { document.getElementById('loading').style.display = show ? 'flex' : 'none'; }
+        
         function contar() {
             document.getElementById('c-new').innerText = document.getElementById('col-Nuevo Lead').childElementCount;
             document.getElementById('c-chat').innerText = document.getElementById('col-En Conversación').childElementCount;

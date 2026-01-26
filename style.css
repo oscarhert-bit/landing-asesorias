@@ -1,189 +1,198 @@
-/* ==========================================================================
-   GASAL STYLE v8.0: FINAL ARCHITECTURE (Fixed Layouts)
-   ========================================================================== */
+/* =========================================
+   BROKER OS - DARK FINTECH THEME v2.0
+   Design: Obsidian Glass & Neon
+   ========================================= */
 
-/* --- RESET MAESTRO (CRÍTICO PARA QUE NO SE DESCUADRE NADA) --- */
-*, *::before, *::after {
-    box-sizing: border-box; /* Esto evita que el padding deforme el ancho */
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 :root {
-    --brand-dark: #2B2E34;
-    --brand-accent: #00B2A9;
-    --brand-accent-hover: #008f87;
-    --glass-surface: rgba(255, 255, 255, 0.98);
-    --glass-border: rgba(255, 255, 255, 0.8);
-    --shadow-float: 0 20px 60px rgba(43, 46, 52, 0.25);
+    /* PALETA OSCURA DE AUTORIDAD */
+    --bg-deep: #0f172a;       /* Fondo Profundo */
+    --bg-panel: #1e293b;      /* Paneles */
+    --brand-accent: #2dd4bf;  /* Teal Neón (Tu color marca encendido) */
+    --brand-accent-hover: #14b8a6;
+    --text-main: #f8fafc;     /* Blanco Humo */
+    --text-muted: #94a3b8;    /* Gris Texto Secundario */
     
+    /* EFECTOS */
+    --glass-surface: rgba(30, 41, 59, 0.7); /* Vidrio Oscuro */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-glow: 0 0 15px rgba(45, 212, 191, 0.3);
+    --shadow-float: 0 10px 40px -10px rgba(0,0,0,0.5);
+    
+    /* FUENTES */
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Lato', sans-serif;
-    
-    /* Inputs Estilo Boxy (Tu Referencia) */
-    --input-bg: #ffffff;
-    --input-border: #cbd5e1; /* Gris medio, visible */
-    --input-focus: #00B2A9;
-    --input-radius: 4px; /* Bordes casi cuadrados */
 }
 
-/* --- BASE --- */
 body {
     margin: 0; padding: 0;
     font-family: var(--font-body);
-    color: var(--brand-dark);
-    background-color: #f3f4f6;
-    background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
-    background-size: cover;
+    color: var(--text-main);
+    background-color: var(--bg-deep);
+    /* Fondo abstracto tecnológico sutil */
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(45, 212, 191, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.15) 0px, transparent 50%);
     background-attachment: fixed;
     min-height: 100vh;
 }
-body::before { content: ''; position: fixed; inset: 0; background: linear-gradient(135deg, rgba(43, 46, 52, 0.85) 0%, rgba(10, 30, 50, 0.9) 100%); z-index: -1; }
 
-.container-glass {
-    max-width: 900px; margin: 40px auto; padding: 50px;
+/* --- ESTRUCTURAS DE VIDRIO OSCURO --- */
+.container-glass, .column {
     background: var(--glass-surface);
-    backdrop-filter: blur(12px);
-    border-radius: 12px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-float);
+    border-radius: 12px;
+}
+
+.container-glass {
+    max-width: 600px; /* Landing más compacta y centrada */
+    margin: 60px auto;
+    padding: 40px;
     position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de borde brillante superior */
+.container-glass::before, .column::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--brand-accent), transparent);
+    opacity: 0.5;
 }
 
 /* --- TIPOGRAFÍA --- */
-h1 { font-family: var(--font-heading); font-weight: 800; font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 15px; color: var(--brand-dark); text-align: center; }
-h2 { font-family: var(--font-heading); font-weight: 800; font-size: 1.8rem; text-align: center; margin-bottom: 20px; }
-h3 { 
-    font-family: var(--font-heading); font-size: 1.1rem; color: var(--brand-accent); 
-    border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin: 25px 0 20px 0; 
-    text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; 
+h1, h2, h3 { 
+    font-family: var(--font-heading); 
+    color: var(--text-main);
+    letter-spacing: -0.5px;
 }
-.highlight { color: var(--brand-accent); }
-p { color: #475569; margin-bottom: 25px; line-height: 1.6; }
 
-/* --- INPUTS & SELECTS (TU REFERENCIA EXACTA) --- */
-.form-group { margin-bottom: 20px; text-align: left; }
+h1 { font-weight: 800; text-transform: uppercase; font-size: 2rem; }
+.promo-bar {
+    background: linear-gradient(90deg, #0f172a, #1e293b);
+    color: var(--brand-accent);
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--glass-border);
+}
 
-label { 
-    display: block; 
-    font-weight: 700; 
-    font-size: 0.85rem; 
-    margin-bottom: 8px; 
-    color: #334155; 
-    text-transform: uppercase; 
-    letter-spacing: 0.5px;
+.highlight { color: var(--brand-accent); text-shadow: var(--neon-glow); }
+
+/* --- INPUTS FINTECH (Boxy & Dark) --- */
+label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 input, select {
-    width: 100%;
-    height: 50px; /* Altura fija para consistencia visual */
+    width: 100%; height: 50px;
     padding: 10px 15px;
-    border: 1px solid var(--input-border);
-    border-radius: var(--input-radius);
+    background-color: rgba(15, 23, 42, 0.6); /* Fondo input muy oscuro */
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
     font-size: 1rem;
-    background-color: var(--input-bg);
-    color: #1e293b;
-    transition: all 0.2s ease;
-    -webkit-appearance: none; appearance: none; /* Limpia estilos nativos */
-}
-
-select {
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23334155%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2082.2c3.6-3.6%205.4-7.8%205.4-12.8%200-5-1.8-9.3-5.4-12.9z%22%2F%3E%3C%2Fsvg%3E");
-    background-repeat: no-repeat;
-    background-position: right 15px top 50%;
-    background-size: 10px auto;
+    color: white;
+    transition: all 0.3s ease;
 }
 
 input:focus, select:focus {
     border-color: var(--brand-accent);
     outline: none;
-    box-shadow: 0 0 0 4px rgba(0, 178, 169, 0.1);
+    box-shadow: var(--neon-glow);
+    background-color: rgba(15, 23, 42, 0.9);
 }
 
-/* Validaciones */
-input.invalid, select.invalid { border-color: #ef4444 !important; background-color: #fffafa !important; }
-input.valid { border-color: #10b981 !important; }
-
-/* --- BOTONES --- */
+/* --- BOTONES DE PODER --- */
 .btn-main, button[type="submit"] {
-    background-color: var(--brand-accent);
-    color: white;
+    background: linear-gradient(135deg, var(--brand-accent) 0%, #0d9488 100%);
+    color: #0f172a; /* Texto oscuro sobre botón brillante para contraste */
     border: none;
     padding: 16px 30px;
-    border-radius: 6px; /* Coherente con los inputs */
+    border-radius: 6px;
     font-family: var(--font-heading);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: 1rem;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: all 0.2s ease;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    line-height: 1.2;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(45, 212, 191, 0.4);
 }
 
-.btn-main:hover, button[type="submit"]:hover {
-    background-color: var(--brand-accent-hover);
+.btn-main:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 178, 169, 0.2);
+    box-shadow: 0 6px 20px rgba(45, 212, 191, 0.6);
+    filter: brightness(1.1);
 }
 
-/* Botones Secundarios (Navegación) */
-.btn-secondary {
-    background: #f1f5f9;
-    color: #64748b;
-    border: 1px solid #cbd5e1;
-    padding: 16px 30px;
-    border-radius: 6px;
+/* --- DASHBOARD ESPECÍFICO --- */
+.top-bar {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.column {
+    min-width: 300px;
+    display: flex; flex-direction: column;
+    height: 100%;
+}
+
+.column-header {
+    padding: 15px;
+    font-family: var(--font-heading);
     font-weight: 700;
-    cursor: pointer;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-}
-.btn-secondary:hover { background: #e2e8f0; color: #334155; }
-
-.btn-row { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
-
-/* --- ELEMENTOS UPLOAD --- */
-.radio-group-horizontal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; }
-.grid-2 { grid-template-columns: 1fr 1fr !important; }
-
-.radio-card {
-    background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
-    padding: 20px; text-align: center; cursor: pointer; transition: 0.2s;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    min-height: 100px;
-}
-.radio-card:hover { border-color: var(--brand-accent); }
-.radio-card.selected { border-color: var(--brand-accent); background-color: #f0fdfa; color: var(--brand-accent); border-width: 2px; }
-.radio-card input { display: none; }
-.radio-title { font-weight: 800; font-size: 1rem; color: #334155; }
-.radio-desc { font-size: 0.8rem; color: #64748b; margin-top: 4px; }
-
-/* Checklist */
-.checklist-container { background: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 25px; }
-.checklist-item { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 0.95rem; color: #334155; }
-.check-icon { color: var(--brand-accent); margin-right: 12px; font-weight: bold; width: 20px; }
-.tutorial-link { color: #2563eb; text-decoration: underline; font-size: 0.85rem; margin-left: 5px; cursor: pointer; }
-
-/* Wizard */
-.step-content { display: none; }
-.step-content.active { display: block; animation: fadeIn 0.3s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-.progress-track { background: #e2e8f0; height: 6px; border-radius: 10px; margin: 15px 0 35px 0; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--brand-accent); width: 0%; transition: width 0.3s ease; }
-
-.promo-bar {
-    background: rgba(43, 46, 52, 0.95); color: #fff; text-align: center; padding: 12px;
-    font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(0,0,0,0.2);
 }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
-    .container-glass { margin: 15px; padding: 25px; }
-    .radio-group-horizontal { grid-template-columns: 1fr; }
-    .grid-2 { grid-template-columns: 1fr !important; }
-    .btn-main, .btn-secondary, button[type="submit"] { width: 100%; margin-bottom: 10px; }
-    .btn-row { flex-direction: column-reverse; }
-    h1 { font-size: 2rem; }
+/* Tarjetas en modo oscuro */
+.lead-card {
+    background: rgba(30, 41, 59, 0.9); /* Gris azulado */
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--glass-border);
+    border-left: 3px solid var(--brand-accent);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    cursor: grab;
+    transition: all 0.2s;
 }
+
+.lead-card:hover {
+    background: #334155;
+    border-color: var(--brand-accent);
+    transform: translateY(-2px);
+}
+
+.lead-card .font-bold { color: white !important; } /* Nombre en blanco */
+.lead-card .text-gray-500 { color: #94a3b8 !important; } /* Textos secundarios */
+
+/* Colores de Estado (Brillantes sobre oscuro) */
+.status-new { border-left-color: #3b82f6; } /* Azul eléctrico */
+.status-chat { border-left-color: #f59e0b; } /* Ambar */
+.status-docs { border-left-color: #ef4444; } /* Rojo neón */
+.status-eval { border-left-color: #a855f7; } /* Violeta */
+.status-won { border-left-color: #10b981; }  /* Esmeralda */
+
+/* Scrollbars Oscuros */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* Loader */
+#loading { color: var(--brand-accent); }
